@@ -1,0 +1,83 @@
+{
+  "parser": "@typescript-eslint/parser", // Используем парсер TypeScript для анализа TypeScript кода
+  "extends": [ // Расширяем конфигурацию ESLint с помощью других плагинов и конфигураций
+    "airbnb", // Конфигурация Airbnb
+    "airbnb/hooks", // Дополнительные правила Airbnb для работы с хуками в React
+    "eslint:recommended", // Рекомендации по использованию ESLint
+    "plugin:@typescript-eslint/recommended", // Рекомендации по использованию TypeScript от плагина @typescript-eslint
+    "plugin:jest/recommended", // Рекомендации по использованию Jest от плагина Jest
+    "plugin:prettier/recommended", // Использование Prettier для форматирования кода с интеграцией в ESLint
+    "prettier" // Использование Prettier для форматирования кода
+  ],
+  "plugins": [ // Подключенные плагины для дополнительной функциональности
+    "react", // Плагин для анализа React кода
+    "@typescript-eslint", // Плагин для анализа TypeScript кода
+    "jest", // Плагин для анализа Jest тестов
+    "import", // Плагин для анализа и управления импортами
+    "prettier" // Плагин для интеграции Prettier с ESLint
+  ],
+  "env": { // Окружение, в котором выполняется код
+    "jest/globals": true, // Глобальные переменные для Jest
+    "browser": true, // Окружение браузера
+    "node": true // Окружение Node.js
+  },
+  "settings": { // Настройки для плагинов и расширений
+    "react": { // Настройки для плагина React
+      "version": "detect" // Автоматическое определение версии React
+    },
+    "import/resolver": { // Настройки для плагина import/resolver
+      "node": { // Разрешитель для Node.js модулей
+        "extensions": [ // Расширения файлов для разрешения
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
+      }
+    }
+  },
+  "rules": { // Правила ESLint
+    "@typescript-eslint/ban-ts-comment": "off", // Отключение правила запрета использования комментариев @ts-ignore
+    "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }], // Разрешение использования JSX в файлах с расширениями .jsx и .tsx
+    "react/react-in-jsx-scope": "off", // Отключение предупреждения о необходимости импорта React при использовании JSX
+    "import/extensions": "off", // Отключение требования расширений файлов при импортах
+    "no-console": "off", // Отключение предупреждения об использовании console.log
+    "import/prefer-default-export": "off", // Отключение требования использования экспорта по умолчанию
+    "no-underscore-dangle": ["error", { "allow": ["__SERVER_PORT__"] }], // Разрешение использования подчеркиваний в идентификаторах, за исключением __SERVER_PORT__
+    "import/order": [ // Правило для сортировки импортов
+      "error",
+      {
+        "newlines-between": "always-and-inside-groups", // Вставлять пустые строки между группами импортов
+        "groups": ["external", "internal"], // Группы для сортировки импортов
+        "pathGroups": [ // Пользовательские группы для сортировки по пути импорта
+          {
+            "pattern": "@/constants",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "@/pages/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "@/widgets/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "@/features/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "@/entities/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "@/shared/**",
+            "group": "internal"
+          }
+        ]
+      }
+    ],
+    "prettier/prettier": "error" // Применение правил Prettier в ESLint
+  }
+}

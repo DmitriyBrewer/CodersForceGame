@@ -8,7 +8,9 @@
     "dev:server": "lerna run dev --scope=server",
     "dev": "lerna run dev",
     "test": "lerna run test",
-    "lint": "lerna run lint",
+    "lint:eslint": "lerna run lint:eslint",
+    "lint:stylelint": "lerna run lint:stylelint",
+    "lint": "yarn lint:eslint && yarn lint:stylelint",
     "format": "lerna run format",
     "preview": "lerna run preview"
   },
@@ -21,6 +23,19 @@
   },
   "devDependencies": {
     "@evilmartians/lefthook": "^1.3.9",
-    "lerna": "^5.4.3"
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jest": "^28.5.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-react": "^7.34.1",
+    "lerna": "^5.4.3",
+    "stylelint": "^16.5.0",
+    "stylelint-config-recess-order": "^5.0.1",
+    "stylelint-config-recommended": "^14.0.0",
+    "stylelint-config-standard-scss": "^13.1.0",
+    "stylelint-prettier": "^5.0.0",
+    "stylelint-scss": "^6.3.0"
   }
 }
