@@ -1,5 +1,5 @@
 import React from 'react'
-import AppRouter from '../router/router'
+import AppRouter from '../router/AppRouter'
 
 const App = () => (
   <div>
