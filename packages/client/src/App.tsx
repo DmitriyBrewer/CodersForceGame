@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import './App.css'
+import BaseButton from '@/shared/components/ui/BaseButton'
 
 function App() {
   useEffect(() => {
@@ -12,7 +13,13 @@ function App() {
 
     fetchServerData()
   }, [])
-  return <div className="App">Develop stand</div>
+
+  return (
+    <div className="App">
+      Develop stand
+      <BaseButton variant="contained"> Тестовая кнопка</BaseButton>
+    </div>
+  )
 }
 
 export default App
