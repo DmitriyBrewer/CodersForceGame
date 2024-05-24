@@ -17,7 +17,7 @@ module.exports = {
   env: {
     browser: true,
     es2020: true,
-    node: true,
+    node: true
   },
   settings: {
     react: {
@@ -50,6 +50,7 @@ module.exports = {
     "no-console": "off",
     "import/prefer-default-export": "off",
     "import/no-unresolved": "off",
+    "react/function-component-definition": "off",
     "no-underscore-dangle": [
       "error",
       {
