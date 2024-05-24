@@ -11,7 +11,7 @@
     "lint:eslint": "lerna run lint:eslint",
     "lint:stylelint": "lerna run lint:stylelint",
     "lint": "yarn lint:eslint && yarn lint:stylelint",
-    "format": "lerna run format",
+    "pre-commit": "yarn lint && yarn test",
     "preview": "lerna run preview"
   },
   "license": "MIT",

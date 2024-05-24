@@ -6,8 +6,7 @@
     "build": "tsc --p ./tsconfig.prod.json",
     "preview": "node ./dist/index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.ts",
-    "lint:eslint": "eslint --fix '**/*.{js,jsx,ts,tsx}'",
-    "format": "prettier --write .",
+    "lint:eslint": "eslint . --fix",
     "test": "jest ."
   },
   "dependencies": {

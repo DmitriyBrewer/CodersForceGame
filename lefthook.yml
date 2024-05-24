@@ -3,11 +3,9 @@ pre-commit:
   commands:
     lint:eslint:
       glob: '*.{ts,tsx}'
-      run: yarn eslint {staged_files}
+      run: yarn lint:eslint
     lint:stylelint:
       glob: '*.{css,module.scss}'
-      run: yarn stylelint {staged_files}
-    prettier:
-      glob: '*.{ts,tsx,css,scss}'
-      run: yarn prettier -w {staged_files}
-      stage_fixed: true
+      run: yarn lint:stylelint
+    test:
+      run: yarn test

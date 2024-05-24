@@ -5,21 +5,19 @@ module.exports = {
     "airbnb/hooks",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:jest/recommended",
     "plugin:prettier/recommended",
     "prettier"
   ],
   plugins: [
     "react",
     "@typescript-eslint",
-    "jest",
     "import",
     "prettier"
   ],
   env: {
-    "jest/globals": true,
     browser: true,
-    node: true
+    es2020: true,
+    node: true,
   },
   settings: {
     react: {
@@ -51,6 +49,7 @@ module.exports = {
     "import/extensions": "off",
     "no-console": "off",
     "import/prefer-default-export": "off",
+    "import/no-unresolved": "off",
     "no-underscore-dangle": [
       "error",
       {
