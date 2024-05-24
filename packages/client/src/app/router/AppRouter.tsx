@@ -11,29 +11,36 @@ import PublicRoute from './PublicRoute'
 import PrivateRoute from './PrivateRoute'
 import Forum from '../../pages/Forum'
 import ForumTopic from '../../pages/ForumTopic'
+import { paths } from '../../shared/config/routing'
 
 const AppRouter: React.FC = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<PublicRoute component={Login} />} />
+        <Route path={paths.login} element={<PublicRoute component={Login} />} />
         <Route
-          path="/register"
+          path={paths.register}
           element={<PublicRoute component={Register} />}
         />
-        <Route path="/profile" element={<PrivateRoute component={Profile} />} />
-        <Route path="/game" element={<PrivateRoute component={Game} />} />
         <Route
-          path="/leaderboard"
+          path={paths.profile}
+          element={<PrivateRoute component={Profile} />}
+        />
+        <Route path={paths.game} element={<PrivateRoute component={Game} />} />
+        <Route
+          path={paths.leaderboard}
           element={<PrivateRoute component={Leaderboard} />}
         />
-        <Route path="/forum" element={<PrivateRoute component={Forum} />} />
         <Route
-          path="/forumTopic"
+          path={paths.forum}
+          element={<PrivateRoute component={Forum} />}
+        />
+        <Route
+          path={paths.forumTopic}
           element={<PrivateRoute component={ForumTopic} />}
         />
-        <Route path="/500" element={<Page500 />} />
-        <Route path="*" element={<Page404 />} />
+        <Route path={paths.page500} element={<Page500 />} />
+        <Route path={paths.page404} element={<Page404 />} />
       </Routes>
     </Router>
   )
