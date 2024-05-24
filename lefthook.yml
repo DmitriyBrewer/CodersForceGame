@@ -5,7 +5,7 @@ pre-commit:
       glob: '*.{ts,tsx}'
       run: yarn eslint {staged_files}
     lint:stylelint:
-      glob: '*.{scss,css}'
+      glob: '*.{css,module.scss}'
       run: yarn stylelint {staged_files}
     prettier:
       glob: '*.{ts,tsx,css,scss}'
