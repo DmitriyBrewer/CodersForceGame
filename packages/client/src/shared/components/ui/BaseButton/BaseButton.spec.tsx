@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 
 import '@testing-library/jest-dom'
-import BaseButton from './Button'
+import BaseButton from './BaseButton'
 
 describe('<BaseButton />', () => {
   const handleClick = jest.fn()
