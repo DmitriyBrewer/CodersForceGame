@@ -1,1 +1,3 @@
-export { default as BaseButton } from './BaseButton'
+import BaseButton from './BaseButton'
+
+export default BaseButton
