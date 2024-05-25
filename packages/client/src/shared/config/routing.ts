@@ -8,5 +8,5 @@ export const paths = {
   forum: '/forum',
   forumTopic: '/forumTopic',
   page404: '*',
-  page500: '/500',
+  page500: '/500'
 }

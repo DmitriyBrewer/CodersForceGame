@@ -7,9 +7,9 @@ export default {
   testEnvironment: 'jsdom',
   testMatch: ['<rootDir>/src/**/*.test.{ts,tsx}'],
   globals: {
-    __SERVER_PORT__: process.env.SERVER_PORT,
+    __SERVER_PORT__: process.env.SERVER_PORT
   },
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
-  },
+    '^@/(.*)$': '<rootDir>/src/$1'
+  }
 }
