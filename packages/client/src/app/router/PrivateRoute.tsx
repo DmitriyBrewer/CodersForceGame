@@ -5,7 +5,8 @@ interface Props {
   component: React.FC
 }
 
-function PrivateRoute({ component: Component }: Props) {
+const PrivateRoute = (props: Props) => {
+  const { component: Component } = props
   const isAuthenticated = true || Boolean(localStorage.getItem('authToken'))
 
   return isAuthenticated ? <Component /> : <Navigate to="/login" />

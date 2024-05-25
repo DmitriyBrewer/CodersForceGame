@@ -1,6 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
+import { paths } from '@/shared/config/routing'
+
 import Login from '../../pages/Login'
 import Register from '../../pages/Register'
 import Profile from '../../pages/Profile'
@@ -12,7 +14,6 @@ import PublicRoute from './PublicRoute'
 import PrivateRoute from './PrivateRoute'
 import Forum from '../../pages/Forum'
 import ForumTopic from '../../pages/ForumTopic'
-import { paths } from '../../shared/config/routing'
 
 const AppRouter: React.FC = () => {
   return (

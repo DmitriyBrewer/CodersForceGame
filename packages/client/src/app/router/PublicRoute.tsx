@@ -4,7 +4,9 @@ interface Props {
   component: React.FC
 }
 
-function PublicRoute({ component: Component }: Props) {
+const PublicRoute = (props: Props) => {
+  const { component: Component } = props
+
   return <Component />
 }
 
