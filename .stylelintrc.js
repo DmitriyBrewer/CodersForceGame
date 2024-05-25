@@ -1,16 +1,13 @@
 module.exports = {
+  customSyntax: "postcss-scss",
   extends: [
-    'stylelint-config-standard-scss',
-    'stylelint-config-recommended',
-    'stylelint-config-recess-order',
     'stylelint-config-standard',
     'stylelint-prettier/recommended',
+    'stylelint-config-prettier',
   ],
   plugins: ['stylelint-scss', 'stylelint-order'],
   rules: {
     'no-empty-source': null,
-    'at-rule-no-unknown': null,
-    'scss/at-rule-no-unknown': true,
     'order/order': [
       [
         'custom-properties',
