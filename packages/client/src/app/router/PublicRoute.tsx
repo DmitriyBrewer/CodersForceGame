@@ -5,7 +5,8 @@ interface Props {
 }
 
 const PublicRoute = (props: Props) => {
-  const Component = props.component
+  const { component: Component } = props
+
   return <Component />
 }
 

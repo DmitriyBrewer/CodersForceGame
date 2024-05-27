@@ -1,7 +1,8 @@
 import AppRouter from '../router/AppRouter'
+import styles from './App.module.scss'
 
 const App = () => (
-  <div>
+  <div className={styles.root}>
     <AppRouter />
   </div>
 )

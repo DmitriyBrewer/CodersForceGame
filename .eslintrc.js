@@ -1,20 +1,84 @@
 module.exports = {
+  ignorePatterns: ['dist/'],
+  parser: '@typescript-eslint/parser',
+  extends: [
+    'airbnb',
+    'airbnb/hooks',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+    'prettier'
+  ],
+  plugins: ['react', '@typescript-eslint', 'import', 'prettier'],
   env: {
     browser: true,
     es2020: true,
-    node: true,
+    node: true
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'prettier',
-  ],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaVersion: 11,
+  settings: {
+    react: {
+      version: 'detect'
+    },
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx']
+      }
+    }
   },
-  plugins: ['@typescript-eslint'],
   rules: {
-    '@typescript-eslint/ban-ts-comment': 1,
-  },
+    '@typescript-eslint/ban-ts-comment': 'off',
+    'react/jsx-filename-extension': [
+      'error',
+      {
+        extensions: ['.jsx', '.tsx']
+      }
+    ],
+    'react/react-in-jsx-scope': 'off',
+    'import/extensions': 'off',
+    'no-console': 'off',
+    'import/prefer-default-export': 'off',
+    'import/no-unresolved': 'off',
+    'react/function-component-definition': 'off',
+    'no-underscore-dangle': [
+      'error',
+      {
+        allow: ['__SERVER_PORT__']
+      }
+    ],
+    'import/order': [
+      'error',
+      {
+        'newlines-between': 'always-and-inside-groups',
+        groups: ['external', 'internal'],
+        pathGroups: [
+          {
+            pattern: '@/constants',
+            group: 'internal',
+            position: 'before'
+          },
+          {
+            pattern: '@/pages/**',
+            group: 'internal'
+          },
+          {
+            pattern: '@/widgets/**',
+            group: 'internal'
+          },
+          {
+            pattern: '@/features/**',
+            group: 'internal'
+          },
+          {
+            pattern: '@/entities/**',
+            group: 'internal'
+          },
+          {
+            pattern: '@/shared/**',
+            group: 'internal'
+          }
+        ]
+      }
+    ],
+    'prettier/prettier': 'error'
+  }
 }

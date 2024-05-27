@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+
 import './App.css'
 import BaseButton from '@/shared/components/ui/BaseButton'
 
