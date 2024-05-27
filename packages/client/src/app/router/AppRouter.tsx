@@ -3,8 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import { paths } from '@/shared/config/routing'
 
+import Register from '@/pages/register/Register'
+
+// TODO: feature/cfg-52 переделать все page по примеру Register
 import Login from '../../pages/Login'
-import Register from '../../pages/Register'
 import Profile from '../../pages/Profile'
 import Game from '../../pages/Game'
 import Leaderboard from '../../pages/Leaderboard'
