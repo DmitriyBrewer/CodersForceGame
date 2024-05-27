@@ -1,10 +1,5 @@
 import AppRouter from '../router/AppRouter'
-import styles from './App.module.scss'
 
-const App = () => (
-  <div className={styles.root}>
-    <AppRouter />
-  </div>
-)
+const App = () => <AppRouter />
 
 export default App
