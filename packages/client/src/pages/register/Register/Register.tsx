@@ -15,8 +15,8 @@ import styles from './Register.module.scss'
 const Register: React.FC = () => {
   return (
     <BaseBox className={styles.root} autoComplete="off" component="form">
-      <BaseContainer maxWidth="md">
-        <BasePaper className={styles.paper} elevation={4}>
+      <BaseContainer maxWidth="sm">
+        <BasePaper elevation={4}>
           <BaseTypography component="h1" variant="h3">
             Регистрация
           </BaseTypography>
