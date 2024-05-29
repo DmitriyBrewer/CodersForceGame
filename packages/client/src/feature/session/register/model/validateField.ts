@@ -1,27 +1,27 @@
 // TODO: feature/cfg-23 валидация будет доделана в задаче feature/cfg-22
 const isValidName = (name: string) => {
-  const nameRegExp = /^([А-ЯЁA-Z][а-яёa-z]*-?[А-ЯЁA-Z]?[а-яёa-z]*)$/
-  return nameRegExp.test(name)
+  const nameRegExp = '^([А-ЯЁA-Z][а-яёa-z]*-?[А-ЯЁA-Z]?[а-яёa-z]*)$'
+  return new RegExp(nameRegExp).test(name)
 }
 
 const isValidLogin = (login: string) => {
-  const loginRegExp = /^(?=.*[a-zA-Z])(?=.*\\d?)[a-zA-Z\\d_\\-]{3,20}$/
-  return loginRegExp.test(login)
+  const loginRegExp = '^(?=.*[a-zA-Z])(?=.*\\d?)[a-zA-Z\\d_\\-]{3,20}$'
+  return new RegExp(loginRegExp).test(login)
 }
 
 const isValidEmail = (email: string) => {
-  const emailRegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/
-  return emailRegExp.test(email)
+  const emailRegExp = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'
+  return new RegExp(emailRegExp).test(email)
 }
 
 const isValidPhone = (phone: string) => {
-  const phoneRegExp = /^\\+?\\d{10,15}$/
-  return phoneRegExp.test(phone)
+  const phoneRegExp = '^\\+?\\d{10,15}$'
+  return new RegExp(phoneRegExp).test(phone)
 }
 
 const isValidPassword = (password: string) => {
-  const passwordRegExp = /^(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,40}$/
-  return passwordRegExp.test(password)
+  const passwordRegExp = '^(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,40}$'
+  return new RegExp(passwordRegExp).test(password)
 }
 
 export const validateField = (name: string, value: string) => {
