@@ -12,8 +12,8 @@ const RegisterTextInput: FC<InputProps> = ({ formData, handleChange, errors, nam
       value={formData[name]}
       name={name}
       onChange={handleChange}
-      error={!!errors.password}
-      helperText={errors.password}
+      error={!!errors[name]}
+      helperText={errors[name]}
     />
   )
 }

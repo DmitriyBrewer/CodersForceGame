@@ -79,6 +79,8 @@ module.exports = {
         ]
       }
     ],
-    'prettier/prettier': 'error'
+    'prettier/prettier': 'error',
+    // TODO: feature/cfg-23 разрешить spread
+    'react/jsx-props-no-spreading': 'off'
   }
 }

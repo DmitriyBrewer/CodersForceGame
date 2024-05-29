@@ -8,6 +8,7 @@ import { useRegister } from '../../hooks/useRegister'
 
 import RegisterForm from '../RegisterForm'
 import RegisterTextInput from '../RegisterTextInput'
+import RegisterPhoneInput from '../RegisterPhoneInput'
 
 const RegisterFeature: FC = () => {
   const { formData, handleChange, errors, handleSubmit } = useRegister()
@@ -31,12 +32,21 @@ const RegisterFeature: FC = () => {
         label="Фамилия"
         name="second_name"
       />
+      <RegisterTextInput formData={formData} handleChange={handleChange} errors={errors} label="Логин" name="login" />
+      <RegisterTextInput formData={formData} handleChange={handleChange} errors={errors} label="Email" name="email" />
       <RegisterPasswordInput
         formData={formData}
         handleChange={handleChange}
         errors={errors}
         label="Пароль"
         name="password"
+      />
+      <RegisterPhoneInput
+        formData={formData}
+        handleChange={handleChange}
+        errors={errors}
+        label="Телефон"
+        name="phone"
       />
       <BaseButton type="submit" variant="contained">
         Регистрация
