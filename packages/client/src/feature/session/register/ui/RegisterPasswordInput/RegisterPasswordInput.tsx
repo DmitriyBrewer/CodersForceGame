@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from 'react'
+import { FC, useState } from 'react'
 
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
@@ -7,15 +7,9 @@ import BaseTextField from '@/shared/components/ui/BaseTextField'
 
 import BaseIconButton from '@/shared/components/ui/BaseIconButton'
 
-import { RegisterError, RegisterPayload } from '../../types'
+import { InputProps } from '../../types'
 
-interface Props {
-  formData: RegisterPayload
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void
-  errors: RegisterError
-}
-
-const RegisterPasswordInput: FC<Props> = ({ formData, handleChange, errors }) => {
+const RegisterPasswordInput: FC<InputProps> = ({ formData, handleChange, errors }) => {
   const [showPassword, setShowPassword] = useState(false)
 
   const handleTogglePasswordVisibility = () => {
