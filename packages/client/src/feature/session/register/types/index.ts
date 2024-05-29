@@ -12,4 +12,6 @@ export type InputProps = {
   formData: RegisterPayload
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void
   errors: RegisterError
+  name: string
+  label: string
 }

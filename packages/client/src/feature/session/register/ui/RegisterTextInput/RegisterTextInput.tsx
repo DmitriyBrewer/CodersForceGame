@@ -4,17 +4,12 @@ import BaseTextField from '@/shared/components/ui/BaseTextField'
 
 import { InputProps } from '../../types'
 
-interface Props extends InputProps {
-  name: string
-  label: string
-}
-
-const RegisterTextInput: FC<Props> = ({ formData, handleChange, errors, name, label }) => {
+const RegisterTextInput: FC<InputProps> = ({ formData, handleChange, errors, name, label }) => {
   return (
     <BaseTextField
       type="text"
       label={label}
-      value={formData.password}
+      value={formData[name]}
       name={name}
       onChange={handleChange}
       error={!!errors.password}
