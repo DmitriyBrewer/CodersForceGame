@@ -1,13 +1,16 @@
 import styled from '@emotion/styled'
 import { Paper } from '@mui/material'
 
-const BasePaper = styled(Paper)(() => ({
+interface Props {
+  rgap?: string
+}
+
+const BasePaper = styled(Paper)<Props>(({ rgap }) => ({
   display: 'flex',
-  'flex-direction': 'column',
-  'row-gap': 'var(--g20)',
-  'justify-content': 'center',
+  flexDirection: 'column',
+  rowGap: `var(${rgap})`,
   padding: 'var(--s28)',
-  'text-align': 'center'
+  textAlign: 'center'
 }))
 
 export default BasePaper
