@@ -1,5 +1,6 @@
 import { FC, useState } from 'react'
 
+// TODO: feature/cfg-23 icon вынести в отдельную папкку
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 
@@ -17,6 +18,9 @@ const RegisterPasswordInput: FC<InputProps> = ({ formData, handleChange, errors,
   }
 
   const visibleIcon = showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />
+  const endIcon = {
+    endAdornment: <BaseIconButton onClick={handleTogglePasswordVisibility}>{visibleIcon}</BaseIconButton>
+  }
 
   return (
     <BaseTextField
@@ -27,9 +31,7 @@ const RegisterPasswordInput: FC<InputProps> = ({ formData, handleChange, errors,
       onChange={handleChange}
       error={!!errors.password}
       helperText={errors.password}
-      InputProps={{
-        endAdornment: <BaseIconButton onClick={handleTogglePasswordVisibility}>{visibleIcon}</BaseIconButton>
-      }}
+      InputProps={endIcon}
     />
   )
 }
