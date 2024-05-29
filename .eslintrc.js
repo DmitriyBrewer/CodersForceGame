@@ -80,7 +80,7 @@ module.exports = {
       }
     ],
     'prettier/prettier': 'error',
-    // TODO: feature/cfg-23 разрешить spread
+    // TODO: feature/cfg-23 удалить сообщение позже, поставил разрешение spread, например {...props}
     'react/jsx-props-no-spreading': 'off'
   }
 }

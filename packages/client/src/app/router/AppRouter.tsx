@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import { paths } from '@/shared/config/routing'
 
-// TODO: feature/cfg-52 переделать импорты всех page по примеру Register
+// TODO: feature/cfg-52, удалить позже сообщение, после того как все страницы будут соответствовать, переделать импорты всех page по примеру Register
 import RegisterPage from '@/pages/session/register'
 
 import Login from '../../pages/Login'
