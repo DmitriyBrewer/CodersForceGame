@@ -1,25 +1,33 @@
 import { FC } from 'react'
 
-// TODO: feature/cfg-23 icon вынести в отдельную папкку
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
-
 import BaseTextField from '@/shared/components/ui/BaseTextField'
 
 import BaseIconButton from '@/shared/components/ui/BaseIconButton'
 
+import { IconLocalPhone } from '@/shared/components/icons/iconsMui'
+
 import { InputProps } from '../../types'
 
-const RegisterPhoneInput: FC<InputProps> = ({ formData, handleChange, errors, name, label, required = true }) => {
+const RegisterPhoneInput: FC<InputProps> = ({
+  formData,
+  handleChange,
+  errors,
+  name,
+  label,
+  required = true,
+  size = 'small'
+}) => {
   const endIcon = {
     endAdornment: (
       <BaseIconButton>
-        <LocalPhoneIcon />
+        <IconLocalPhone />
       </BaseIconButton>
     )
   }
 
   return (
     <BaseTextField
+      size={size}
       required={required}
       type="tel"
       label={label}

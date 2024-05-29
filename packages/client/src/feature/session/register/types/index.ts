@@ -1,3 +1,4 @@
+import { TextFieldProps } from '@mui/material'
 import { ChangeEvent, FormEvent } from 'react'
 
 export type RegisterPayload = {
@@ -18,11 +19,9 @@ export type RegisterFormFieldProps = {
   errors: RegisterError
 }
 
-export type TextFieldProps = {
+export type BaseTextFieldProps = {
   name: string
-  label: string
-  required?: boolean
 }
 
-export type InputProps = RegisterFormFieldProps & TextFieldProps
+export type InputProps = RegisterFormFieldProps & BaseTextFieldProps & TextFieldProps
 export type AllFormProps = InputProps & RegisterFormProps
