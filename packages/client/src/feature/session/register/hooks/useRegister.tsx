@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { RegisterError, RegisterPayload } from '../types'
-import { validateField } from '../utils/validateField'
+import { validateField } from '../model/validateField'
 
 export const useRegister = () => {
   const [formData, setFormData] = useState<RegisterPayload>({

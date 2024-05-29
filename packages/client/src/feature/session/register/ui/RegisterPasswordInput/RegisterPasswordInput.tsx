@@ -23,7 +23,12 @@ const RegisterPasswordInput: FC<InputProps> = ({
     setShowPassword(prevShowPassword => !prevShowPassword)
   }
 
-  const visibleIcon = showPassword ? <IconVisibility /> : <IconVisibilityOff />
+  const visibleIcon = showPassword ? (
+    <IconVisibility color="primary" fontSize="small" />
+  ) : (
+    <IconVisibilityOff fontSize="small" />
+  )
+
   const endIcon = {
     endAdornment: <BaseIconButton onClick={handleTogglePasswordVisibility}>{visibleIcon}</BaseIconButton>
   }

@@ -1,3 +1,4 @@
+// TODO: feature/cfg-23 валидация будет доделана в задаче feature/cfg-22
 const isValidName = (name: string) => {
   const nameRegExp = /^([А-ЯЁA-Z][а-яёa-z]*-?[А-ЯЁA-Z]?[а-яёa-z]*)$/
   return nameRegExp.test(name)

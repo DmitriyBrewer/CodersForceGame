@@ -20,7 +20,7 @@ const RegisterPhoneInput: FC<InputProps> = ({
   const endIcon = {
     endAdornment: (
       <BaseIconButton>
-        <IconLocalPhone />
+        <IconLocalPhone fontSize="small" />
       </BaseIconButton>
     )
   }

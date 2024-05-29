@@ -1,10 +1,9 @@
 import { FC, PropsWithChildren } from 'react'
 
-import { TypographyProps } from '@mui/material'
-
 import BaseTypography from '@/shared/components/ui/BaseTypography'
+import { BaseTypographyProps } from '@/shared/types'
 
-const RegisterHeader: FC<PropsWithChildren<TypographyProps>> = ({
+const RegisterHeader: FC<PropsWithChildren<BaseTypographyProps>> = ({
   children,
   component = 'h1',
   variant = 'h3',
