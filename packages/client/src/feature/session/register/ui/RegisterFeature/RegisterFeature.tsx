@@ -24,6 +24,7 @@ const RegisterFeature: FC = () => {
         errors={errors}
         label="Имя"
         name="first_name"
+        required
       />
       <RegisterTextInput
         formData={formData}
@@ -31,15 +32,31 @@ const RegisterFeature: FC = () => {
         errors={errors}
         label="Фамилия"
         name="second_name"
+        required
       />
-      <RegisterTextInput formData={formData} handleChange={handleChange} errors={errors} label="Логин" name="login" />
-      <RegisterTextInput formData={formData} handleChange={handleChange} errors={errors} label="Email" name="email" />
+      <RegisterTextInput
+        formData={formData}
+        handleChange={handleChange}
+        errors={errors}
+        label="Логин"
+        name="login"
+        required
+      />
+      <RegisterTextInput
+        formData={formData}
+        handleChange={handleChange}
+        errors={errors}
+        label="Email"
+        name="email"
+        required
+      />
       <RegisterPasswordInput
         formData={formData}
         handleChange={handleChange}
         errors={errors}
         label="Пароль"
         name="password"
+        required
       />
       <RegisterPhoneInput
         formData={formData}
@@ -47,6 +64,7 @@ const RegisterFeature: FC = () => {
         errors={errors}
         label="Телефон"
         name="phone"
+        required
       />
       <BaseButton type="submit" variant="contained">
         Регистрация

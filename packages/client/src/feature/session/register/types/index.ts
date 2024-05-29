@@ -22,6 +22,7 @@ export type RegisterFormFieldProps = {
 export type TextFieldProps = {
   name: string
   label: string
+  required?: boolean
 }
 
 export type InputProps = RegisterFormFieldProps & TextFieldProps

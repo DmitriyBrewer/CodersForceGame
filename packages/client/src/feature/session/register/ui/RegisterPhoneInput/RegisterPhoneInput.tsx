@@ -9,7 +9,7 @@ import BaseIconButton from '@/shared/components/ui/BaseIconButton'
 
 import { InputProps } from '../../types'
 
-const RegisterPhoneInput: FC<InputProps> = ({ formData, handleChange, errors, name, label }) => {
+const RegisterPhoneInput: FC<InputProps> = ({ formData, handleChange, errors, name, label, required }) => {
   const endIcon = {
     endAdornment: (
       <BaseIconButton>
@@ -20,6 +20,7 @@ const RegisterPhoneInput: FC<InputProps> = ({ formData, handleChange, errors, na
 
   return (
     <BaseTextField
+      required={required}
       type="phone"
       label={label}
       value={formData.phone}
