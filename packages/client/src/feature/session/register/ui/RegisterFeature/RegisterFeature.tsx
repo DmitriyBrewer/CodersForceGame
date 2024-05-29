@@ -2,9 +2,10 @@ import { FC } from 'react'
 
 import BaseButton from '@/shared/components/ui/BaseButton'
 import BaseTypography from '@/shared/components/ui/BaseTypography'
-import BasePaper from '@/shared/components/ui/BasePaper'
 import BaseBox from '@/shared/components/ui/BaseBox'
 import BaseContainer from '@/shared/components/ui/BaseContainer'
+
+import BasePaperPolymorphic from '@/shared/components/ui/BasePaperPolymorphic'
 
 import styles from './RegisterFeature.module.scss'
 import { useRegister } from '../../hooks/useRegister'
@@ -16,7 +17,7 @@ const RegisterFeature: FC = () => {
   return (
     <BaseBox className={styles.root} autoComplete="off" component="form" onSubmit={handleSubmit}>
       <BaseContainer maxWidth="sm">
-        <BasePaper elevation={4}>
+        <BasePaperPolymorphic elevation={4} rgap="--g20">
           <BaseTypography component="h1" variant="h3">
             Регистрация
           </BaseTypography>
@@ -24,7 +25,7 @@ const RegisterFeature: FC = () => {
           <BaseButton type="submit" variant="contained">
             Регистрация
           </BaseButton>
-        </BasePaper>
+        </BasePaperPolymorphic>
       </BaseContainer>
     </BaseBox>
   )
