@@ -4,7 +4,7 @@ import BaseTextField from '@/shared/components/ui/BaseTextField'
 
 import { InputProps } from '../../types'
 
-const RegisterTextInput: FC<InputProps> = ({ formData, handleChange, errors, name, label, required }) => {
+const RegisterTextInput: FC<InputProps> = ({ formData, handleChange, errors, name, label, required = true }) => {
   return (
     <BaseTextField
       required={required}

@@ -1,6 +1,5 @@
 import { ChangeEvent, FormEvent } from 'react'
 
-// TODO: feature/cfg-23 расписать для second_name и тд ?
 export type RegisterPayload = {
   [key: string]: string
 }

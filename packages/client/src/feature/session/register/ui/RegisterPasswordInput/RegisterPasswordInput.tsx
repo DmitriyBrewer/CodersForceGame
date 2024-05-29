@@ -10,7 +10,7 @@ import BaseIconButton from '@/shared/components/ui/BaseIconButton'
 
 import { InputProps } from '../../types'
 
-const RegisterPasswordInput: FC<InputProps> = ({ formData, handleChange, errors, name, label, required }) => {
+const RegisterPasswordInput: FC<InputProps> = ({ formData, handleChange, errors, name, label, required = true }) => {
   const [showPassword, setShowPassword] = useState(false)
 
   const handleTogglePasswordVisibility = () => {
