@@ -7,6 +7,7 @@ import BaseIconButton from '@/shared/components/ui/BaseIconButton'
 import { IconVisibility, IconVisibilityOff } from '@/shared/components/icons/iconsMui'
 
 import { InputProps } from '../../types'
+import { conditions } from '../../constant'
 
 const RegisterPasswordInput: FC<InputProps> = ({
   formData,
@@ -15,7 +16,8 @@ const RegisterPasswordInput: FC<InputProps> = ({
   name,
   label,
   required = true,
-  size = 'small'
+  size = 'small',
+  pattern = conditions.password.pattern
 }) => {
   const [showPassword, setShowPassword] = useState(false)
 
@@ -29,7 +31,8 @@ const RegisterPasswordInput: FC<InputProps> = ({
     <IconVisibilityOff fontSize="small" />
   )
 
-  const endIcon = {
+  const inputProps = {
+    pattern,
     endAdornment: <BaseIconButton onClick={handleTogglePasswordVisibility}>{visibleIcon}</BaseIconButton>
   }
 
@@ -39,12 +42,12 @@ const RegisterPasswordInput: FC<InputProps> = ({
       required={required}
       type={showPassword ? 'text' : 'password'}
       label={label}
-      value={formData.password}
+      value={formData[name]}
       name={name}
       onChange={handleChange}
-      error={!!errors.password}
-      helperText={errors.password}
-      InputProps={endIcon}
+      error={!!errors[name]}
+      helperText={errors[name]}
+      InputProps={inputProps}
     />
   )
 }

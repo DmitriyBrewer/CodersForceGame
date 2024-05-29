@@ -9,8 +9,9 @@ export const useRegister = () => {
     second_name: '',
     login: '',
     email: '',
+    phone: '',
     password: '',
-    phone: ''
+    password_repeat: ''
   })
 
   const [errors, setErrors] = useState<RegisterError>({
@@ -18,18 +19,20 @@ export const useRegister = () => {
     second_name: '',
     login: '',
     email: '',
+    phone: '',
     password: '',
-    phone: ''
+    password_repeat: ''
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
-    setErrors({ ...errors, [name]: validateField(name, value) })
+    setErrors({ ...errors, [name]: validateField(name, value, formData.password) })
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    console.log('submit')
   }
 
   // TODO:feature/cfg-23 удалить console.log и добавить api backend

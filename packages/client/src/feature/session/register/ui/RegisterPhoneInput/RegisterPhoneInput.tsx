@@ -7,6 +7,7 @@ import BaseIconButton from '@/shared/components/ui/BaseIconButton'
 import { IconLocalPhone } from '@/shared/components/icons/iconsMui'
 
 import { InputProps } from '../../types'
+import { conditions } from '../../constant'
 
 const RegisterPhoneInput: FC<InputProps> = ({
   formData,
@@ -15,9 +16,11 @@ const RegisterPhoneInput: FC<InputProps> = ({
   name,
   label,
   required = true,
-  size = 'small'
+  size = 'small',
+  pattern = conditions.phone.pattern
 }) => {
-  const endIcon = {
+  const inputProps = {
+    pattern,
     endAdornment: (
       <BaseIconButton>
         <IconLocalPhone fontSize="small" />
@@ -36,7 +39,7 @@ const RegisterPhoneInput: FC<InputProps> = ({
       onChange={handleChange}
       error={!!errors.phone}
       helperText={errors.phone}
-      InputProps={endIcon}
+      InputProps={inputProps}
     />
   )
 }

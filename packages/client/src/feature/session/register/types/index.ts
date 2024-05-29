@@ -18,6 +18,7 @@ type RegisterFormField = {
 
 export type TextFieldProps = {
   name: string
+  pattern?: string
 }
 
 export type InputProps = RegisterFormField & TextFieldProps & BaseTextFieldProps
