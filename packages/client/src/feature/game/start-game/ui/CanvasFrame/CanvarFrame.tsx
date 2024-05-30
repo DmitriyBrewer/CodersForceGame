@@ -15,16 +15,13 @@ const CanvasFrame: FC = () => {
     const draw = () => {
       if (!ctx) return
 
-      // Очистка холста
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      // Генерация случайной позиции и цвета для круга
       const x = Math.random() * canvas.width
       const y = Math.random() * canvas.height
       const radius = 20
       const color = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`
 
-      // Отрисовка круга
       ctx.beginPath()
       ctx.arc(x, y, radius, 0, Math.PI * 2)
       ctx.fillStyle = color
