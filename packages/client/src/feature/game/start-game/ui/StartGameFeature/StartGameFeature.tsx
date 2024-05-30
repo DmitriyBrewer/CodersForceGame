@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useState } from 'react'
 
 import BasePaperPolymorphic from '@/shared/components/ui/BasePaperPolymorphic'
 import BaseTypography from '@/shared/components/ui/BaseTypography'
@@ -8,44 +8,43 @@ import BaseLinearProgress from '@/shared/components/ui/BaseLinearProgress'
 import styles from './StartGameFeature.module.scss'
 
 const StartGameFeature: FC = () => {
+  const [isGameStarted, setGameStarted] = useState(false)
+  const [isButtonDisabled, setButtonDisabled] = useState(false)
   const [progress, setProgress] = useState(0)
-  const [buffer, setBuffer] = useState(10)
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const progressRef = useRef(() => {})
-  useEffect(() => {
-    progressRef.current = () => {
-      if (progress > 100) {
-        setProgress(0)
-        setBuffer(10)
+  const handleStartGame = () => {
+    setButtonDisabled(true)
+    setProgress(0)
+
+    const timer = setInterval(() => {
+      if (progress >= 100) {
+        clearInterval(timer)
+        setGameStarted(true)
       } else {
         const diff = Math.random() * 10
-        const diff2 = Math.random() * 10
-        setProgress(progress + diff)
-        setBuffer(progress + diff + diff2)
+        setProgress(prevProgress => {
+          const newProgress = prevProgress + diff
+          return newProgress >= 100 ? 100 : newProgress
+        })
       }
-    }
-  })
+    }, 20)
+  }
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      progressRef.current()
-    }, 500)
+  console.log(progress)
+  console.log(isGameStarted)
 
-    return () => {
-      clearInterval(timer)
-    }
-  }, [])
   return (
     <BasePaperPolymorphic elevation={4} rgap="--g28">
       <BaseTypography component="h1" variant="h3">
         Начало игры
       </BaseTypography>
-      <BaseButton color="secondary" variant="contained">
+      <BaseButton color="secondary" variant="contained" disabled={isButtonDisabled} onClick={handleStartGame}>
         Start
       </BaseButton>
-      <BaseLinearProgress color="secondary" variant="determinate" value={progress} valueBuffer={buffer} />
-
+      {isButtonDisabled && !isGameStarted && (
+        <BaseLinearProgress color="secondary" variant="determinate" value={progress} />
+      )}
+      {isGameStarted && <p>canvas</p>}
       <BaseTypography variant="subtitle1" component="p" className={styles.rules}>
         Правила игры
       </BaseTypography>
