@@ -1,9 +1,8 @@
-import * as React from 'react'
+import { FC, useState } from 'react'
 
 import BaseDialog from '@/shared/components/ui/BaseDialog'
 import BaseDialogTitle from '@/shared/components/ui/BaseDialogTitle'
 import BaseIconButton from '@/shared/components/ui/BaseIconButton'
-import BaseTypography from '@/shared/components/ui/BaseTypography'
 import BaseButton from '@/shared/components/ui/BaseButton'
 import { IconClose } from '@/shared/components/icons/iconsMui'
 import BaseDialogContent from '@/shared/components/ui/BaseDialogContent'
@@ -11,10 +10,12 @@ import BaseDialogActions from '@/shared/components/ui/BaseDialogActions'
 
 import BaseBox from '@/shared/components/ui/BaseBox'
 
+import StartGameDescription from '../StartGameDescription'
+
 import styles from './StartGameRules.module.scss'
 
-const StartGameRules: React.FC = () => {
-  const [open, setOpen] = React.useState(false)
+const StartGameRules: FC = () => {
+  const [open, setOpen] = useState(false)
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -38,20 +39,20 @@ const StartGameRules: React.FC = () => {
         </BaseBox>
 
         <BaseDialogContent dividers>
-          <BaseTypography gutterBottom>
-            Цель игры - проеахать большее растояние, обгоняя другие машинки и избегая столкновений.
-          </BaseTypography>
-          <BaseTypography gutterBottom>
+          <StartGameDescription>
+            Цель игры - проехать большее растояние, обгоняя другие машинки и избегая столкновений.
+          </StartGameDescription>
+          <StartGameDescription>
             Игрок управляет машиной с помощью стрелок на клавиатуре: вверх - ускорение, вниз - торможение, вправо и
             влево - повороты.
-          </BaseTypography>
-          <BaseTypography gutterBottom>
+          </StartGameDescription>
+          <StartGameDescription>
             На трассе есть 3 полосы движения: правая, центральная и левая. Игрок может переключаться между ними, чтобы
             избегать препятствий и обгонять другие машины.
-          </BaseTypography>
+          </StartGameDescription>
         </BaseDialogContent>
         <BaseDialogActions>
-          <BaseButton autoFocus onClick={handleClose}>
+          <BaseButton variant="contained" autoFocus onClick={handleClose}>
             Окей, понятно
           </BaseButton>
         </BaseDialogActions>

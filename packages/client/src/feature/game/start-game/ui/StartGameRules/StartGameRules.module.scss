@@ -5,7 +5,9 @@
   &__box {
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-between;
-    padding: var(--s20);
+
+    padding: var(--s16) var(--s20);
   }
 }
