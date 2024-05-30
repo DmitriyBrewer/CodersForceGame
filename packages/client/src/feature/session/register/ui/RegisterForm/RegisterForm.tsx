@@ -12,7 +12,7 @@ interface Props {
 
 const RegisterForm: FC<PropsWithChildren<Props>> = ({ handleSubmit, children }) => {
   return (
-    <BaseBox component="form" autoComplete="off" className={styles.root} onSubmit={handleSubmit}>
+    <BaseBox component="form" className={styles.root} onSubmit={handleSubmit}>
       <BasePaperPolymorphic elevation={4} rgap="--g20">
         {children}
       </BasePaperPolymorphic>
