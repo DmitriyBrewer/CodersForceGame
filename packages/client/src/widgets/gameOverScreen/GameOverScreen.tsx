@@ -1,8 +1,6 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import { Typography } from '@mui/material'
-
-import { useTheme } from '@mui/material/styles'
 
 import BaseButton from '@/shared/components/ui/BaseButton'
 
@@ -13,22 +11,17 @@ interface GameOverScreenProps {
   onReturnToMenu: () => void
 }
 
-const GameOverScreen: React.FC<GameOverScreenProps> = ({ onRetry, onReturnToMenu }) => {
-  const theme = useTheme()
+const GameOverScreen: FC<GameOverScreenProps> = ({ onRetry, onReturnToMenu }) => {
   return (
-    <div className={styles.container}>
+    <div className={styles.root}>
       <Typography variant="h2" component="h1" gutterBottom color="info">
         Game Over
       </Typography>
-      <div className={styles.buttonContainer}>
+      <div className={styles.container}>
         <BaseButton onClick={onRetry} variant="contained" color="secondary">
           Retry
         </BaseButton>
-        <BaseButton
-          onClick={onReturnToMenu}
-          variant="contained"
-          //   style={{ backgroundColor: theme.palette.primary.main, color: theme.palette.primary.contrastText }}
-        >
+        <BaseButton onClick={onReturnToMenu} variant="contained">
           Return to Main Menu
         </BaseButton>
       </div>

@@ -1,19 +1,8 @@
-.container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  width: 400px;
-  padding: var(--g40);
-
+.root {
   text-align: center;
-
-  border-radius: var(--s28);
-  box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
 }
 
-.buttonContainer {
+.container {
   display: flex;
   flex-direction: column;
   gap: var(--g20);
