@@ -7,6 +7,7 @@ import BaseLinearProgress from '@/shared/components/ui/BaseLinearProgress'
 
 import styles from './StartGameFeature.module.scss'
 import CanvasFrame from '../../CanvasFrame/CanvarFrame'
+import StartGameRules from '../StartGameRules'
 
 const StartGameFeature: FC = () => {
   const [isGameStarted, setGameStarted] = useState(false)
@@ -59,6 +60,7 @@ const StartGameFeature: FC = () => {
           <BaseTypography variant="subtitle1" component="p" className={styles.rules}>
             Правила игры
           </BaseTypography>
+          <StartGameRules />
         </>
       )}
       {isGameStarted && <CanvasFrame />}
