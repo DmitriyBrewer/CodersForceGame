@@ -4,16 +4,14 @@ import '@testing-library/jest-dom'
 import BaseLink from '@/shared/components/ui/BaseLink'
 
 describe('<BaseLink />', () => {
-  const handleClick = jest.fn()
-
   it('Snapshot is correct', () => {
-    const { asFragment } = render(<BaseLink onClick={handleClick} />)
+    const { asFragment } = render(<BaseLink to="/" />)
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('Renders correctly with default props', () => {
-    render(<BaseLink />)
-    const button = screen.getByRole('button')
+    render(<BaseLink to="/" />)
+    const button = screen.getByRole('a')
 
     expect(button).toMatchSnapshot()
   })
