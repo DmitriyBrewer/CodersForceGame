@@ -21,6 +21,10 @@ const RegisterPasswordInput: FC<InputProps> = ({
 }) => {
   const [showPassword, setShowPassword] = useState(false)
 
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault()
+  }
+
   const handleTogglePasswordVisibility = () => {
     setShowPassword(prevShowPassword => !prevShowPassword)
   }
@@ -33,6 +37,7 @@ const RegisterPasswordInput: FC<InputProps> = ({
 
   const inputProps = {
     pattern,
+    onPaste: handlePaste,
     endAdornment: <BaseIconButton onClick={handleTogglePasswordVisibility}>{visibleIcon}</BaseIconButton>
   }
 
