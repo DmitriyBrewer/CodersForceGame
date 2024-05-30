@@ -18,7 +18,6 @@ export const useStartGame = () => {
     const timer = setInterval(() => {
       if (progress >= 100) {
         clearInterval(timer)
-        setGameStarted(true)
       } else {
         const diff = Math.random() * 10
         setProgress(prevProgress => {
