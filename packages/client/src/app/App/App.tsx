@@ -1,11 +1,14 @@
 import AppRouter from '../router/AppRouter'
 import ThemeModeProvider from '../../shared/context/ThemeProvider'
+import ErrorBoundary from '../../shared/context/error-boundary/ErrorBoundary'
 
 const App = () => {
   return (
-    <ThemeModeProvider>
-      <AppRouter />
-    </ThemeModeProvider>
+    <ErrorBoundary>
+      <ThemeModeProvider>
+        <AppRouter />
+      </ThemeModeProvider>
+    </ErrorBoundary>
   )
 }
 
