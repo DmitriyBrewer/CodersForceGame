@@ -1,6 +1,5 @@
 import { conditions } from '../constant'
 
-// TODO: feature/cfg-23 валидация будет доделана в задаче feature/cfg-22
 const isValidName = (name: string) => {
   const nameRegExp = conditions.name.pattern
   return new RegExp(nameRegExp).test(name)
