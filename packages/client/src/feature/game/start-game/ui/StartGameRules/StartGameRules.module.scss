@@ -1,0 +1,11 @@
+.rules {
+  display: flex;
+  align-items: flex-start;
+
+  &__box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: var(--s20);
+  }
+}

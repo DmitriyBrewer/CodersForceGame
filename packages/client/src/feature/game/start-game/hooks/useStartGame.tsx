@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+// TODO: feature/cfg-37 , удалить позже сообщение,  тестовая логика для старта игры
 export const useStartGame = () => {
   const [isGameStarted, setGameStarted] = useState(false)
   const [isButtonDisabled, setButtonDisabled] = useState(false)
@@ -33,6 +34,7 @@ export const useStartGame = () => {
       setGameStarted(true)
     }
   }, [progress, setGameStarted])
+
   return {
     progress,
     isGameStarted,

@@ -9,6 +9,10 @@ import { IconClose } from '@/shared/components/icons/iconsMui'
 import BaseDialogContent from '@/shared/components/ui/BaseDialogContent'
 import BaseDialogActions from '@/shared/components/ui/BaseDialogActions'
 
+import BaseBox from '@/shared/components/ui/BaseBox'
+
+import styles from './StartGameRules.module.scss'
+
 const StartGameRules: React.FC = () => {
   const [open, setOpen] = React.useState(false)
 
@@ -20,46 +24,39 @@ const StartGameRules: React.FC = () => {
   }
 
   return (
-    <>
+    <BaseBox className={styles.rules}>
       <BaseButton variant="text" color="info" onClick={handleClickOpen}>
         Правила игры
       </BaseButton>
-      <BaseDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-        <BaseDialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          Modal title
-        </BaseDialogTitle>
-        <BaseIconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: theme => theme.palette.grey[500]
-          }}>
-          <IconClose />
-        </BaseIconButton>
+
+      <BaseDialog onClose={handleClose} open={open}>
+        <BaseBox className={styles.rules__box}>
+          <BaseDialogTitle>Правила игры</BaseDialogTitle>
+          <BaseIconButton aria-label="close" onClick={handleClose}>
+            <IconClose />
+          </BaseIconButton>
+        </BaseBox>
+
         <BaseDialogContent dividers>
           <BaseTypography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-            quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+            Цель игры - проеахать большее растояние, обгоняя другие машинки и избегая столкновений.
           </BaseTypography>
           <BaseTypography gutterBottom>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet
-            rutrum faucibus dolor auctor.
+            Игрок управляет машиной с помощью стрелок на клавиатуре: вверх - ускорение, вниз - торможение, вправо и
+            влево - повороты.
           </BaseTypography>
           <BaseTypography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-            consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+            На трассе есть 3 полосы движения: правая, центральная и левая. Игрок может переключаться между ними, чтобы
+            избегать препятствий и обгонять другие машины.
           </BaseTypography>
         </BaseDialogContent>
         <BaseDialogActions>
           <BaseButton autoFocus onClick={handleClose}>
-            Save changes
+            Окей, понятно
           </BaseButton>
         </BaseDialogActions>
       </BaseDialog>
-    </>
+    </BaseBox>
   )
 }
 

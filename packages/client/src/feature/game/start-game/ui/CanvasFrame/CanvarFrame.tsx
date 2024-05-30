@@ -39,6 +39,7 @@ const CanvasFrame: React.FC = () => {
 
     animate()
 
+    // TODO: feature/cfg-37 eslint временный, компонент будет полностью переделан
     // eslint-disable-next-line consistent-return
     return () => {
       cancelAnimationFrame(requestId)
