@@ -11,7 +11,7 @@ import RegisterHeader from '../RegisterHeader'
 import { conditions } from '../../constant'
 
 const RegisterFeature: FC = () => {
-  const { inputProps, handleSubmit } = useRegister()
+  const { inputProps, handleSubmit, isError } = useRegister()
 
   return (
     <RegisterForm handleSubmit={handleSubmit}>
@@ -25,7 +25,7 @@ const RegisterFeature: FC = () => {
       <RegisterPasswordInput label="Пароль" name="password" {...inputProps} />
       <RegisterPasswordInput label="Повторите пароль" name="password_repeat" {...inputProps} />
 
-      <RegisterButton>Регистрация</RegisterButton>
+      <RegisterButton disabled={isError}>Регистрация</RegisterButton>
     </RegisterForm>
   )
 }

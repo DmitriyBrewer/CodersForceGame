@@ -1,6 +1,6 @@
 export const conditions = {
   email: {
-    pattern: '^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$',
+    pattern: '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$',
     errorText: 'Некорректный email. Ожидается формат example@mail.com'
   },
   login: {

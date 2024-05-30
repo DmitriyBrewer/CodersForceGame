@@ -24,6 +24,8 @@ export const useRegister = () => {
     password_repeat: ''
   })
 
+  const isError = Object.values(errors).some(error => error !== '')
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
@@ -32,15 +34,15 @@ export const useRegister = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('submit')
+    // TODO:feature/cfg-23 удалить console.log и добавить api backend
+    console.log(`Отправка формы... ${formData}`)
   }
 
-  // TODO:feature/cfg-23 удалить console.log и добавить api backend
-  console.log(formData)
   const inputProps = { formData, handleChange, errors }
 
   return {
     inputProps,
-    handleSubmit
+    handleSubmit,
+    isError
   }
 }
