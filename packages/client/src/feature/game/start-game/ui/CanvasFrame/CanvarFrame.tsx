@@ -45,7 +45,7 @@ const CanvasFrame: FC = () => {
 
   return (
     <div className={styles.root}>
-      <canvas ref={canvasRef} width={1000} height={200} />
+      <canvas ref={canvasRef} className={styles.root__canvas} />
     </div>
   )
 }

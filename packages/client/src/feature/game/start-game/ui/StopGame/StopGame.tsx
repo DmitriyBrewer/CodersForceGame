@@ -14,7 +14,7 @@ const StopGame: FC<Props> = ({ handleStopGame }) => {
     <BasePaperPolymorphic elevation={4} rgap="--g28">
       <CanvasFrame />
       <BaseButton color="error" variant="contained" onClick={handleStopGame}>
-        Stop game
+        Остановить
       </BaseButton>
     </BasePaperPolymorphic>
   )

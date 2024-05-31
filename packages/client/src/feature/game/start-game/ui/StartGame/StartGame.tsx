@@ -19,7 +19,7 @@ const StartGame: FC<Props> = ({ isButtonDisabled, handleStartGame, progress }) =
       <StartGameHeader>Начало игры</StartGameHeader>
 
       <StartGameButton disabled={isButtonDisabled} onClick={handleStartGame}>
-        Start
+        Старт
       </StartGameButton>
 
       {isButtonDisabled && <BaseLinearProgress color="secondary" variant="determinate" value={progress} />}
