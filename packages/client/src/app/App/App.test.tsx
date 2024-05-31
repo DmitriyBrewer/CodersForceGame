@@ -7,7 +7,7 @@
 // @ts-ignore
 global.fetch = jest.fn(() => Promise.resolve({ json: () => Promise.resolve('hey') }))
 
-// TODO: вернуть тесты
+// TODO: feature/cfg-15 вернуть тесты
 test('Example test', async () => {
   // render(<App />)
   // expect(screen.getByText(appContent)).toBeDefined()
