@@ -1,6 +1,6 @@
 import { useRef, useEffect, FC } from 'react'
 
-import styles from './CanvasFramse.module.scss'
+import styles from './CanvasFrame.module.scss'
 // TODO: feature/cfg-37 временный компонент frame для примера, удалить позже
 const CanvasFrame: FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
