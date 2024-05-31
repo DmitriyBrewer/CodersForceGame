@@ -1,1 +1,1 @@
-export { BaseModalWindow } from './ui/ModalWindow'
+export { BaseModalWindow } from './ui/BaseModalWindow'
