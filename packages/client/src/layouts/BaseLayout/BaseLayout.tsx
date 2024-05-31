@@ -1,20 +1,25 @@
 import { FC } from 'react'
 import { Outlet } from 'react-router-dom'
 
-import ErrorBoundary from '@/shared/context/error-boundary/ErrorBoundary'
+import BaseContainer from '@/shared/components/ui/BaseContainer'
 
 const BaseLayout: FC = () => {
   return (
-    <ErrorBoundary>
-      {/* TODO feature/cfg-28 implement header & footer */}
+    // TODO feature/cfg-28 сделать тест ErrorBoundary
+    <>
+      {/* TODO feature/cfg-28 реализовать футер и хедер */}
       <header>
-        <h4>header here</h4>
+        <h4>тут будет хедер</h4>
       </header>
-      <Outlet />
+      <main>
+        <BaseContainer>
+          <Outlet />
+        </BaseContainer>
+      </main>
       <footer>
-        <h4>footer here</h4>
+        <h4>тут будет футер</h4>
       </footer>
-    </ErrorBoundary>
+    </>
   )
 }
 
