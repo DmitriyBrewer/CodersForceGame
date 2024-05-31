@@ -66,9 +66,9 @@ const darkTheme: PaletteOptions = {
     contrastText: '#FFFFFF'
   },
   secondary: {
-    main: '#6930C3',
-    light: '#9770D6',
-    dark: '#5123B4',
+    main: '#DA1B8E',
+    light: '#DA53D5',
+    dark: '#B80D92',
     contrastText: '#FFFFFF'
   },
   error: {
