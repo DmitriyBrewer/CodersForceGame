@@ -1,12 +1,12 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
 import { paths } from '@/shared/config/routing'
 
 // TODO: feature/cfg-52, удалить позже сообщение, после того как все страницы будут соответствовать, переделать импорты всех page по примеру Register
+import LoginPage from '@/pages/session/login'
 import RegisterPage from '@/pages/session/register'
 
-import Login from '../../pages/Login'
 import Profile from '../../pages/Profile'
 import Game from '../../pages/Game'
 import Leaderboard from '../../pages/Leaderboard'
@@ -21,7 +21,8 @@ const AppRouter: React.FC = () => {
   return (
     <Router>
       <Routes>
-        <Route path={paths.login} element={<PublicRoute component={Login} />} />
+        <Route path={paths.home} element={<Navigate to={paths.login} replace />} />
+        <Route path={paths.login} element={<PublicRoute component={LoginPage} />} />
         <Route path={paths.register} element={<PublicRoute component={RegisterPage} />} />
         <Route path={paths.profile} element={<PrivateRoute component={Profile} />} />
         <Route path={paths.game} element={<PrivateRoute component={Game} />} />
