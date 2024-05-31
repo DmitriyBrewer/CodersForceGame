@@ -5,11 +5,31 @@ export const useStartGame = () => {
   const [isGameStarted, setGameStarted] = useState(false)
   const [isButtonDisabled, setButtonDisabled] = useState(false)
   const [progress, setProgress] = useState(0)
+  const [endGame, setEndGame] = useState(false)
+
+  const [openGame, setOpenGame] = useState(false)
+
+  const handleClickOpenEndGame = () => {
+    setOpenGame(true)
+  }
+  const handleCloseEndGame = () => {
+    setOpenGame(false)
+  }
+
+  const onRetryGame = () => {
+    // TODO:feature/cfg-27 добавить логику
+  }
+  const onReturnToMenu = () => {
+    // TODO:feature/cfg-27 добавить логику
+  }
 
   const handleStopGame = () => {
     setGameStarted(false)
     setButtonDisabled(false)
+    setEndGame(true)
   }
+
+  // useEffect(() => {}, [endGame])
 
   const handleStartGame = () => {
     setButtonDisabled(true)
@@ -34,11 +54,21 @@ export const useStartGame = () => {
     }
   }, [progress, setGameStarted])
 
+  const endGameProps = {
+    onRetryGame,
+    onReturnToMenu,
+    openGame,
+    handleCloseEndGame,
+    handleClickOpenEndGame
+  }
+
   return {
     progress,
     isGameStarted,
     isButtonDisabled,
     handleStartGame,
-    handleStopGame
+    handleStopGame,
+    endGame,
+    endGameProps
   }
 }

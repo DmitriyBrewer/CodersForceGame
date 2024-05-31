@@ -6,7 +6,7 @@ import { paths } from '@/shared/config/routing'
 // TODO: feature/cfg-52, удалить позже сообщение, после того как все страницы будут соответствовать, переделать импорты всех page по примеру Register
 import RegisterPage from '@/pages/session/register'
 
-import StartGamePage from '@/pages/game/start-game'
+import StartGamePage from '@/pages/game/game-engine'
 
 import Login from '../../pages/Login'
 import Profile from '../../pages/Profile'

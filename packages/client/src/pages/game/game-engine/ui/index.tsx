@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
-import StartGameWidget from '@/widgets/game/start-game'
+import GameEngineWidget from '@/widgets/game/game-engine'
 
 const StartGamePage: FC = () => {
-  return <StartGameWidget />
+  return <GameEngineWidget />
 }
 
 export default StartGamePage
