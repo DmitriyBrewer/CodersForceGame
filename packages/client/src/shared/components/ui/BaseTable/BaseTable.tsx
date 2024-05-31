@@ -22,15 +22,15 @@ const BaseTable = (props: Props) => {
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-            {headers.map(({ text, id }) => (
+            {headers.map(({ text }) => (
               <TableCell key={uuidv4()}>{text}</TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row: Record<string, any>) => (
+          {data.map(row => (
             <TableRow key={uuidv4()} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-              {headers.map(({ value }, i) => (
+              {headers.map(({ value }) => (
                 <TableCell key={uuidv4()}>{row[value]}</TableCell>
               ))}
             </TableRow>

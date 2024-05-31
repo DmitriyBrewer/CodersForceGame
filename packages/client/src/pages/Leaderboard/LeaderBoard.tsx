@@ -1,4 +1,3 @@
-import BaseContainer from '@/shared/components/ui/BaseContainer'
 import BasicTable from '@/shared/components/ui/BaseTable'
 import BaseTypography from '@/shared/components/ui/BaseTypography'
 
