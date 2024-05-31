@@ -1,7 +1,9 @@
 import React, { FC, ReactNode } from 'react'
-import { Modal, Box } from '@mui/material'
+import { Modal } from '@mui/material'
 
-interface ModalWindowProps {
+import BaseBox from '../../BaseBox'
+
+interface Props {
   open: boolean
   handleClose: () => void
   children: ReactNode
@@ -20,14 +22,14 @@ const style = {
   borderRadius: 'var(--s28)'
 }
 
-export const ModalWindow: FC<ModalWindowProps> = ({ open, handleClose, children }) => {
+export const BaseModalWindow: FC<Props> = ({ open, handleClose, children }) => {
   return (
     <Modal
       open={open}
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description">
-      <Box sx={style}>{children}</Box>
+      <BaseBox sx={style}>{children}</BaseBox>
     </Modal>
   )
 }
