@@ -1,5 +1,6 @@
 import BasicTable from '@/shared/components/ui/BaseTable'
 import BaseTypography from '@/shared/components/ui/BaseTypography'
+import BaseContainer from '@/shared/components/ui/BaseContainer'
 
 // TODO: feature/cfg-24 получить данные с сервера
 const LeaderBoard = () => {
@@ -16,12 +17,12 @@ const LeaderBoard = () => {
   ]
 
   return (
-    <>
+    <BaseContainer>
       <BaseTypography component="h1" variant="h4" my="var(--s28)">
         Лучшие результаты игры
       </BaseTypography>
       <BasicTable headers={headers} data={data} />
-    </>
+    </BaseContainer>
   )
 }
 
