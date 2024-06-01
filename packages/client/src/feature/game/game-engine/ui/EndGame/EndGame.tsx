@@ -35,6 +35,7 @@ const EndGame: FC<Props> = ({ handleClickOpenEndGame, handleCloseEndGame, onRetr
           <BaseButton onClick={onRetryGame} variant="contained" color="secondary">
             Попробовать снова
           </BaseButton>
+
           <BaseButton onClick={onReturnToMenu} variant="contained">
             Вернуться в главное меню
           </BaseButton>
