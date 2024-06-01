@@ -12,11 +12,7 @@ interface Props {
 
 export const BaseModalWindow: FC<Props> = ({ open, handleClose, children }) => {
   return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description">
+    <Modal open={open} onClose={handleClose}>
       <BaseBox className={styles.box}>{children}</BaseBox>
     </Modal>
   )
