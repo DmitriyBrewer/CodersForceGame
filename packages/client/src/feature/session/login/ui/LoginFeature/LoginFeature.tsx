@@ -1,8 +1,8 @@
 import { FC } from 'react'
 
-import BaseLink from '@/shared/components/ui/BaseLink'
-
 import { paths } from '@/shared/config/routing'
+
+import BaseButton from '@/shared/components/ui/BaseButton'
 
 import LoginForm from '../LoginForm'
 import LoginHeader from '../LoginHeader'
@@ -19,15 +19,15 @@ const LoginFeature: FC = () => {
 
   return (
     <div className={styles.root}>
-      <LoginHeader>Volga Checkers</LoginHeader>
+      <LoginHeader className={styles.header}>Volga Checkers</LoginHeader>
       <LoginForm handleSubmit={handleSubmit}>
         <RegisterTextInput label="Логин" name="login" {...inputProps} />
         <RegisterPasswordInput label="Пароль" name="password" {...inputProps} />
 
         <RegisterButton>Авторизация</RegisterButton>
-        <BaseLink className={styles.registerLink} to={paths.register} underline="none">
+        <BaseButton variant="outlined" href={paths.register} color="primary">
           Ещё нет аккаунта?
-        </BaseLink>
+        </BaseButton>
       </LoginForm>
     </div>
   )

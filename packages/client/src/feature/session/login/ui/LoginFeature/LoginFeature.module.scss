@@ -1,4 +1,3 @@
-/* LoginFeature.module.scss */
 .root {
   display: flex;
   flex-direction: column;
@@ -6,19 +5,10 @@
   justify-content: space-between;
 
   width: 100%;
-  height: 100vh;
+  height: var(--full-height);
   padding: var(--s120) 0 var(--s40) 0;
 }
 
-.registerLink {
-  padding: var(--g4);
-  border: 1px solid;
-  border-radius: var(--g4);
-  transition: all 0.3s ease;
-
-  &:hover {
-    color: var(--primary-contrast-text);
-    background-color: var(--primary-main);
-    border: 1px solid var(--primary-main);
-  }
+.header {
+  text-shadow: 1px 1px 2px #000, 2px 2px 4px #000, 3px 3px 6px #000;
 }

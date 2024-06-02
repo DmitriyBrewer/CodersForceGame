@@ -7,7 +7,7 @@ const LoginHeader: FC<PropsWithChildren<BaseTypographyProps>> = ({
   children,
   component = 'h1',
   variant = 'h1',
-  color = 'primary.contrastText',
+  color = 'primary.dark',
   ...rest
 }) => {
   return (
