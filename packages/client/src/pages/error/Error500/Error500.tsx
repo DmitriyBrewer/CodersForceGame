@@ -1,7 +1,9 @@
-import ErrorPageWidget from '@/widgets/errorPage'
+import { FC } from 'react'
 
-const Error500Page = () => {
-  return <ErrorPageWidget errorNumber="500" errorText="Внутренняя ошибка сервера" />
+import ErrorPageWidget from '@/widgets/errorPageWidget'
+
+const Error500: FC = () => {
+  return <ErrorPageWidget errorCode="500" errorText="Внутренняя ошибка сервера" />
 }
 
-export default Error500Page
+export default Error500
