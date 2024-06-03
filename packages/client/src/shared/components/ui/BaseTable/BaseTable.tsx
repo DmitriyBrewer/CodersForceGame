@@ -8,6 +8,8 @@ import Paper from '@mui/material/Paper'
 
 import { v4 as uuidv4 } from 'uuid'
 
+import { styleMui } from '@/shared/styleMui'
+
 type Props = {
   headers: Record<string, string>[]
   data: {
@@ -29,7 +31,7 @@ const BaseTable = (props: Props) => {
         </TableHead>
         <TableBody>
           {data.map(row => (
-            <TableRow key={uuidv4()} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+            <TableRow key={uuidv4()} sx={styleMui.baseTableRow}>
               {headers.map(({ value }) => (
                 <TableCell key={uuidv4()}>{row[value]}</TableCell>
               ))}
