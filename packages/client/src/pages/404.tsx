@@ -1,9 +1,10 @@
 import React from 'react'
 
 import styles from './404.module.scss'
+import TopicList from '@/feature/forum/ui/TopicsList'
 
 const Page404: React.FC = () => {
-  return <div className={styles.root}>Page404</div>
+  return <TopicList topics={[]} />
 }
 
 export default Page404
