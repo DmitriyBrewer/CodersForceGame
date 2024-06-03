@@ -19,7 +19,7 @@ const LoginFeature: FC = () => {
 
   return (
     <div className={styles.root}>
-      <LoginHeader className={styles.header}>Volga Checkers</LoginHeader>
+      <LoginHeader>Volga Checkers</LoginHeader>
       <LoginForm handleSubmit={handleSubmit}>
         <RegisterTextInput label="Логин" name="login" {...inputProps} />
         <RegisterPasswordInput label="Пароль" name="password" {...inputProps} />

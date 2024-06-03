@@ -1,16 +1,16 @@
 import { FC } from 'react'
 
-import BaseContainer from '@/shared/components/ui/BaseContainer'
+import BackgroundWrapper from '@/shared/components/ui/BackgroundWrapper'
 
 import LoginFeature from '@/feature/session/login/ui'
 
-import styles from './LoginWidget.module.scss'
+import backgroundImage from '@/assets/images/login-background.png'
 
 const LoginWidget: FC = () => {
   return (
-    <BaseContainer maxWidth={false} className={styles.root}>
+    <BackgroundWrapper backgroundUrl={backgroundImage} filter="blur(2px)">
       <LoginFeature />
-    </BaseContainer>
+    </BackgroundWrapper>
   )
 }
 
