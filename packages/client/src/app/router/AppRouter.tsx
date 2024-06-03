@@ -6,6 +6,8 @@ import { paths } from '@/shared/config/routing'
 // TODO: feature/cfg-52, удалить позже сообщение, после того как все страницы будут соответствовать, переделать импорты всех page по примеру Register
 import RegisterPage from '@/pages/session/register'
 
+import TestPage from '@/pages/TestPage'
+
 import Login from '../../pages/Login'
 import Profile from '../../pages/Profile'
 import Game from '../../pages/Game'
@@ -30,6 +32,9 @@ const AppRouter: React.FC = () => {
         <Route path={paths.forumTopic} element={<PrivateRoute component={ForumTopic} />} />
         <Route path={paths.page500} element={<Page500 />} />
         <Route path={paths.page404} element={<Page404 />} />
+        {/*   // TODO  feature/cfg-61 удалить позже
+         */}
+        <Route path={paths.test} element={<TestPage />} />
       </Routes>
     </Router>
   )

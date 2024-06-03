@@ -8,5 +8,7 @@ export const paths = {
   forum: '/forum',
   forumTopic: '/forumTopic',
   page404: '*',
-  page500: '/500'
+  page500: '/500',
+  // TODO  feature/cfg-61 удалить позже
+  test: 'test'
 }
