@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { styleMui } from '@/shared/stylesMui'
+import { styleMui } from '@/shared/styleMui'
 import BaseBox from '@/shared/components/ui/BaseBox'
 import BaseTypography from '@/shared/components/ui/BaseTypography'
 import BasePaper from '@/shared/components/ui/BasePaper'
