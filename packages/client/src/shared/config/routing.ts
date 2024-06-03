@@ -2,7 +2,7 @@ export const paths = {
   home: '/',
   login: '/login',
   register: '/register',
-  profile: '/profile',
+  profile: '/profileWidget',
   game: '/game',
   leaderboard: '/leaderboard',
   forum: '/forum',
