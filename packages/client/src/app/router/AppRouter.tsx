@@ -4,7 +4,6 @@ import { paths } from '@/shared/config/routing'
 
 import RegisterPage from '@/pages/session/register'
 import Profile from '@/pages/Profile'
-import Game from '@/pages/Game'
 import Leaderboard from '@/pages/Leaderboard'
 import Forum from '@/pages/Forum'
 import ForumTopic from '@/pages/ForumTopic'
@@ -12,6 +11,8 @@ import Login from '@/pages/Login'
 import Page404 from '@/pages/404'
 
 import Error500Page from '@/pages/error/Error500'
+
+import StartGamePage from '@/pages/game/game-engine'
 
 import PrivateRoute from '@/app/router/PrivateRoute'
 import PublicRoute from '@/app/router/PublicRoute'
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
       },
       {
         path: paths.game,
-        element: <PrivateRoute component={Game} />
+        element: <PrivateRoute component={StartGamePage} />
       },
       {
         path: paths.leaderboard,
