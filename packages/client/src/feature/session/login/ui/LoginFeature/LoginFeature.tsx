@@ -25,7 +25,7 @@ const LoginFeature: FC = () => {
         <RegisterPasswordInput label="Пароль" name="password" {...inputProps} />
 
         <RegisterButton>Авторизация</RegisterButton>
-        <BaseButton variant="outlined" href={paths.register} color="primary">
+        <BaseButton variant="outlined" href={paths.register} color="secondary">
           Ещё нет аккаунта?
         </BaseButton>
       </LoginForm>
