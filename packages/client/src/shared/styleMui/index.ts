@@ -15,5 +15,7 @@ export const styleMui = {
     link: {
       mt: 'var(--m20)'
     }
-  }
+  },
+
+  baseTableRow: { '&:last-child td, &:last-child th': { border: 0 } }
 }
