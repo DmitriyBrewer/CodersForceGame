@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import BackgroundWrapper from '@/shared/components/ui/BackgroundWrapper'
+import BackgroundWrapper from '@/shared/components/core/BackgroundWrapper'
 
 import LoginFeature from '@/feature/session/login/ui'
 
