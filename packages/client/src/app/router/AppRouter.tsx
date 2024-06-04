@@ -9,8 +9,9 @@ import Leaderboard from '@/pages/Leaderboard'
 import Forum from '@/pages/Forum'
 import ForumTopic from '@/pages/ForumTopic'
 import Login from '@/pages/Login'
-import Page500 from '@/pages/500'
 import Page404 from '@/pages/404'
+
+import Error500Page from '@/pages/error/Error500'
 
 import PrivateRoute from '@/app/router/PrivateRoute'
 import PublicRoute from '@/app/router/PublicRoute'
@@ -50,7 +51,7 @@ const router = createBrowserRouter([
       },
       {
         path: paths.page500,
-        element: <Page500 />
+        element: <Error500Page />
       },
       {
         path: paths.page404,
