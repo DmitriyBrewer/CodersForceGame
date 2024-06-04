@@ -6,8 +6,7 @@ import { paths } from '@/shared/config/routing'
 // TODO: feature/cfg-52, удалить позже сообщение, после того как все страницы будут соответствовать, переделать импорты всех page по примеру Register
 import RegisterPage from '@/pages/session/register'
 
-// TODO: feature/cfg-52 переделать импорты всех page по примеру Register
-import GamePage from '@/pages/game'
+import StartGamePage from '@/pages/game/game-engine'
 
 import Login from '../../pages/Login'
 import Profile from '../../pages/Profile'
@@ -26,7 +25,7 @@ const AppRouter: React.FC = () => {
         <Route path={paths.login} element={<PublicRoute component={Login} />} />
         <Route path={paths.register} element={<PublicRoute component={RegisterPage} />} />
         <Route path={paths.profile} element={<PrivateRoute component={Profile} />} />
-        <Route path={paths.game} element={<PrivateRoute component={GamePage} />} />
+        <Route path={paths.game} element={<PrivateRoute component={StartGamePage} />} />
         <Route path={paths.leaderboard} element={<PrivateRoute component={Leaderboard} />} />
         <Route path={paths.forum} element={<PrivateRoute component={Forum} />} />
         <Route path={paths.forumTopic} element={<PrivateRoute component={ForumTopic} />} />
