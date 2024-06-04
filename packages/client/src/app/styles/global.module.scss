@@ -1,16 +1,26 @@
 :root {
   /* gap */
-  --g4: 4px;
   --g20: 20px;
+  --g28: 28px;
 
   /* size */
+  --s16: 16px;
+  --s20: 20px;
   --s28: 28px;
   --s40: 40px;
-  --s120: 120px;
-  --s600: 600px;
 
-  /* full height */
-  --full-height: 100vh;
+  //  height
+  --h100vh: 100vh;
+
+  //  font-weight
+  --fw600: 600;
+  --fw700: 700;
+
+  //  font-size
+  --fs160: 160px;
+
+  //  margin
+  --m20: 20px;
 }
 
 body {

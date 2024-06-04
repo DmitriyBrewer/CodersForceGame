@@ -12,15 +12,15 @@ const lightTheme: PaletteOptions = {
     disabled: 'rgba(0, 0, 0, 0.38)'
   },
   primary: {
-    main: '#1B6ED2',
-    light: '#48CAE4',
-    dark: '#003049',
-    contrastText: '#FFFFFF'
-  },
-  secondary: {
     main: '#6930C3',
     light: '#B086F4',
     dark: '#370F75',
+    contrastText: '#FFFFFF'
+  },
+  secondary: {
+    main: '#EC4899',
+    light: '#FF7EB4',
+    dark: '#C20F9B',
     contrastText: '#FFFFFF'
   },
   error: {
@@ -36,9 +36,9 @@ const lightTheme: PaletteOptions = {
     contrastText: '#FFFFFF'
   },
   info: {
-    main: '#F72585',
-    light: '#ED62A4',
-    dark: '#A90B53',
+    main: '#29B6F6',
+    light: '#4FC3F7',
+    dark: '#0288D1',
     contrastText: '#FFFFFF'
   },
   success: {
@@ -60,9 +60,9 @@ const darkTheme: PaletteOptions = {
     disabled: 'rgba(255, 255, 255, 0.5)'
   },
   primary: {
-    main: '#1B6ED2',
-    light: '#198DF4',
-    dark: '#163EA1',
+    main: '#5117AB',
+    light: '#855BC9',
+    dark: '#430C99',
     contrastText: '#FFFFFF'
   },
   secondary: {

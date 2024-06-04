@@ -1,39 +1,69 @@
-import React from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import { paths } from '@/shared/config/routing'
 
-// TODO: feature/cfg-52, удалить позже сообщение, после того как все страницы будут соответствовать, переделать импорты всех page по примеру Register
-import LoginPage from '@/pages/session/login'
 import RegisterPage from '@/pages/session/register'
+import Profile from '@/pages/Profile'
+import Leaderboard from '@/pages/Leaderboard'
+import Forum from '@/pages/Forum'
+import ForumTopic from '@/pages/ForumTopic'
+import Login from '@/pages/Login'
+import Page404 from '@/pages/404'
 
-import Profile from '../../pages/Profile'
-import Game from '../../pages/Game'
-import Leaderboard from '../../pages/Leaderboard'
-import Page404 from '../../pages/404'
-import Page500 from '../../pages/500'
-import PublicRoute from './PublicRoute'
-import PrivateRoute from './PrivateRoute'
-import Forum from '../../pages/Forum'
-import ForumTopic from '../../pages/ForumTopic'
+import Error500Page from '@/pages/error/Error500'
 
-const AppRouter: React.FC = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path={paths.home} element={<Navigate to={paths.login} replace />} />
-        <Route path={paths.login} element={<PublicRoute component={LoginPage} />} />
-        <Route path={paths.register} element={<PublicRoute component={RegisterPage} />} />
-        <Route path={paths.profile} element={<PrivateRoute component={Profile} />} />
-        <Route path={paths.game} element={<PrivateRoute component={Game} />} />
-        <Route path={paths.leaderboard} element={<PrivateRoute component={Leaderboard} />} />
-        <Route path={paths.forum} element={<PrivateRoute component={Forum} />} />
-        <Route path={paths.forumTopic} element={<PrivateRoute component={ForumTopic} />} />
-        <Route path={paths.page500} element={<Page500 />} />
-        <Route path={paths.page404} element={<Page404 />} />
-      </Routes>
-    </Router>
-  )
+import StartGamePage from '@/pages/game/game-engine'
+
+import PrivateRoute from '@/app/router/PrivateRoute'
+import PublicRoute from '@/app/router/PublicRoute'
+import BaseLayout from '@/layouts/BaseLayout'
+
+const router = createBrowserRouter([
+  {
+    element: <BaseLayout />,
+    children: [
+      {
+        path: paths.login,
+        element: <PublicRoute component={Login} />
+      },
+      {
+        path: paths.register,
+        element: <PublicRoute component={RegisterPage} />
+      },
+      {
+        path: paths.profile,
+        element: <PrivateRoute component={Profile} />
+      },
+      {
+        path: paths.game,
+        element: <PrivateRoute component={StartGamePage} />
+      },
+      {
+        path: paths.leaderboard,
+        element: <PrivateRoute component={Leaderboard} />
+      },
+      {
+        path: paths.forum,
+        element: <PrivateRoute component={Forum} />
+      },
+      {
+        path: paths.forumTopic,
+        element: <PrivateRoute component={ForumTopic} />
+      },
+      {
+        path: paths.page500,
+        element: <Error500Page />
+      },
+      {
+        path: paths.page404,
+        element: <Page404 />
+      }
+    ]
+  }
+])
+
+const AppRouter = () => {
+  return <RouterProvider router={router} />
 }
 
 export default AppRouter
