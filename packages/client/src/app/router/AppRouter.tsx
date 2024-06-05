@@ -4,7 +4,7 @@ import { paths } from '@/shared/config/routing'
 
 import RegisterPage from '@/pages/session/register'
 import Profile from '@/pages/Profile'
-import Leaderboard from '@/pages/Leaderboard'
+import Leaderboard from '@/pages/leaderboard'
 import Forum from '@/pages/Forum'
 import ForumTopic from '@/pages/ForumTopic'
 import Login from '@/pages/Login'

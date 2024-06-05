@@ -1,3 +1,3 @@
-import Leaderboard from '@/pages/Leaderboard/LeaderBoard'
+import Leaderboard from './ui'
 
 export default Leaderboard

@@ -15,7 +15,7 @@ export interface UserState {
 
 export const initialState: UserState = {
   userData: undefined,
-  isAuth: false,
+  isAuth: true,
   isLoading: false,
   isError: undefined
 }
