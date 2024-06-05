@@ -1,29 +1,29 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 export const useStartGame = () => {
   const [isGameStarted, setGameStarted] = useState(false)
   const [isButtonDisabled, setButtonDisabled] = useState(false)
   const [progress, setProgress] = useState(0)
   const [endGame, setEndGame] = useState(false)
-  const [, setFullscreen] = useState(false)
+  const [isFullscreen, setFullscreen] = useState(false)
   const [openGame, setOpenGame] = useState(false)
 
   const rootRef = useRef<HTMLDivElement | null>(null)
 
-  useEffect(() => {
-    if (openGame) {
-      if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen()
-        setFullscreen(true)
-      }
-    }
-    if (!openGame) {
-      if (document.exitFullscreen) {
+  const toggleFullscreen = useCallback(
+    (payload: boolean) => {
+      if (!isFullscreen) {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen()
+          setFullscreen(payload)
+        }
+      } else if (document.exitFullscreen) {
         document.exitFullscreen()
-        setFullscreen(false)
+        setFullscreen(payload)
       }
-    }
-  }, [openGame])
+    },
+    [isFullscreen, setFullscreen]
+  )
 
   const handleClickOpenEndGame = () => {
     setOpenGame(true)
@@ -32,17 +32,11 @@ export const useStartGame = () => {
     setOpenGame(false)
   }
 
-  const onRetryGame = () => {
-    // TODO:feature/cfg-27 добавить логику
-  }
-  const onReturnToMenu = () => {
-    // TODO:feature/cfg-27 добавить логику
-  }
-
   const handleStopGame = () => {
     setGameStarted(false)
     setButtonDisabled(false)
     setEndGame(true)
+    toggleFullscreen(false)
   }
 
   const handleStartGame = () => {
@@ -62,10 +56,22 @@ export const useStartGame = () => {
     }, 200)
   }
 
+  const onRetryGame = () => {
+    handleCloseEndGame()
+    handleStartGame()
+  }
+
+  const onReturnToMenu = () => {
+    handleStopGame()
+  }
+
   useEffect(() => {
     if (progress >= 100) {
       setGameStarted(true)
+      toggleFullscreen(true)
     }
+    // TODO исправить
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [progress, setGameStarted])
 
   const endGameProps = {
@@ -81,7 +87,6 @@ export const useStartGame = () => {
     isGameStarted,
     isButtonDisabled,
     handleStartGame,
-    handleStopGame,
     endGame,
     endGameProps,
     rootRef
