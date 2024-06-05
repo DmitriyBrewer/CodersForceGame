@@ -7,7 +7,7 @@ import Profile from '@/pages/Profile'
 import Leaderboard from '@/pages/Leaderboard'
 import Forum from '@/pages/Forum'
 import ForumTopic from '@/pages/ForumTopic'
-import Login from '@/pages/Login'
+import LoginPage from '@/pages/session/login'
 
 import Error500Page from '@/pages/error/Error500'
 import Error404Page from '@/pages/error/Error404'
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: paths.login,
-        element: <PublicRoute component={Login} />
+        element: <PublicRoute component={LoginPage} />
       },
       {
         path: paths.register,
