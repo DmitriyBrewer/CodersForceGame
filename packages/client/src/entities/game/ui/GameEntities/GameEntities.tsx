@@ -3,8 +3,12 @@ import { FC } from 'react'
 import styles from './GameEntities.module.scss'
 import useCanvasAnimation from '../../hooks/useCanvasAnimation'
 
-const GameEntities: FC = () => {
-  const canvasRef = useCanvasAnimation()
+interface Props {
+  pause: boolean
+}
+
+const GameEntities: FC<Props> = ({ pause }) => {
+  const canvasRef = useCanvasAnimation(pause)
 
   return (
     <div className={styles.root}>

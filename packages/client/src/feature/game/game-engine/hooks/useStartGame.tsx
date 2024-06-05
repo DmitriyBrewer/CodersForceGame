@@ -6,7 +6,7 @@ export const useStartGame = () => {
   const [progress, setProgress] = useState(0)
   const [endGame, setEndGame] = useState(false)
   const [isFullscreen, setFullscreen] = useState(false)
-  const [openGame, setOpenGame] = useState(false)
+  const [openMenuGame, setOpenMenuGame] = useState(false)
 
   const rootRef = useRef<HTMLDivElement | null>(null)
 
@@ -26,10 +26,10 @@ export const useStartGame = () => {
   )
 
   const handleClickOpenEndGame = () => {
-    setOpenGame(true)
+    setOpenMenuGame(true)
   }
   const handleCloseEndGame = () => {
-    setOpenGame(false)
+    setOpenMenuGame(false)
   }
 
   const handleStopGame = () => {
@@ -75,10 +75,10 @@ export const useStartGame = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [progress, setGameStarted])
 
-  const endGameProps = {
+  const menuGameProps = {
     onRetryGame,
     onReturnToMenu,
-    openGame,
+    openMenuGame,
     handleCloseEndGame,
     handleClickOpenEndGame
   }
@@ -89,7 +89,7 @@ export const useStartGame = () => {
     isButtonDisabled,
     handleStartGame,
     endGame,
-    endGameProps,
+    menuGameProps,
     rootRef
   }
 }

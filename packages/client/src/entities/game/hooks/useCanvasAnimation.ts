@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react'
 
-const useCanvasAnimation = () => {
+const useCanvasAnimation = (pause: boolean) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
 
   useEffect(() => {

@@ -16,19 +16,25 @@ import styles from './EndGame.module.scss'
 interface Props {
   onRetryGame: () => void
   onReturnToMenu: () => void
-  openGame: boolean
+  openMenuGame: boolean
   handleCloseEndGame: () => void
   handleClickOpenEndGame: () => void
 }
 
-const EndGame: FC<Props> = ({ handleClickOpenEndGame, handleCloseEndGame, onRetryGame, onReturnToMenu, openGame }) => {
+const EndGame: FC<Props> = ({
+  handleClickOpenEndGame,
+  handleCloseEndGame,
+  onRetryGame,
+  onReturnToMenu,
+  openMenuGame
+}) => {
   return (
     <BaseBox className={styles.end}>
       <BaseButton variant="text" color="info" onClick={handleClickOpenEndGame}>
         Меню
       </BaseButton>
 
-      <BaseDialog onClose={handleCloseEndGame} open={openGame}>
+      <BaseDialog onClose={handleCloseEndGame} open={openMenuGame}>
         <BaseBox className={styles.end__wrapper}>
           <BaseDialogTitle>Игра закончена</BaseDialogTitle>
         </BaseBox>
