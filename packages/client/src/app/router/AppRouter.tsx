@@ -15,7 +15,11 @@ import StartGamePage from '@/pages/game/game-engine'
 
 import ForumPage from '@/pages/forum'
 
-import ForumTopic from '@/pages/forumTopic'
+import ForumTopic from '@/pages/TopicListPage'
+
+import TopicListPage from '@/pages/TopicListPage'
+
+import TopicDetailPage from '@/pages/TopicDetailPage'
 
 import PrivateRoute from '@/app/router/PrivateRoute'
 import PublicRoute from '@/app/router/PublicRoute'
@@ -45,15 +49,22 @@ const router = createBrowserRouter([
         path: paths.leaderboard,
         element: <PrivateRoute component={Leaderboard} />
       },
+      // {
+      //   path: paths.forum,
+      //   element: <PrivateRoute component={ForumPage} />
+      // },
+      // {
+      //   path: paths.forumTopic,
+      //   element: <PrivateRoute component={ForumTopic} />
+      // },
       {
         path: paths.forum,
-        element: <PrivateRoute component={ForumPage} />
+        element: <PrivateRoute component={TopicListPage} />
       },
       {
-        path: paths.forumTopic,
-        element: <PrivateRoute component={ForumTopic} />
+        path: paths.newForumTopic,
+        element: <PrivateRoute component={TopicDetailPage} />
       },
-
       {
         path: paths.page500,
         element: <Error500Page />

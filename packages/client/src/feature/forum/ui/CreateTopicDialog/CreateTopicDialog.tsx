@@ -20,7 +20,7 @@ const CreateTopicDialog: FC<{ open: boolean; onClose: () => void }> = ({ open, o
   return (
     <BaseDialog open={open} onClose={onClose}>
       <BaseDialogTitle className={styles.title} color="info">
-        Создать топик
+        Новый топик
       </BaseDialogTitle>
       <BaseDialogContent>
         <BaseTextField label="Заголовок" value={title} onChange={e => setTitle(e.target.value)} fullWidth />

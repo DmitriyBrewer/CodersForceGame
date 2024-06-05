@@ -7,6 +7,7 @@ export const paths = {
   leaderboard: '/leaderboard',
   forum: '/forum',
   forumTopic: '/forumTopic',
+  newForumTopic: 'newForumTopic',
   page404: '*',
   page500: '/500'
 }
