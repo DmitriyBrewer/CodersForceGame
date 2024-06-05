@@ -9,6 +9,8 @@ import BaseBox from '@/shared/components/ui/BaseBox'
 import BaseDialog from '@/shared/components/ui/BaseDialog'
 import BaseDialogTitle from '@/shared/components/ui/BaseDialogTitle'
 
+import { IconReplay } from '@/shared/components/icons/iconsMui'
+
 import styles from './EndGame.module.scss'
 
 interface Props {
@@ -23,7 +25,7 @@ const EndGame: FC<Props> = ({ handleClickOpenEndGame, handleCloseEndGame, onRetr
   return (
     <BaseBox className={styles.end}>
       <BaseButton variant="text" color="info" onClick={handleClickOpenEndGame}>
-        Завершить игру
+        Меню
       </BaseButton>
 
       <BaseDialog onClose={handleCloseEndGame} open={openGame}>
@@ -34,6 +36,7 @@ const EndGame: FC<Props> = ({ handleClickOpenEndGame, handleCloseEndGame, onRetr
         <DialogContent className={styles.end__content}>
           <BaseButton onClick={onRetryGame} variant="contained" color="secondary">
             Попробовать снова
+            <IconReplay />
           </BaseButton>
 
           <BaseButton onClick={onReturnToMenu} variant="contained">
