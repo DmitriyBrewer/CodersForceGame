@@ -13,10 +13,6 @@ import Error500Page from '@/pages/error/Error500'
 
 import StartGamePage from '@/pages/game/game-engine'
 
-import ForumPage from '@/pages/forum'
-
-import ForumTopic from '@/pages/TopicListPage'
-
 import TopicListPage from '@/pages/TopicListPage'
 
 import TopicDetailPage from '@/pages/TopicDetailPage'
@@ -49,20 +45,12 @@ const router = createBrowserRouter([
         path: paths.leaderboard,
         element: <PrivateRoute component={Leaderboard} />
       },
-      // {
-      //   path: paths.forum,
-      //   element: <PrivateRoute component={ForumPage} />
-      // },
-      // {
-      //   path: paths.forumTopic,
-      //   element: <PrivateRoute component={ForumTopic} />
-      // },
       {
         path: paths.forum,
         element: <PrivateRoute component={TopicListPage} />
       },
       {
-        path: paths.newForumTopic,
+        path: paths.forumTopic,
         element: <PrivateRoute component={TopicDetailPage} />
       },
       {
