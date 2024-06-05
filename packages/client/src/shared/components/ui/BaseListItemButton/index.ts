@@ -1,3 +1,3 @@
-import BaseListItemButton from './BaseListItemButton'
+import BaseListItemButton from './BaseListItem'
 
 export default BaseListItemButton

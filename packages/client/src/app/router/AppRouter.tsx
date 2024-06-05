@@ -15,6 +15,8 @@ import StartGamePage from '@/pages/game/game-engine'
 
 import ForumPage from '@/pages/forum'
 
+import ForumTopic from '@/pages/forumTopic'
+
 import PrivateRoute from '@/app/router/PrivateRoute'
 import PublicRoute from '@/app/router/PublicRoute'
 import BaseLayout from '@/layouts/BaseLayout'
@@ -46,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: paths.forum,
         element: <PrivateRoute component={ForumPage} />
+      },
+      {
+        path: paths.forumTopic,
+        element: <PrivateRoute component={ForumTopic} />
       },
 
       {

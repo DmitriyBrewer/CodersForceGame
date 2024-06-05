@@ -1,0 +1,26 @@
+.container {
+  padding: var(--s16);
+}
+
+.paper {
+  margin-bottom: var(--m20);
+  padding: var(--s16);
+}
+
+.reply {
+  margin-left: auto;
+}
+
+.title {
+  margin-left: var(--m20);
+}
+
+.box_reply {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--m20);
+}
+
+.comment {
+  align-self: flex-end;
+}
