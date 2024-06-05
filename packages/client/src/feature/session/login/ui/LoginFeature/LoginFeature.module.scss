@@ -1,0 +1,10 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  height: var(--h100vh);
+  padding: var(--s120) 0 var(--s40) 0;
+}

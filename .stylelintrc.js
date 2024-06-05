@@ -4,6 +4,7 @@ module.exports = {
   "rules": {
     "prettier/prettier": true,
     "declaration-no-important": true,
-    "value-keyword-case": ["lower", { "ignoreProperties": ["/^\\--font-family/"] }]
+    "value-keyword-case": ["lower", { "ignoreProperties": ["/^\\--font-family/"] }],
+    'selector-class-pattern': /^[a-z0-9]*([A-Z][a-z0-9]*)?$/,
   }
 }

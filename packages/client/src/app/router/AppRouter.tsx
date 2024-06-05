@@ -7,7 +7,7 @@ import Profile from '@/pages/Profile'
 import Leaderboard from '@/pages/Leaderboard'
 import Forum from '@/pages/Forum'
 import ForumTopic from '@/pages/ForumTopic'
-import Login from '@/pages/Login'
+import LoginPage from '@/pages/session/login'
 import Page404 from '@/pages/404'
 
 import Error500Page from '@/pages/error/Error500'
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: paths.login,
-        element: <PublicRoute component={Login} />
+        element: <PublicRoute component={LoginPage} />
       },
       {
         path: paths.register,
