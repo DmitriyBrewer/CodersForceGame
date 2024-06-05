@@ -10,14 +10,14 @@ export interface UserState {
   userData?: UserData
   isAuth: boolean
   isLoading: boolean
-  isError?: string
+  errorMessage?: string
 }
 
 export const initialState: UserState = {
   userData: undefined,
   isAuth: false,
   isLoading: false,
-  isError: undefined
+  errorMessage: undefined
 }
 
 const userSlice = createSlice({
@@ -32,7 +32,7 @@ const userSlice = createSlice({
       state.isLoading = action.payload
     },
     setError: (state: UserState, action: PayloadAction<string>) => {
-      state.isError = action.payload
+      state.errorMessage = action.payload
     }
   }
 })
