@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 // TODO: feature/cfg-37 , удалить позже сообщение,  тестовая логика для старта игры
 export const useStartGame = () => {
@@ -8,6 +8,14 @@ export const useStartGame = () => {
   const [endGame, setEndGame] = useState(false)
 
   const [openGame, setOpenGame] = useState(false)
+
+  const rootRef = useRef<HTMLDivElement | null>(null)
+
+  const toggleFullscreen = () => {
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen()
+    }
+  }
 
   const handleClickOpenEndGame = () => {
     setOpenGame(true)
@@ -51,6 +59,7 @@ export const useStartGame = () => {
   useEffect(() => {
     if (progress >= 100) {
       setGameStarted(true)
+      toggleFullscreen()
     }
   }, [progress, setGameStarted])
 
@@ -69,6 +78,7 @@ export const useStartGame = () => {
     handleStartGame,
     handleStopGame,
     endGame,
-    endGameProps
+    endGameProps,
+    rootRef
   }
 }
