@@ -1,5 +1,7 @@
 import { FC, Fragment } from 'react'
 
+import GameEntities from '@/entities/game/ui/GameEntities'
+
 import { useStartGame } from '../../hooks/useStartGame'
 import StartGame from '../StartGame/StartGame'
 import StopGame from '../StopGame'
@@ -14,6 +16,7 @@ const GameEngineFeature: FC = () => {
 
   return (
     <>
+      <GameEntities />
       <StopGame handleStopGame={handleStopGame} />
       <EndGame {...endGameProps} />
     </>

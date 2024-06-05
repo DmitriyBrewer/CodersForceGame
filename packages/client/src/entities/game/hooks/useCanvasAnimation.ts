@@ -1,8 +1,6 @@
-import { useRef, useEffect, FC } from 'react'
+import { useRef, useEffect } from 'react'
 
-import styles from './CanvasFrame.module.scss'
-// TODO: feature/cfg-37 временный компонент frame для примера, удалить позже
-const CanvasFrame: FC = () => {
+const useCanvasAnimation = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
 
   useEffect(() => {
@@ -36,18 +34,13 @@ const CanvasFrame: FC = () => {
 
     animate()
 
-    // TODO: feature/cfg-37 eslint временный, компонент будет полностью переделан
     // eslint-disable-next-line consistent-return
     return () => {
       cancelAnimationFrame(requestId)
     }
   }, [])
 
-  return (
-    <div className={styles.root}>
-      <canvas ref={canvasRef} className={styles.root__canvas} />
-    </div>
-  )
+  return canvasRef
 }
 
-export default CanvasFrame
+export default useCanvasAnimation
