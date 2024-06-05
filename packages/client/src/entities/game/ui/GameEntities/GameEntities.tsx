@@ -4,13 +4,12 @@ import styles from './GameEntities.module.scss'
 import useCanvasAnimation from '../../hooks/useCanvasAnimation'
 
 const GameEntities: FC = () => {
-  // const canvasRef = useCanvasAnimation()
+  const canvasRef = useCanvasAnimation()
 
   return (
-    // <div className={styles.root}>
-    //   <canvas ref={canvasRef} className={styles.root__canvas} />
-    // </div>
-    <p>игры</p>
+    <div className={styles.root}>
+      <canvas ref={canvasRef} className={styles.root__canvas} />
+    </div>
   )
 }
 

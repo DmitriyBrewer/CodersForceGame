@@ -62,6 +62,7 @@ export const useStartGame = () => {
   }
 
   const onReturnToMenu = () => {
+    handleCloseEndGame()
     handleStopGame()
   }
 
