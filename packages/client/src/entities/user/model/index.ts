@@ -1,30 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export interface UserData {
-  id: string
-  name: string
-  email: string
-}
+import { User } from '../types'
 
 export interface UserState {
-  userData?: UserData
+  userData?: User
   isAuth: boolean
   isLoading: boolean
-  isError?: string
+  errorMessage?: string
 }
 
 export const initialState: UserState = {
-  userData: undefined,
-  isAuth: true,
-  isLoading: false,
-  isError: undefined
+  isAuth: false,
+  isLoading: false
 }
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setAuthUser: (state: UserState, action: PayloadAction<UserData>) => {
+    setAuthUser: (state: UserState, action: PayloadAction<User>) => {
       state.userData = action.payload
       state.isAuth = true
     },
@@ -32,7 +26,7 @@ const userSlice = createSlice({
       state.isLoading = action.payload
     },
     setError: (state: UserState, action: PayloadAction<string>) => {
-      state.isError = action.payload
+      state.errorMessage = action.payload
     }
   }
 })
