@@ -12,9 +12,9 @@ import Error500Page from '@/pages/error/error-500'
 
 import StartGamePage from '@/pages/game/game-engine'
 
-import LeaderBoardPage from '@/pages/leaderboard/ui'
-
 import Error404Page from '@/pages/error/error-404'
+
+import LeaderBoardPage from '@/pages/leaderboard'
 
 import PrivateRoute from '@/app/router/PrivateRoute'
 import PublicRoute from '@/app/router/PublicRoute'
