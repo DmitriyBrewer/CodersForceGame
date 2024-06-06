@@ -8,6 +8,7 @@ const useCanvasAnimation = (
 ) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const requestIdRef = useRef<number>()
+  const animationStopped = useRef<boolean>(false)
 
   useEffect(() => {
     if (!canvasRef.current) return
@@ -34,18 +35,24 @@ const useCanvasAnimation = (
     }
 
     const animate = () => {
+      if (animationStopped.current) {
+        return
+      }
+
       draw()
     }
 
     if (stop && requestIdRef.current) {
       cancelAnimationFrame(requestIdRef.current)
+      animationStopped.current = true
     }
 
     if (restart && requestIdRef.current) {
       cancelAnimationFrame(requestIdRef.current)
+      animationStopped.current = false
     }
 
-    if (!pause) {
+    if (!pause && !animationStopped.current) {
       animate()
     }
 
@@ -54,7 +61,6 @@ const useCanvasAnimation = (
     }, 2000)
 
     // TODO:feature/cfg-65 тут сделал ignore по месту, по другому не получается, а в целом отключать правило consistent-return нет смысла
-    // Очистка таймера при размонтировании компонента
     // eslint-disable-next-line consistent-return
     return () => {
       clearTimeout(timeoutId)
