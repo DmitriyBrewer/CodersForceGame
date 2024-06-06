@@ -1,5 +1,8 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+
+import { getAuth } from '@/entities/user/model/selector'
 
 interface Props {
   component: React.FC
@@ -7,9 +10,10 @@ interface Props {
 
 const PrivateRoute = (props: Props) => {
   const { component: Component } = props
-  const isAuthenticated = true || Boolean(localStorage.getItem('authToken'))
+  const isAuth = useSelector(getAuth)
+  console.log(isAuth)
 
-  return isAuthenticated ? <Component /> : <Navigate to="/login" />
+  return isAuth ? <Component /> : <Navigate to="/login" />
 }
 
 export default PrivateRoute
