@@ -2,10 +2,11 @@ import { FC, PropsWithChildren } from 'react'
 
 import BaseButton from '@/shared/components/ui/BaseButton'
 import BaseDialog from '@/shared/components/ui/BaseDialog'
-import LeaderBoard from '@/pages/leaderboard/ui'
 import BaseIconButton from '@/shared/components/ui/BaseIconButton'
 import { IconClose } from '@/shared/components/icons/iconsMui'
 import BaseBox from '@/shared/components/ui/BaseBox'
+
+import LeaderBoardWidget from '@/widgets/leaderboard'
 
 import styles from './GameLeaderboardButton.module.scss'
 
@@ -32,7 +33,7 @@ const GameLeaderboardButton: FC<PropsWithChildren<Props>> = ({
             <IconClose />
           </BaseIconButton>
         </BaseBox>
-        <LeaderBoard />
+        <LeaderBoardWidget />
       </BaseDialog>
     </>
   )
