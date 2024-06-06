@@ -13,7 +13,8 @@ import styles from './GameEngineFeature.module.scss'
 import GameMenu from '../GameMenu'
 
 const GameEngineFeature: FC = () => {
-  const { progress, isGameStarted, isButtonDisabled, handleStartGame, menuGameProps, restart } = useStartGame()
+  const { progress, isGameStarted, isButtonDisabled, handleStartGame, menuGameProps, restart, endGame, setEndGame } =
+    useStartGame()
 
   if (!isGameStarted) {
     return <StartGame progress={progress} isButtonDisabled={isButtonDisabled} handleStartGame={handleStartGame} />
@@ -21,8 +22,8 @@ const GameEngineFeature: FC = () => {
 
   return (
     <BaseBox className={styles.root} sx={styleMui.bgColorGame}>
-      <GameEntities pause={menuGameProps.openMenuGame} restart={restart} />
-      <GameMenu {...menuGameProps} />
+      <GameEntities pause={menuGameProps.openMenuGame} restart={restart} stop={endGame} setEndGame={setEndGame} />
+      <GameMenu {...menuGameProps} endGame={endGame} />
     </BaseBox>
   )
 }

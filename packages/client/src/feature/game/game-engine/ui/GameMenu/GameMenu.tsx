@@ -23,6 +23,7 @@ interface Props {
   openLeaderboard: boolean
   handleOpenLeaderboard: () => void
   handleCloseLeaderboard: () => void
+  endGame: boolean
 }
 
 const GameMenu: FC<Props> = ({
@@ -33,8 +34,12 @@ const GameMenu: FC<Props> = ({
   openMenuGame,
   openLeaderboard,
   handleOpenLeaderboard,
-  handleCloseLeaderboard
+  handleCloseLeaderboard,
+  endGame
 }) => {
+  const menuTitle = endGame ? 'Игра закончена' : 'Пауза'
+  const menuEndGame = endGame ? 'Перейти в главное меню' : 'Закончить игру'
+
   return (
     <BaseBox className={styles.end}>
       <BaseButton variant="text" color="info" onClick={handleClickOpenEndGame}>
@@ -43,7 +48,7 @@ const GameMenu: FC<Props> = ({
 
       <BaseDialog onClose={handleCloseEndGame} open={openMenuGame}>
         <BaseBox className={styles.end__wrapper}>
-          <BaseDialogTitle>Игра закончена</BaseDialogTitle>
+          <BaseDialogTitle>{menuTitle}</BaseDialogTitle>
         </BaseBox>
 
         <DialogContent className={styles.end__content}>
@@ -56,7 +61,7 @@ const GameMenu: FC<Props> = ({
             Таблица лидеров
           </GameLeaderboardButton>
 
-          <EndGameButton onReturnToMenu={onReturnToMenu}>Закончить игру</EndGameButton>
+          <EndGameButton onReturnToMenu={onReturnToMenu}>{menuEndGame}</EndGameButton>
         </DialogContent>
       </BaseDialog>
     </BaseBox>

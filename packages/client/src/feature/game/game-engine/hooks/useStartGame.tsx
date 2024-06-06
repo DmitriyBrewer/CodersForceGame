@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 export const useStartGame = () => {
   const [isGameStarted, setGameStarted] = useState(false)
@@ -9,8 +9,6 @@ export const useStartGame = () => {
   const [openMenuGame, setOpenMenuGame] = useState(false)
   const [restart, setRestart] = useState(false)
   const [openLeaderboard, setOpenLeaderboard] = useState(false)
-
-  const rootRef = useRef<HTMLDivElement | null>(null)
 
   const toggleFullscreen = useCallback(
     (payload: boolean) => {
@@ -87,6 +85,12 @@ export const useStartGame = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [progress, setGameStarted])
 
+  useEffect(() => {
+    if (endGame) {
+      setOpenMenuGame(true)
+    }
+  }, [endGame])
+
   const menuGameProps = {
     onRetryGame,
     onReturnToMenu,
@@ -103,9 +107,9 @@ export const useStartGame = () => {
     isGameStarted,
     isButtonDisabled,
     handleStartGame,
-    endGame,
     menuGameProps,
-    rootRef,
-    restart
+    restart,
+    endGame,
+    setEndGame
   }
 }
