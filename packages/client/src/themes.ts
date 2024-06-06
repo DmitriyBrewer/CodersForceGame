@@ -56,7 +56,7 @@ const darkTheme: PaletteOptions = {
     paper: '#323232'
   },
   text: {
-    primary: 'red',
+    primary: 'rgba(255, 255, 255, 1)',
     secondary: 'rgba(255, 255, 255, 0.7)',
     disabled: 'rgba(255, 255, 255, 0.5)'
   },
