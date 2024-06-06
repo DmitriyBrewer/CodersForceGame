@@ -1,5 +1,6 @@
 import { createTheme } from '@mui/material/styles'
 import { PaletteOptions } from '@mui/material/styles/createPalette'
+import { PaletteMode } from '@mui/material'
 
 const lightTheme: PaletteOptions = {
   background: {
@@ -97,10 +98,15 @@ const darkTheme: PaletteOptions = {
   }
 }
 
-export const lightMuiTheme = createTheme({
+const lightMuiTheme = createTheme({
   palette: lightTheme
 })
 
-export const darkMuiTheme = createTheme({
+const darkMuiTheme = createTheme({
   palette: darkTheme
+})
+
+export const getDesignTokens = (mode: PaletteMode) => ({
+  mode,
+  ...(mode === 'dark' ? darkMuiTheme : lightMuiTheme)
 })
