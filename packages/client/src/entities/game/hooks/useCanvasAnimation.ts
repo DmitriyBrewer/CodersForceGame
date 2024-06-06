@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react'
 
-const useCanvasAnimation = (pause: boolean) => {
+const useCanvasAnimation = (pause: boolean, restart: boolean) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const requestIdRef = useRef<number>()
 
@@ -32,17 +32,22 @@ const useCanvasAnimation = (pause: boolean) => {
       draw()
     }
 
+    if (restart && requestIdRef.current) {
+      cancelAnimationFrame(requestIdRef.current)
+    }
+
     if (!pause) {
       animate()
     }
 
+    // TODO:feature/cfg-65 тут сделал ignore по месту, по другому не получается, а в целом отключать правило consistent-return нет смысла
     // eslint-disable-next-line consistent-return
     return () => {
       if (requestIdRef.current) {
         cancelAnimationFrame(requestIdRef.current)
       }
     }
-  }, [pause])
+  }, [pause, restart])
 
   return canvasRef
 }

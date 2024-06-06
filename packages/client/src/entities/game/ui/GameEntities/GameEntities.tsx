@@ -5,10 +5,11 @@ import useCanvasAnimation from '../../hooks/useCanvasAnimation'
 
 interface Props {
   pause: boolean
+  restart: boolean
 }
 
-const GameEntities: FC<Props> = ({ pause }) => {
-  const canvasRef = useCanvasAnimation(pause)
+const GameEntities: FC<Props> = ({ pause, restart }) => {
+  const canvasRef = useCanvasAnimation(pause, restart)
 
   return (
     <div className={styles.root}>

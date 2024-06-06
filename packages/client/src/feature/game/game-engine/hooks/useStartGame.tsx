@@ -7,6 +7,7 @@ export const useStartGame = () => {
   const [endGame, setEndGame] = useState(false)
   const [isFullscreen, setFullscreen] = useState(false)
   const [openMenuGame, setOpenMenuGame] = useState(false)
+  const [restart, setRestart] = useState(false)
 
   const rootRef = useRef<HTMLDivElement | null>(null)
 
@@ -58,7 +59,9 @@ export const useStartGame = () => {
 
   const onRetryGame = () => {
     handleCloseEndGame()
+    handleStopGame()
     handleStartGame()
+    setRestart(true)
   }
 
   const onReturnToMenu = () => {
@@ -90,6 +93,7 @@ export const useStartGame = () => {
     handleStartGame,
     endGame,
     menuGameProps,
-    rootRef
+    rootRef,
+    restart
   }
 }
