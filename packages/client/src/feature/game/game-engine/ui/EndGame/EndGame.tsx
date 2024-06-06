@@ -41,12 +41,11 @@ const EndGame: FC<Props> = ({
 
         <DialogContent className={styles.end__content}>
           <BaseButton onClick={onRetryGame} variant="contained" color="secondary">
-            Попробовать снова
             <IconReplay />
           </BaseButton>
 
           <BaseButton onClick={onReturnToMenu} variant="contained">
-            Вернуться в главное меню
+            Закончить игру
           </BaseButton>
         </DialogContent>
       </BaseDialog>
