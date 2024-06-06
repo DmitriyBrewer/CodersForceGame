@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { paths } from '@/shared/config/routing'
 
 import RegisterPage from '@/pages/session/register'
-import Profile from '@/pages/Profile'
+import Profile from '@/pages/profile'
 import Leaderboard from '@/pages/Leaderboard'
 import Forum from '@/pages/Forum'
 import ForumTopic from '@/pages/ForumTopic'
