@@ -13,9 +13,9 @@ import Error500Page from '@/pages/error/Error500'
 
 import StartGamePage from '@/pages/game/game-engine'
 
-import TopicListPage from '@/pages/TopicListPage'
+import ForumPage from '@/pages/Forum'
 
-import TopicDetailPage from '@/pages/TopicDetailPage'
+import ForumTopicPage from '@/pages/ForumTopicPage'
 
 import PrivateRoute from '@/app/router/PrivateRoute'
 import PublicRoute from '@/app/router/PublicRoute'
@@ -47,11 +47,11 @@ const router = createBrowserRouter([
       },
       {
         path: paths.forum,
-        element: <PrivateRoute component={TopicListPage} />
+        element: <PrivateRoute component={ForumPage} />
       },
       {
         path: paths.forumTopic,
-        element: <PrivateRoute component={TopicDetailPage} />
+        element: <PrivateRoute component={ForumTopicPage} />
       },
       {
         path: paths.page500,

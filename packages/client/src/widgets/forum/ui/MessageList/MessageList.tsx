@@ -1,4 +1,6 @@
-import { Dispatch, FC, SetStateAction, useState } from 'react'
+import { Dispatch, FC, SetStateAction } from 'react'
+
+import { useSelector } from 'react-redux'
 
 import BaseButton from '@/shared/components/ui/BaseButton'
 import BaseListItemButton from '@/shared/components/ui/BaseListItemButton'
@@ -7,19 +9,23 @@ import BasePaper from '@/shared/components/ui/BasePaper'
 
 import BaseBox from '@/shared/components/ui/BaseBox'
 
+import { Message } from '@/entities/message/types'
+
+import { getMessages } from '@/entities/message/model/selector'
+
 import styles from './MessageList.module.scss'
-import { Message } from '@/feature/forum/ui/AddMessage/AddMessage'
 
 interface Props {
-  messages: Message[]
   setReplyToId: Dispatch<SetStateAction<number | null>>
 }
 
 const MessageList: FC<Props> = props => {
-  const { messages, setReplyToId } = props
+  const messagesData = useSelector(getMessages)
+
+  const { setReplyToId } = props
   const getPrimaryText = (messageItem: Message) => {
     if (messageItem.replyToId) {
-      const originalMessage = messages.find(m => m.id === messageItem.replyToId)?.message
+      const originalMessage = messagesData?.find(m => m.id === messageItem.replyToId)?.message
       return `Ответ на: ${originalMessage}\n${messageItem.message}`
     }
     return messageItem.message
@@ -32,7 +38,7 @@ const MessageList: FC<Props> = props => {
   return (
     <BaseBox className={styles.root}>
       <BasePaper elevation={3} className={styles.paper}>
-        {messages.map(messageItem => (
+        {messagesData?.map(messageItem => (
           <BaseListItemButton key={messageItem.id}>
             <BaseListItemText
               primary={getPrimaryText(messageItem)}

@@ -1,49 +1,43 @@
 /* eslint-disable react/require-default-props */
 import { Dispatch, FC, SetStateAction, useState } from 'react'
 
+import { useDispatch, useSelector } from 'react-redux'
+
 import BaseBox from '@/shared/components/ui/BaseBox'
 import BaseTypography from '@/shared/components/ui/BaseTypography'
 import BaseTextField from '@/shared/components/ui/BaseTextField'
 import BaseButton from '@/shared/components/ui/BaseButton'
 
-import styles from './AddMessage.module.scss'
+import { addMessage } from '@/entities/message/model'
 
-export interface Message {
-  id: number
-  message: string
-  autor: string
-  date: string
-  replyToId?: number | null
-}
+import { getMessages } from '@/entities/message/model/selector'
+
+import styles from './AddMessage.module.scss'
 
 interface Props {
   replyToId?: number | null
-  messages: Message[]
-  setMessages: Dispatch<SetStateAction<Message[]>>
   setReplyToId: Dispatch<SetStateAction<number | null>>
 }
 
-const CURRENT_USER = 'Автор 4'
-
 const AddMessage: FC<Props> = props => {
-  const { replyToId, messages, setMessages, setReplyToId } = props
+  const { replyToId = null, setReplyToId } = props
 
   const [newMessage, setNewMessage] = useState<string>('')
 
+  const messagesData = useSelector(getMessages)
+
+  const dispatch = useDispatch()
+
   const handleAddMessage = () => {
-    // TODO запрос к апи за айди сообщения
-    setMessages(prev => {
-      const newMessages = [...prev]
-      newMessages.push({
-        id: newMessages.length + 1,
-        autor: CURRENT_USER,
+    dispatch(
+      addMessage({
+        id: 6,
+        autor: 'asd',
         date: new Date().toISOString(),
         message: newMessage,
         replyToId: replyToId || undefined
       })
-
-      return newMessages
-    })
+    )
 
     setNewMessage('')
     setReplyToId(null)
@@ -56,9 +50,11 @@ const AddMessage: FC<Props> = props => {
   return (
     <BaseBox className={styles.root}>
       {replyToId && (
-        <BaseTypography variant="body2" color="textSecondary" gutterBottom>
-          Ответ на: {messages.find(m => m.id === replyToId)?.message}
-        </BaseTypography>
+        <BaseBox className={styles.reply}>
+          <BaseTypography variant="body2" color="textSecondary" gutterBottom>
+            Ответ на: {messagesData.find(m => m.id === replyToId)?.message}
+          </BaseTypography>
+        </BaseBox>
       )}
       <BaseTextField
         color="info"
