@@ -1,6 +1,6 @@
 import { Component, ReactNode } from 'react'
 
-import Page404 from '@/pages/404'
+import Page404 from '@/pages/error/Error404'
 
 interface ErrorBoundaryProps {
   children: ReactNode
