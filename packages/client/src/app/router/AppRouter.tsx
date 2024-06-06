@@ -14,7 +14,7 @@ import StartGamePage from '@/pages/game/game-engine'
 
 import Error404Page from '@/pages/error/error-404'
 
-import LeaderBoardPage from '@/pages/leaderboard'
+import LeaderboardPage from '@/pages/leaderboard'
 
 import PrivateRoute from '@/app/router/PrivateRoute'
 import PublicRoute from '@/app/router/PublicRoute'
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
       },
       {
         path: paths.leaderboard,
-        element: <PrivateRoute component={LeaderBoardPage} />
+        element: <PrivateRoute component={LeaderboardPage} />
       },
       {
         path: paths.forum,

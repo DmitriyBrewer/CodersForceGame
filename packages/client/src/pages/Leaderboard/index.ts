@@ -1,3 +1,3 @@
-import Leaderboard from './ui/index'
+import LeaderboardPage from './ui/index'
 
-export default Leaderboard
+export default LeaderboardPage
