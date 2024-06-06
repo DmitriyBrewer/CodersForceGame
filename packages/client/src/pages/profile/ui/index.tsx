@@ -1,5 +1,7 @@
+import ProfileWidget from '@/widgets/profileWidget/ui/ProfileWidget'
+
 const ProfilePage = () => {
-  return <h1>Profile new</h1>
+  return <ProfileWidget />
 }
 
 export default ProfilePage

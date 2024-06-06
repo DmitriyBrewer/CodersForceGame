@@ -32,7 +32,7 @@ const router = createBrowserRouter([
       },
       {
         path: paths.profile,
-        element: <PrivateRoute component={Profile} />
+        element: <PublicRoute component={Profile} />
       },
       {
         path: paths.game,
