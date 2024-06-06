@@ -14,7 +14,7 @@ import StartGamePage from '@/pages/game/game-engine'
 
 import Error404Page from '@/pages/error/error-404'
 
-import LeaderboardPage from '@/pages/leaderboard'
+import LeaderboardPage from '@/pages/leader-board'
 
 import PrivateRoute from '@/app/router/PrivateRoute'
 import PublicRoute from '@/app/router/PublicRoute'
