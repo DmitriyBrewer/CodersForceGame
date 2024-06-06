@@ -81,7 +81,7 @@ module.exports = {
       }
     ],
     'prettier/prettier': 'error',
-    // TODO: feature/cfg-23 удалить сообщение позже, поставил разрешение spread, например {...props}
-    'react/jsx-props-no-spreading': 'off'
+    // TODO: feature/feature/cfg-70 разрешаю использовать state.nameParam = value напряму без return {...state, namePara: value}
+    'no-param-reassign': 'off'
   }
 }
