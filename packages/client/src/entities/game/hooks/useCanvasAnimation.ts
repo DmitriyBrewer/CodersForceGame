@@ -2,13 +2,13 @@ import { useRef, useEffect } from 'react'
 
 const useCanvasAnimation = (pause: boolean) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const requestIdRef = useRef<number>()
 
   useEffect(() => {
     if (!canvasRef.current) return
 
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
-    let requestId: number
 
     const draw = () => {
       if (!ctx) return
@@ -25,20 +25,24 @@ const useCanvasAnimation = (pause: boolean) => {
       ctx.fillStyle = color
       ctx.fill()
 
-      requestId = requestAnimationFrame(draw)
+      requestIdRef.current = requestAnimationFrame(draw)
     }
 
     const animate = () => {
       draw()
     }
 
-    animate()
+    if (!pause) {
+      animate()
+    }
 
     // eslint-disable-next-line consistent-return
     return () => {
-      cancelAnimationFrame(requestId)
+      if (requestIdRef.current) {
+        cancelAnimationFrame(requestIdRef.current)
+      }
     }
-  }, [])
+  }, [pause])
 
   return canvasRef
 }
