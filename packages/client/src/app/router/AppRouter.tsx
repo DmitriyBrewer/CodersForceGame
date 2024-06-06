@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 
 import { paths } from '@/shared/config/routing'
 
@@ -7,9 +7,9 @@ import Profile from '@/pages/Profile'
 import Leaderboard from '@/pages/Leaderboard'
 
 import LoginPage from '@/pages/session/login'
-import Page404 from '@/pages/404'
 
 import Error500Page from '@/pages/error/Error500'
+import Error404Page from '@/pages/error/Error404'
 
 import StartGamePage from '@/pages/game/game-engine'
 
@@ -25,6 +25,15 @@ const router = createBrowserRouter([
   {
     element: <BaseLayout />,
     children: [
+      {
+        path: paths.home,
+        element: (
+          <>
+            <Navigate to={paths.game} />
+            <PrivateRoute component={StartGamePage} />
+          </>
+        )
+      },
       {
         path: paths.login,
         element: <PublicRoute component={LoginPage} />
@@ -59,7 +68,7 @@ const router = createBrowserRouter([
       },
       {
         path: paths.page404,
-        element: <Page404 />
+        element: <Error404Page />
       }
     ]
   }
