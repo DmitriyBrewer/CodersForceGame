@@ -1,3 +1,3 @@
-import ErrorPageWidget from './ui/ErrorPageWidget'
+import ErrorPageWidget from './ui'
 
 export default ErrorPageWidget
