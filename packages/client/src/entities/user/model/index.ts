@@ -10,10 +10,8 @@ export interface UserState {
 }
 
 export const initialState: UserState = {
-  userData: undefined,
   isAuth: false,
-  isLoading: false,
-  errorMessage: undefined
+  isLoading: false
 }
 
 const userSlice = createSlice({
