@@ -79,11 +79,14 @@ export const useGame = () => {
   useEffect(() => {
     if (progress >= 100) {
       setGameStarted(true)
+    }
+  }, [progress, setGameStarted])
+
+  useEffect(() => {
+    if (isGameStarted) {
       toggleFullscreen(true)
     }
-    // TODO исправить
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [progress, setGameStarted])
+  }, [toggleFullscreen, isGameStarted])
 
   useEffect(() => {
     if (endGame) {
