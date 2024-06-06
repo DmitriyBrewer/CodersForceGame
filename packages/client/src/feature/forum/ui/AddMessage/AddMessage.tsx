@@ -12,6 +12,8 @@ import { addMessage } from '@/entities/message/model'
 
 import { getMessages } from '@/entities/message/model/selector'
 
+import formatDate from '@/shared/helpers/formatISODate'
+
 import styles from './AddMessage.module.scss'
 
 interface Props {
@@ -33,7 +35,7 @@ const AddMessage: FC<Props> = props => {
       addMessage({
         id: 6,
         autor: 'asd',
-        date: new Date().toISOString(),
+        date: formatDate(new Date().toISOString()),
         message: newMessage,
         replyToId: replyToId || undefined
       })
