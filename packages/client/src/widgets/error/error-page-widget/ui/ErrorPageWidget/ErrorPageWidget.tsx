@@ -6,7 +6,7 @@ import BaseLink from '@/shared/components/ui/BaseLink'
 
 import { styleMui } from '@/shared/styleMui'
 
-import styles from './ErrorPage.module.scss'
+import styles from './ErrorPageWidget.module.scss'
 
 type Props = {
   errorCode: string

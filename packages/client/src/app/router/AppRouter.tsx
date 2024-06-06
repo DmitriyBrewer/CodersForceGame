@@ -9,7 +9,7 @@ import ForumTopic from '@/pages/ForumTopic'
 import Login from '@/pages/Login'
 import Page404 from '@/pages/404'
 
-import Error500Page from '@/pages/error/Error500'
+import Error500Page from '@/pages/error/error-500'
 
 import StartGamePage from '@/pages/game/game-engine'
 
