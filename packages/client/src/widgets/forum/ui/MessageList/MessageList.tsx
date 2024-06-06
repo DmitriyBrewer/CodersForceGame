@@ -5,6 +5,8 @@ import BaseListItemButton from '@/shared/components/ui/BaseListItemButton'
 import BaseListItemText from '@/shared/components/ui/BaseListItemText'
 import BasePaper from '@/shared/components/ui/BasePaper'
 
+import BaseBox from '@/shared/components/ui/BaseBox'
+
 import styles from './MessageList.module.scss'
 import { Message } from '@/feature/forum/ui/AddMessage/addMessage'
 
@@ -28,19 +30,21 @@ const MessageList: FC<Props> = props => {
   }
 
   return (
-    <BasePaper elevation={3} className={styles.paper}>
-      {messages.map(messageItem => (
-        <BaseListItemButton key={messageItem.id}>
-          <BaseListItemText
-            primary={getPrimaryText(messageItem)}
-            secondary={`Автор ${messageItem.autor} | Дата: ${messageItem.date}`}
-          />
-          <BaseButton color="secondary" className={styles.reply} onClick={() => handleReply(messageItem.id)}>
-            Ответить
-          </BaseButton>
-        </BaseListItemButton>
-      ))}
-    </BasePaper>
+    <BaseBox className={styles.root}>
+      <BasePaper elevation={3} className={styles.paper}>
+        {messages.map(messageItem => (
+          <BaseListItemButton key={messageItem.id}>
+            <BaseListItemText
+              primary={getPrimaryText(messageItem)}
+              secondary={`Автор ${messageItem.autor} | Дата: ${messageItem.date}`}
+            />
+            <BaseButton color="secondary" className={styles.reply} onClick={() => handleReply(messageItem.id)}>
+              Ответить
+            </BaseButton>
+          </BaseListItemButton>
+        ))}
+      </BasePaper>
+    </BaseBox>
   )
 }
 

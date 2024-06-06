@@ -54,7 +54,7 @@ const AddMessage: FC<Props> = props => {
   }
 
   return (
-    <BaseBox className={styles.reply}>
+    <BaseBox className={styles.root}>
       {replyToId && (
         <BaseTypography variant="body2" color="textSecondary" gutterBottom>
           Ответ на: {messages.find(m => m.id === replyToId)?.message}
@@ -70,7 +70,7 @@ const AddMessage: FC<Props> = props => {
         onChange={handleChange}
         value={newMessage}
       />
-      <BaseButton color="primary" variant="contained" className={styles.comment} onClick={handleAddMessage}>
+      <BaseButton color="primary" variant="contained" onClick={handleAddMessage}>
         Отправить
       </BaseButton>
     </BaseBox>

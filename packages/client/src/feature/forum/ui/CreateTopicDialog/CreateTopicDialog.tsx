@@ -7,6 +7,8 @@ import BaseDialogActions from '@/shared/components/ui/BaseDialogActions'
 import BaseButton from '@/shared/components/ui/BaseButton'
 import BaseTextField from '@/shared/components/ui/BaseTextField'
 
+import BaseBox from '@/shared/components/ui/BaseBox'
+
 import styles from './CreateTopicDialog.module.scss'
 
 const CreateTopicDialog: FC<{ open: boolean; onClose: () => void }> = ({ open, onClose }) => {
@@ -19,9 +21,9 @@ const CreateTopicDialog: FC<{ open: boolean; onClose: () => void }> = ({ open, o
 
   return (
     <BaseDialog open={open} onClose={onClose}>
-      <BaseDialogTitle className={styles.title} color="info">
-        Новый топик
-      </BaseDialogTitle>
+      <BaseBox className={styles.wrapper}>
+        <BaseDialogTitle color="info">Новый топик</BaseDialogTitle>
+      </BaseBox>
       <BaseDialogContent>
         <BaseTextField label="Заголовок" value={title} onChange={e => setTitle(e.target.value)} fullWidth />
         <BaseTextField
