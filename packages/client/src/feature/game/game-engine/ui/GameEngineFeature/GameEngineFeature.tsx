@@ -8,9 +8,9 @@ import { styleMui } from '@/shared/styleMui'
 
 import { useStartGame } from '../../hooks/useStartGame'
 import StartGame from '../StartGame/StartGame'
-import EndGame from '../EndGame'
 
 import styles from './GameEngineFeature.module.scss'
+import GameMenu from '../GameMenu'
 
 const GameEngineFeature: FC = () => {
   const { progress, isGameStarted, isButtonDisabled, handleStartGame, menuGameProps, restart } = useStartGame()
@@ -22,7 +22,7 @@ const GameEngineFeature: FC = () => {
   return (
     <BaseBox className={styles.root} sx={styleMui.bgColorGame}>
       <GameEntities pause={menuGameProps.openMenuGame} restart={restart} />
-      <EndGame {...menuGameProps} />
+      <GameMenu {...menuGameProps} />
     </BaseBox>
   )
 }

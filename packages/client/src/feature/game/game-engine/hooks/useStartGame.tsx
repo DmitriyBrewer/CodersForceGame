@@ -8,6 +8,7 @@ export const useStartGame = () => {
   const [isFullscreen, setFullscreen] = useState(false)
   const [openMenuGame, setOpenMenuGame] = useState(false)
   const [restart, setRestart] = useState(false)
+  const [openLeaderboard, setOpenLeaderboard] = useState(false)
 
   const rootRef = useRef<HTMLDivElement | null>(null)
 
@@ -25,6 +26,14 @@ export const useStartGame = () => {
     },
     [isFullscreen, setFullscreen]
   )
+
+  const handleOpenLeaderboard = () => {
+    setOpenLeaderboard(true)
+  }
+
+  const handleCloseLeaderboard = () => {
+    setOpenLeaderboard(false)
+  }
 
   const handleClickOpenEndGame = () => {
     setOpenMenuGame(true)
@@ -83,7 +92,10 @@ export const useStartGame = () => {
     onReturnToMenu,
     openMenuGame,
     handleCloseEndGame,
-    handleClickOpenEndGame
+    handleClickOpenEndGame,
+    openLeaderboard,
+    handleOpenLeaderboard,
+    handleCloseLeaderboard
   }
 
   return {

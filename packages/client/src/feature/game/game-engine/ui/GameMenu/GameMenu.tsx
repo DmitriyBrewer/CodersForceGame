@@ -9,9 +9,10 @@ import BaseBox from '@/shared/components/ui/BaseBox'
 import BaseDialog from '@/shared/components/ui/BaseDialog'
 import BaseDialogTitle from '@/shared/components/ui/BaseDialogTitle'
 
-import { IconReplay } from '@/shared/components/icons/iconsMui'
-
-import styles from './EndGame.module.scss'
+import styles from './GameMenu.module.scss'
+import GameLeaderboardButton from '../GameLeaderboardButton'
+import GameRestartButton from '../GameRestartButton/GameRestartButton'
+import EndGameButton from '../EndGameButton'
 
 interface Props {
   onRetryGame: () => void
@@ -19,14 +20,20 @@ interface Props {
   openMenuGame: boolean
   handleCloseEndGame: () => void
   handleClickOpenEndGame: () => void
+  openLeaderboard: boolean
+  handleOpenLeaderboard: () => void
+  handleCloseLeaderboard: () => void
 }
 
-const EndGame: FC<Props> = ({
+const GameMenu: FC<Props> = ({
   handleClickOpenEndGame,
   handleCloseEndGame,
   onRetryGame,
   onReturnToMenu,
-  openMenuGame
+  openMenuGame,
+  openLeaderboard,
+  handleOpenLeaderboard,
+  handleCloseLeaderboard
 }) => {
   return (
     <BaseBox className={styles.end}>
@@ -40,17 +47,20 @@ const EndGame: FC<Props> = ({
         </BaseBox>
 
         <DialogContent className={styles.end__content}>
-          <BaseButton onClick={onRetryGame} variant="contained" color="secondary">
-            <IconReplay />
-          </BaseButton>
+          <GameRestartButton onRetryGame={onRetryGame} />
 
-          <BaseButton onClick={onReturnToMenu} variant="contained">
-            Закончить игру
-          </BaseButton>
+          <GameLeaderboardButton
+            openLeaderboard={openLeaderboard}
+            handleOpenLeaderboard={handleOpenLeaderboard}
+            handleCloseLeaderboard={handleCloseLeaderboard}>
+            Таблица лидеров
+          </GameLeaderboardButton>
+
+          <EndGameButton onReturnToMenu={onReturnToMenu}>Закончить игру</EndGameButton>
         </DialogContent>
       </BaseDialog>
     </BaseBox>
   )
 }
 
-export default EndGame
+export default GameMenu
