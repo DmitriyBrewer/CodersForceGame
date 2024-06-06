@@ -6,15 +6,15 @@ import BaseBox from '@/shared/components/ui/BaseBox'
 
 import { styleMui } from '@/shared/styleMui'
 
-import { useStartGame } from '../../hooks/useStartGame'
 import StartGame from '../StartGame/StartGame'
 
 import styles from './GameEngineFeature.module.scss'
 import GameMenu from '../GameMenu'
+import { useGame } from '../../hooks/useGame'
 
 const GameEngineFeature: FC = () => {
   const { progress, isGameStarted, isButtonDisabled, handleStartGame, menuGameProps, restart, endGame, setEndGame } =
-    useStartGame()
+    useGame()
 
   if (!isGameStarted) {
     return <StartGame progress={progress} isButtonDisabled={isButtonDisabled} handleStartGame={handleStartGame} />
