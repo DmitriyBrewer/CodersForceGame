@@ -8,7 +8,7 @@ import BasePaper from '@/shared/components/ui/BasePaper'
 import BaseBox from '@/shared/components/ui/BaseBox'
 
 import styles from './MessageList.module.scss'
-import { Message } from '@/feature/forum/ui/AddMessage/addMessage'
+import { Message } from '@/feature/forum/ui/AddMessage/AddMessage'
 
 interface Props {
   messages: Message[]
