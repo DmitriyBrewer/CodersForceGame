@@ -4,3 +4,8 @@
   justify-content: flex-end;
   padding: var(--s20);
 }
+
+.widget {
+  overflow-y: scroll;
+  padding: var(--s20);
+}

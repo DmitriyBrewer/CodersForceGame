@@ -33,7 +33,9 @@ const GameLeaderboardButton: FC<PropsWithChildren<Props>> = ({
             <IconClose />
           </BaseIconButton>
         </BaseBox>
-        <LeaderBoardWidget />
+        <BaseBox className={styles.widget}>
+          <LeaderBoardWidget />
+        </BaseBox>
       </BaseDialog>
     </>
   )

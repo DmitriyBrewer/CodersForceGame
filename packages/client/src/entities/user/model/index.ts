@@ -10,7 +10,7 @@ export interface UserState {
 }
 
 export const initialState: UserState = {
-  isAuth: false,
+  isAuth: true,
   isLoading: false
 }
 
