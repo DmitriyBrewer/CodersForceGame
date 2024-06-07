@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from 'react'
+import { FC, PropsWithChildren, useState } from 'react'
 
 import BaseButton from '@/shared/components/ui/BaseButton'
 import BaseDialog from '@/shared/components/ui/BaseDialog'
@@ -10,18 +10,16 @@ import LeaderBoardWidget from '@/widgets/leaderboard'
 
 import styles from './GameLeaderboardButton.module.scss'
 
-interface Props {
-  handleOpenLeaderboard: () => void
-  handleCloseLeaderboard: () => void
-  openLeaderboard: boolean
-}
+const GameLeaderboardButton: FC<PropsWithChildren> = ({ children }) => {
+  const [openLeaderboard, setOpenLeaderboard] = useState(false)
 
-const GameLeaderboardButton: FC<PropsWithChildren<Props>> = ({
-  children,
-  handleOpenLeaderboard,
-  handleCloseLeaderboard,
-  openLeaderboard
-}) => {
+  const handleOpenLeaderboard = () => {
+    setOpenLeaderboard(true)
+  }
+
+  const handleCloseLeaderboard = () => {
+    setOpenLeaderboard(false)
+  }
   return (
     <>
       <BaseButton onClick={handleOpenLeaderboard} variant="contained" color="info">

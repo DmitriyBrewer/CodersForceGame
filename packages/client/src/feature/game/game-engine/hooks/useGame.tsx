@@ -2,13 +2,13 @@ import { useCallback, useEffect, useState } from 'react'
 
 export const useGame = () => {
   const [isGameStarted, setGameStarted] = useState(false)
+  const [endGame, setEndGame] = useState(false)
+  const [restart, setRestart] = useState(false)
+
+  const [openMenuGame, setOpenMenuGame] = useState(false)
+  const [isFullscreen, setFullscreen] = useState(false)
   const [isButtonDisabled, setButtonDisabled] = useState(false)
   const [progress, setProgress] = useState(0)
-  const [endGame, setEndGame] = useState(false)
-  const [isFullscreen, setFullscreen] = useState(false)
-  const [openMenuGame, setOpenMenuGame] = useState(false)
-  const [restart, setRestart] = useState(false)
-  const [openLeaderboard, setOpenLeaderboard] = useState(false)
 
   const toggleFullscreen = useCallback(
     (payload: boolean) => {
@@ -24,14 +24,6 @@ export const useGame = () => {
     },
     [isFullscreen, setFullscreen]
   )
-
-  const handleOpenLeaderboard = () => {
-    setOpenLeaderboard(true)
-  }
-
-  const handleCloseLeaderboard = () => {
-    setOpenLeaderboard(false)
-  }
 
   const handleClickOpenEndGame = () => {
     setOpenMenuGame(true)
@@ -49,6 +41,7 @@ export const useGame = () => {
 
   const handleStartGame = () => {
     setButtonDisabled(true)
+    setEndGame(false)
     setProgress(0)
 
     const timer = setInterval(() => {
@@ -99,10 +92,7 @@ export const useGame = () => {
     onReturnToMenu,
     openMenuGame,
     handleCloseEndGame,
-    handleClickOpenEndGame,
-    openLeaderboard,
-    handleOpenLeaderboard,
-    handleCloseLeaderboard
+    handleClickOpenEndGame
   }
 
   return {

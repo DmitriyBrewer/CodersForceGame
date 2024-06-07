@@ -20,9 +20,6 @@ interface Props {
   openMenuGame: boolean
   handleCloseEndGame: () => void
   handleClickOpenEndGame: () => void
-  openLeaderboard: boolean
-  handleOpenLeaderboard: () => void
-  handleCloseLeaderboard: () => void
   endGame: boolean
 }
 
@@ -32,9 +29,6 @@ const GameMenu: FC<Props> = ({
   onRetryGame,
   onReturnToMenu,
   openMenuGame,
-  openLeaderboard,
-  handleOpenLeaderboard,
-  handleCloseLeaderboard,
   endGame
 }) => {
   const menuTitle = endGame ? 'Игра закончена' : 'Пауза'
@@ -54,12 +48,7 @@ const GameMenu: FC<Props> = ({
         <DialogContent className={styles.end__content}>
           <GameRestartButton onRetryGame={onRetryGame} />
 
-          <GameLeaderboardButton
-            openLeaderboard={openLeaderboard}
-            handleOpenLeaderboard={handleOpenLeaderboard}
-            handleCloseLeaderboard={handleCloseLeaderboard}>
-            Таблица лидеров
-          </GameLeaderboardButton>
+          <GameLeaderboardButton>Таблица лидеров</GameLeaderboardButton>
 
           <EndGameButton onReturnToMenu={onReturnToMenu}>{menuEndGame}</EndGameButton>
         </DialogContent>
