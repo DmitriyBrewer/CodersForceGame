@@ -5,7 +5,6 @@ interface Props {
   rgap?: string
 }
 
-// TODO: feature/cfg-23 позже объеденить в один компонент с BasePaper
 const BasePaperPolymorphic = styled(Paper)<Props>(({ rgap }) => ({
   display: 'flex',
   flexDirection: 'column',
