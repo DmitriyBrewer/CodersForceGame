@@ -15,9 +15,11 @@ const useMessage = ({ replyToId, setReplyToId }: Props) => {
   const messagesData = useSelector(getMessages)
   const dispatch = useDispatch()
 
-  const handleAddMessage = () => {
+  const handleAddMessage = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     dispatch(
       addMessage({
+        // TODO переехать на id с бэка
         id: 6,
         autor: 'asd',
         date: formatDate(new Date().toISOString()),

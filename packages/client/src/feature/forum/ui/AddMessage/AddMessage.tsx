@@ -1,4 +1,4 @@
-import { FC, Dispatch, SetStateAction } from 'react'
+import { FC } from 'react'
 
 import BaseBox from '@/shared/components/ui/BaseBox'
 import BaseTypography from '@/shared/components/ui/BaseTypography'
@@ -10,8 +10,7 @@ import useMessage from '../../hooks/useMessage'
 
 interface Props {
   setReplyToId: (id?: number) => void
-  // eslint-disable-next-line react/require-default-props
-  replyToId?: number
+  replyToId: number | undefined
 }
 
 const AddMessage: FC<Props> = ({ setReplyToId, replyToId }) => {
@@ -20,28 +19,31 @@ const AddMessage: FC<Props> = ({ setReplyToId, replyToId }) => {
   const replyiedMessage = messagesData.find(m => m.id === replyToId)?.message
 
   return (
-    <BaseBox className={styles.root}>
-      {replyToId && (
-        <BaseBox className={styles.reply}>
-          <BaseTypography variant="body2" color="textSecondary" gutterBottom>
-            Ответ на: {replyiedMessage}
-          </BaseTypography>
-        </BaseBox>
-      )}
-      <BaseTextField
-        color="info"
-        label="Добавить комментарий"
-        fullWidth
-        multiline
-        rows={4}
-        margin="normal"
-        onChange={handleChange}
-        value={newMessage}
-      />
-      <BaseButton color="primary" variant="contained" onClick={handleAddMessage}>
-        Отправить
-      </BaseButton>
-    </BaseBox>
+    <form onSubmit={handleAddMessage}>
+      <BaseBox className={styles.root}>
+        {replyToId && (
+          <BaseBox className={styles.reply}>
+            <BaseTypography variant="body2" color="textSecondary" gutterBottom>
+              Ответ на: {replyiedMessage}
+            </BaseTypography>
+          </BaseBox>
+        )}
+        <BaseTextField
+          color="info"
+          label="Добавить комментарий"
+          fullWidth
+          multiline
+          rows={4}
+          margin="normal"
+          onChange={handleChange}
+          value={newMessage}
+          required
+        />
+        <BaseButton type="submit" color="primary" variant="contained">
+          Отправить
+        </BaseButton>
+      </BaseBox>
+    </form>
   )
 }
 

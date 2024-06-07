@@ -3,5 +3,5 @@ export type Message = {
   message: string
   autor: string
   date: string
-  replyToId?: number | null
+  replyToId?: number
 }

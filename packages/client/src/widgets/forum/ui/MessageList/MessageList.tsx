@@ -4,10 +4,11 @@ import { useSelector } from 'react-redux'
 import BaseButton from '@/shared/components/ui/BaseButton'
 import BaseListItemButton from '@/shared/components/ui/BaseListItemButton'
 import BaseListItemText from '@/shared/components/ui/BaseListItemText'
-import BasePaper from '@/shared/components/ui/BasePaper'
 import BaseBox from '@/shared/components/ui/BaseBox'
 import { Message } from '@/entities/message/types'
 import { getMessages } from '@/entities/message/model/selector'
+
+import BasePaperPolymorphic from '@/shared/components/ui/BasePaperPolymorphic'
 
 import styles from './MessageList.module.scss'
 
@@ -33,7 +34,7 @@ const MessageList: FC<Props> = props => {
 
   return (
     <BaseBox className={styles.root}>
-      <BasePaper elevation={3} className={styles.paper}>
+      <BasePaperPolymorphic elevation={3} className={styles.paper}>
         {messagesData?.map(messageItem => (
           <BaseListItemButton key={messageItem.id}>
             <BaseListItemText
@@ -45,7 +46,7 @@ const MessageList: FC<Props> = props => {
             </BaseButton>
           </BaseListItemButton>
         ))}
-      </BasePaper>
+      </BasePaperPolymorphic>
     </BaseBox>
   )
 }
