@@ -1,10 +1,9 @@
 import { FC, useState } from 'react'
 
-import { MessageList } from '@/widgets/forum'
-
 import { AddMessage } from '@/feature/forum'
+import MessageList from '@/feature/forum/ui/MessageList'
 
-const ForumTopicPage: FC = () => {
+const ForumTopicWidget: FC = () => {
   const [replyToId, setReplyToId] = useState<number | undefined>(undefined)
 
   return (
@@ -15,4 +14,4 @@ const ForumTopicPage: FC = () => {
   )
 }
 
-export default ForumTopicPage
+export default ForumTopicWidget

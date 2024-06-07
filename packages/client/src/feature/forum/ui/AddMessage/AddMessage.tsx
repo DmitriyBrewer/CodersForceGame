@@ -5,8 +5,9 @@ import BaseTypography from '@/shared/components/ui/BaseTypography'
 import BaseTextField from '@/shared/components/ui/BaseTextField'
 import BaseButton from '@/shared/components/ui/BaseButton'
 
-import styles from './AddMessage.module.scss'
 import useMessage from '../../hooks/useMessage'
+
+import styles from './AddMessage.module.scss'
 
 interface Props {
   setReplyToId: (id?: number) => void
@@ -19,7 +20,7 @@ const AddMessage: FC<Props> = ({ setReplyToId, replyToId }) => {
   const replyiedMessage = messagesData.find(m => m.id === replyToId)?.message
 
   return (
-    <form onSubmit={handleAddMessage}>
+    <BaseBox component="form" onSubmit={handleAddMessage}>
       <BaseBox className={styles.root}>
         {replyToId && (
           <BaseBox className={styles.reply}>
@@ -43,7 +44,7 @@ const AddMessage: FC<Props> = ({ setReplyToId, replyToId }) => {
           Отправить
         </BaseButton>
       </BaseBox>
-    </form>
+    </BaseBox>
   )
 }
 

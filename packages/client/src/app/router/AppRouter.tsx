@@ -13,9 +13,9 @@ import Error404Page from '@/pages/error/Error404'
 
 import StartGamePage from '@/pages/game/game-engine'
 
-import ForumPage from '@/pages/Forum'
+import ForumPage from '@/pages/social/forum'
 
-import ForumTopicPage from '@/pages/ForumTopicPage'
+import ForumTopicPage from '@/pages/social/forum-topic'
 
 import PrivateRoute from '@/app/router/PrivateRoute'
 import PublicRoute from '@/app/router/PublicRoute'

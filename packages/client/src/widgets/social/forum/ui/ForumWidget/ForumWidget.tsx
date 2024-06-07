@@ -1,12 +1,13 @@
 import { FC } from 'react'
 
-import { AddTopicButton, TopicList } from '@/widgets/forum'
 import BaseTypography from '@/shared/components/ui/BaseTypography'
 import BaseBox from '@/shared/components/ui/BaseBox'
 
-import styles from './ForumPage.module.scss'
+import TopicList from '../TopicList'
+import styles from './ForumWidget.module.scss'
+import AddTopicButton from '../AddTopicButton'
 
-const ForumPage: FC = () => {
+const ForumWidget: FC = () => {
   return (
     <BaseBox className={styles.root}>
       <BaseBox className={styles.header}>
@@ -20,4 +21,4 @@ const ForumPage: FC = () => {
   )
 }
 
-export default ForumPage
+export default ForumWidget
