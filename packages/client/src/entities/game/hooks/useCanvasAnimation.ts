@@ -52,7 +52,7 @@ const useCanvasAnimation = (
       animationStopped.current = false
     }
 
-    if (!pause && !animationStopped.current && !stop) {
+    if (!stop && !pause && !animationStopped.current) {
       animate()
     }
 
