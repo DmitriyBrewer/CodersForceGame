@@ -4,7 +4,7 @@ import BaseButton from '@/shared/components/ui/BaseButton'
 
 import BaseBox from '@/shared/components/ui/BaseBox'
 
-import CreateTopicDialog from '@/feature/forum/ui/CreateTopicDialog'
+import CreateTopicDialog from '@/feature/social/forum/ui/CreateTopicDialog'
 
 const AddTopicButton: FC = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
