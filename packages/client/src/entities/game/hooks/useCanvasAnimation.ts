@@ -58,7 +58,7 @@ const useCanvasAnimation = (
 
     const timeoutId = setTimeout(() => {
       setEndGame(true)
-    }, 2000)
+    }, 4000)
 
     // TODO:feature/cfg-65 тут сделал ignore по месту, по другому не получается, а в целом отключать правило consistent-return нет смысла
     // eslint-disable-next-line consistent-return
