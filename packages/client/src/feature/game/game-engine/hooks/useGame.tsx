@@ -12,14 +12,14 @@ export const useGame = () => {
 
   const toggleFullscreen = useCallback(
     (payload: boolean) => {
-      if (!isFullscreen) {
-        if (document.documentElement.requestFullscreen) {
-          document.documentElement.requestFullscreen()
+      if (!isFullscreen && document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen()
+        setFullscreen(payload)
+      } else if (document.fullscreenElement) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen()
           setFullscreen(payload)
         }
-      } else if (document.exitFullscreen) {
-        document.exitFullscreen()
-        setFullscreen(payload)
       }
     },
     [isFullscreen, setFullscreen]
