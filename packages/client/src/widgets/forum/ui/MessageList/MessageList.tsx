@@ -1,16 +1,12 @@
 import { Dispatch, FC, SetStateAction } from 'react'
-
 import { useSelector } from 'react-redux'
 
 import BaseButton from '@/shared/components/ui/BaseButton'
 import BaseListItemButton from '@/shared/components/ui/BaseListItemButton'
 import BaseListItemText from '@/shared/components/ui/BaseListItemText'
 import BasePaper from '@/shared/components/ui/BasePaper'
-
 import BaseBox from '@/shared/components/ui/BaseBox'
-
 import { Message } from '@/entities/message/types'
-
 import { getMessages } from '@/entities/message/model/selector'
 
 import styles from './MessageList.module.scss'
@@ -21,8 +17,8 @@ interface Props {
 
 const MessageList: FC<Props> = props => {
   const messagesData = useSelector(getMessages)
-
   const { setReplyToId } = props
+
   const getPrimaryText = (messageItem: Message) => {
     if (messageItem.replyToId) {
       const originalMessage = messagesData?.find(m => m.id === messageItem.replyToId)?.message
