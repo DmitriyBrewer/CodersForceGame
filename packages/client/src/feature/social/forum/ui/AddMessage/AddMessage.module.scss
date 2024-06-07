@@ -1,0 +1,10 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: var(--s16);
+}
+
+.reply {
+  margin-right: auto;
+}
