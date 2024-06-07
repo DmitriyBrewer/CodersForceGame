@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction } from 'react'
+import { FC } from 'react'
 import { useSelector } from 'react-redux'
 
 import BaseButton from '@/shared/components/ui/BaseButton'
@@ -12,7 +12,7 @@ import { getMessages } from '@/entities/message/model/selector'
 import styles from './MessageList.module.scss'
 
 interface Props {
-  setReplyToId: Dispatch<SetStateAction<number | null>>
+  setReplyToId: (id?: number) => void
 }
 
 const MessageList: FC<Props> = props => {

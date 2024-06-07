@@ -9,13 +9,13 @@ import styles from './AddMessage.module.scss'
 import useMessage from '../../hooks/useMessage'
 
 interface Props {
+  setReplyToId: (id?: number) => void
   // eslint-disable-next-line react/require-default-props
-  replyToId?: number | null
-  setReplyToId: Dispatch<SetStateAction<number | null>>
+  replyToId?: number
 }
 
-const AddMessage: FC<Props> = ({ replyToId = null, setReplyToId }) => {
-  const { newMessage, messagesData, handleAddMessage, handleChange } = useMessage(replyToId, setReplyToId)
+const AddMessage: FC<Props> = ({ setReplyToId, replyToId }) => {
+  const { newMessage, messagesData, handleAddMessage, handleChange } = useMessage({ replyToId, setReplyToId })
 
   const replyiedMessage = messagesData.find(m => m.id === replyToId)?.message
 

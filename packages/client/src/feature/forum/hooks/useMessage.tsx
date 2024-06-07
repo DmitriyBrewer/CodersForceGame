@@ -5,7 +5,12 @@ import { addMessage } from '@/entities/message/model'
 import { getMessages } from '@/entities/message/model/selector'
 import formatDate from '@/shared/utils/formatISODate'
 
-const useMessage = (replyToId: number | null, setReplyToId: (id: number | null) => void) => {
+interface Props {
+  replyToId?: number
+  setReplyToId: (id?: number) => void
+}
+
+const useMessage = ({ replyToId, setReplyToId }: Props) => {
   const [newMessage, setNewMessage] = useState<string>('')
   const messagesData = useSelector(getMessages)
   const dispatch = useDispatch()
@@ -22,7 +27,7 @@ const useMessage = (replyToId: number | null, setReplyToId: (id: number | null) 
     )
 
     setNewMessage('')
-    setReplyToId(null)
+    setReplyToId(undefined)
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
