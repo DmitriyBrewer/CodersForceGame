@@ -4,7 +4,7 @@ import { ButtonProps } from '@mui/material'
 
 import BaseButton from '@/shared/components/ui/BaseButton'
 
-const RegisterButton: FC<PropsWithChildren<ButtonProps>> = ({
+const SubmitButton: FC<PropsWithChildren<ButtonProps>> = ({
   children,
   type = 'submit',
   variant = 'contained',
@@ -17,4 +17,4 @@ const RegisterButton: FC<PropsWithChildren<ButtonProps>> = ({
   )
 }
 
-export default RegisterButton
+export default SubmitButton

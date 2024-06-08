@@ -1,32 +1,36 @@
 import { FC } from 'react'
 
-import RegisterPasswordInput from '../RegisterPasswordInput'
-import { useRegister } from '../../hooks/useRegister'
+import PasswordInput from '@/shared/components/core/PasswordInput'
 
-import RegisterForm from '../RegisterForm'
-import RegisterTextInput from '../RegisterTextInput'
-import RegisterPhoneInput from '../RegisterPhoneInput'
-import RegisterButton from '../RegisterButton'
-import RegisterHeader from '../RegisterHeader'
-import { conditions } from '../../constant'
+import TextInput from '@/shared/components/core/TextInput'
+import PhoneInput from '@/shared/components/core/PhoneInput'
+import SubmitButton from '@/shared/components/core/SubmitButton'
+
+import { useFormData } from '@/shared/components/core/FormData/hooks/useFormData'
+
+import { conditions } from '@/shared/components/core/FormData/constant'
+
+import FormData from '@/shared/components/core/FormData/FormData'
+
+import Header from '@/shared/components/core/Header'
 
 const RegisterFeature: FC = () => {
-  const { inputProps, handleSubmit, isError } = useRegister()
+  const { inputProps, handleSubmit, isError } = useFormData()
 
   return (
-    <RegisterForm handleSubmit={handleSubmit}>
-      <RegisterHeader>Регистрация</RegisterHeader>
+    <FormData handleSubmit={handleSubmit}>
+      <Header variant="h3">Регистрация</Header>
 
-      <RegisterTextInput label="Имя" name="first_name" {...inputProps} />
-      <RegisterTextInput label="Фамилия" name="second_name" {...inputProps} />
-      <RegisterTextInput label="Логин" name="login" {...inputProps} pattern={conditions.login.pattern} />
-      <RegisterTextInput label="Email" name="email" type="email" {...inputProps} pattern={conditions.email.pattern} />
-      <RegisterPhoneInput label="Телефон" name="phone" {...inputProps} />
-      <RegisterPasswordInput label="Пароль" name="password" {...inputProps} />
-      <RegisterPasswordInput label="Повторите пароль" name="password_repeat" {...inputProps} />
+      <TextInput label="Имя" name="first_name" {...inputProps} />
+      <TextInput label="Фамилия" name="second_name" {...inputProps} />
+      <TextInput label="Логин" name="login" {...inputProps} pattern={conditions.login.pattern} />
+      <TextInput label="Email" name="email" type="email" {...inputProps} pattern={conditions.email.pattern} />
+      <PhoneInput label="Телефон" name="phone" {...inputProps} />
+      <PasswordInput label="Пароль" name="password" {...inputProps} />
+      <PasswordInput label="Повторите пароль" name="password_repeat" {...inputProps} />
 
-      <RegisterButton disabled={isError}>Регистрация</RegisterButton>
-    </RegisterForm>
+      <SubmitButton disabled={isError}>Регистрация</SubmitButton>
+    </FormData>
   )
 }
 

@@ -3,32 +3,35 @@ import { FC } from 'react'
 import { paths } from '@/shared/config/routing'
 
 import BaseButton from '@/shared/components/ui/BaseButton'
+import TextInput from '@/shared/components/core/TextInput'
+import PasswordInput from '@/shared/components/core/PasswordInput'
+import SubmitButton from '@/shared/components/core/SubmitButton'
+import { useFormData } from '@/shared/components/core/FormData/hooks/useFormData'
 
-import LoginForm from '../LoginForm'
-import LoginHeader from '../LoginHeader'
+import FormData from '@/shared/components/core/FormData'
 
-import { useRegister } from '@/feature/session/register/hooks/useRegister'
-import RegisterTextInput from '@/feature/session/register/ui/RegisterTextInput'
-import RegisterPasswordInput from '@/feature/session/register/ui/RegisterPasswordInput'
-import RegisterButton from '@/feature/session/register/ui/RegisterButton'
+import Header from '@/shared/components/core/Header'
 
 import styles from './LoginFeature.module.scss'
 
 const LoginFeature: FC = () => {
-  const { inputProps, handleSubmit } = useRegister()
+  const { inputProps, handleSubmit } = useFormData()
 
   return (
     <div className={styles.root}>
-      <LoginHeader>Volga Checkers</LoginHeader>
-      <LoginForm handleSubmit={handleSubmit}>
-        <RegisterTextInput label="Логин" name="login" {...inputProps} />
-        <RegisterPasswordInput label="Пароль" name="password" {...inputProps} />
+      <Header className={styles.root__header} color="primary.dark">
+        Volga Checkers
+      </Header>
 
-        <RegisterButton>Авторизация</RegisterButton>
+      <FormData handleSubmit={handleSubmit} className={styles.root__formData}>
+        <TextInput label="Логин" name="login" {...inputProps} />
+        <PasswordInput label="Пароль" name="password" {...inputProps} />
+
+        <SubmitButton>Авторизация</SubmitButton>
         <BaseButton variant="outlined" href={paths.register} color="secondary">
           Ещё нет аккаунта?
         </BaseButton>
-      </LoginForm>
+      </FormData>
     </div>
   )
 }

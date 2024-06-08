@@ -2,18 +2,18 @@ import { ChangeEvent } from 'react'
 
 import { BaseTextFieldProps } from '@/shared/types'
 
-export type RegisterPayload = {
+export type FormDataPayload = {
   [key: string]: string
 }
 
-export type RegisterError = {
+export type FormDataError = {
   [key: string]: string
 }
 
-type RegisterFormField = {
-  formData: RegisterPayload
+type FormDataField = {
+  formData: FormDataPayload
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void
-  errors: RegisterError
+  errors: FormDataError
 }
 
 export type TextFieldProps = {
@@ -21,4 +21,4 @@ export type TextFieldProps = {
   pattern?: string
 }
 
-export type InputProps = RegisterFormField & TextFieldProps & BaseTextFieldProps
+export type InputProps = FormDataField & TextFieldProps & BaseTextFieldProps

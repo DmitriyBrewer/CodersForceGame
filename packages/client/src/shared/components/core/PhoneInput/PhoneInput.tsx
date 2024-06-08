@@ -6,10 +6,10 @@ import BaseIconButton from '@/shared/components/ui/BaseIconButton'
 
 import { IconLocalPhone } from '@/shared/components/icons/iconsMui'
 
-import { InputProps } from '../../types'
-import { conditions } from '../../constant'
+import { InputProps } from '@/shared/components/core/FormData/types'
+import { conditions } from '@/shared/components/core/FormData/constant'
 
-const RegisterPhoneInput: FC<InputProps> = ({
+const PhoneInput: FC<InputProps> = ({
   formData,
   handleChange,
   errors,
@@ -44,4 +44,4 @@ const RegisterPhoneInput: FC<InputProps> = ({
   )
 }
 
-export default RegisterPhoneInput
+export default PhoneInput

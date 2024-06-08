@@ -26,6 +26,7 @@ module.exports = {
     }
   },
   rules: {
+    'react/require-default-props': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     'react/jsx-filename-extension': [
       'error',
