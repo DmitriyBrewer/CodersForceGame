@@ -3,7 +3,13 @@ import { ChangeEvent } from 'react'
 import { BaseTextFieldProps } from '@/shared/types'
 
 export type RegisterPayload = {
-  [key: string]: string
+  first_name: string
+  second_name: string
+  phone: string
+  login: string
+  email: string
+  password: string
+  password_repeat?: string
 }
 
 export type RegisterError = {
@@ -22,3 +28,5 @@ export type TextFieldProps = {
 }
 
 export type InputProps = RegisterFormField & TextFieldProps & BaseTextFieldProps
+
+export type RegisterResponse = string | { reason: string }

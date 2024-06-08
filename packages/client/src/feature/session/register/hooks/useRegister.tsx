@@ -1,7 +1,14 @@
-import { useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
+
+import { useNavigate } from 'react-router-dom'
+
+import { useDispatch } from 'react-redux'
+
+import { setAuthUser, setError, setLoading } from '@/entities/user/model'
 
 import { RegisterError, RegisterPayload } from '../types'
 import { validateField } from '../model/validateField'
+import { useLazyGetUserQuery, useRegisterMutation } from '../../api/authApi'
 
 export const useRegister = () => {
   const [formData, setFormData] = useState<RegisterPayload>({
@@ -26,16 +33,33 @@ export const useRegister = () => {
 
   const isError = Object.values(errors).some(error => error !== '')
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [register] = useRegisterMutation()
+  const [getUser] = useLazyGetUserQuery()
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
     setErrors({ ...errors, [name]: validateField(name, value, formData.password) })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    // TODO:feature/cfg-23 удалить console.log и добавить api backend
-    console.log(`Отправка формы... ${formData}`)
+    dispatch(setLoading(true))
+    try {
+      const registerResult = await register({ ...formData }).unwrap()
+      if (registerResult) {
+        const userResult = await getUser().unwrap()
+        dispatch(setAuthUser(userResult))
+        navigate('/')
+      }
+    } catch (err) {
+      dispatch(setError(String(err)))
+    } finally {
+      dispatch(setLoading(false))
+    }
   }
 
   const inputProps = { formData, handleChange, errors }

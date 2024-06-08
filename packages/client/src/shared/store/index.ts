@@ -6,11 +6,13 @@ import topic, { initialState as initialStateTopic } from '@/entities/topic/model
 import message, { initialState as initialStateMessage } from '@/entities/message/model'
 
 import { ReducerState, RTKStoreState } from './types'
+import { authApiSlice } from '@/feature/session/api/authApi'
 
 export const rootReducer: ReducerState = combineReducers({
   user: user.reducer,
   topics: topic.reducer,
-  messages: message.reducer
+  messages: message.reducer,
+  authApi: authApiSlice.reducer
 })
 
 export const preloadState: RTKStoreState = {
