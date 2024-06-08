@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 
 import { setAuthUser, setError, setLoading } from '@/entities/user/model'
 
-import { RegisterError, RegisterPayload } from '../types'
+import { RegisterApiError, RegisterError, RegisterPayload } from '../types'
 import { validateField } from '../model/validateField'
 import { useLazyGetUserQuery, useRegisterMutation } from '../../api/authApi'
 
@@ -56,7 +56,8 @@ export const useRegister = () => {
         navigate('/')
       }
     } catch (err) {
-      dispatch(setError(String(err)))
+      const typedError = err as RegisterApiError
+      dispatch(setError(typedError.data.reason))
     } finally {
       dispatch(setLoading(false))
     }

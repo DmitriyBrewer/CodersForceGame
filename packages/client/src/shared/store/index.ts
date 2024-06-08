@@ -18,12 +18,14 @@ export const rootReducer: ReducerState = combineReducers({
 export const preloadState: RTKStoreState = {
   user: initialStateUser,
   topics: initialStateTopic,
-  messages: initialStateMessage
+  messages: initialStateMessage,
+  authApi: authApiSlice.reducer(undefined, { type: 'unknown' })
 }
 
 const store = configureStore({
   reducer: rootReducer,
-  preloadedState: preloadState
+  preloadedState: preloadState,
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(authApiSlice.middleware)
 })
 
 export type AppState = ReturnType<typeof rootReducer>

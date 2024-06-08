@@ -16,6 +16,11 @@ export type RegisterError = {
   [key: string]: string
 }
 
+export type RegisterApiError = {
+  data: {
+    reason: string
+  }
+}
 type RegisterFormField = {
   formData: RegisterPayload
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void
