@@ -11,8 +11,8 @@ export interface UserState {
 }
 
 export const initialState: UserState = {
-  isAuth: true,
-  isLoading: false
+  isAuth: false,
+  isLoading: true
 }
 
 const userSlice = createSlice({
@@ -35,15 +35,18 @@ const userSlice = createSlice({
     builder.addMatcher(authApiSlice.endpoints.logout.matchFulfilled, state => {
       state.userData = undefined
       state.isAuth = false
+      state.isLoading = false
     })
     builder.addMatcher(authApiSlice.endpoints.getUser.matchFulfilled, (state, { payload }) => {
       state.userData = payload
       state.isAuth = true
+      state.isLoading = false
     })
     builder.addMatcher(authApiSlice.endpoints.getUser.matchRejected, (state, { error }) => {
       state.userData = undefined
       state.isAuth = false
       state.errorMessage = error?.message ?? 'Ошибка получения пользователя'
+      state.isLoading = false
     })
   }
 })

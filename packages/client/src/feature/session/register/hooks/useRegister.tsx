@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { useDispatch } from 'react-redux'
 
-import { setAuthUser, setError, setLoading } from '@/entities/user/model'
+import { setError, setLoading } from '@/entities/user/model'
 
 import { RegisterApiError, RegisterError, RegisterPayload } from '../types'
 import { validateField } from '../model/validateField'
@@ -51,8 +51,7 @@ export const useRegister = () => {
     try {
       const registerResult = await register({ ...formData }).unwrap()
       if (registerResult) {
-        const userResult = await getUser().unwrap()
-        dispatch(setAuthUser(userResult))
+        await getUser().unwrap()
         navigate('/')
       }
     } catch (err) {
