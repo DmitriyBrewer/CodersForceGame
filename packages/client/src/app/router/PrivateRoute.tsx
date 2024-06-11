@@ -1,7 +1,12 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
 
+import BaseLoader from '@/shared/components/ui/BaseLoader'
+
+import BaseBox from '@/shared/components/ui/BaseBox'
+
 import { useAuth } from './hooks/useAuth'
+import styles from './PrivateRoute.module.scss'
 
 interface Props {
   component: React.FC
@@ -10,9 +15,13 @@ interface Props {
 const PrivateRoute = (props: Props) => {
   const { component: Component } = props
   const { isAuth, isLoading } = useAuth()
-  // TODO придумать loader
+
   if (isLoading) {
-    return <div>Loading...</div>
+    return (
+      <BaseBox className={styles.root}>
+        <BaseLoader />
+      </BaseBox>
+    )
   }
 
   return isAuth ? <Component /> : <Navigate to="/login" />

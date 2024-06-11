@@ -46,7 +46,6 @@ export const useLogin = () => {
         navigate('/')
       }
     } catch (err) {
-      console.log('eTo, ERr', err)
       const typedError = err as LoginApiError
       dispatch(setError(typedError.data.reason))
     } finally {

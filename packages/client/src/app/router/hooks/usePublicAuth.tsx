@@ -3,16 +3,24 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { getAuth } from '@/entities/user/model/selector'
+import { paths } from '@/shared/config/routing'
+
+import { useLazyGetUserQuery } from '@/feature/session/api/authApi'
 
 export const usePublicAuth = () => {
   const isAuth = useSelector(getAuth)
   const navigate = useNavigate()
+  const [getUser] = useLazyGetUserQuery()
 
   useEffect(() => {
     if (isAuth) {
-      navigate('/game') // путь до главной страницы игры
+      navigate(paths.game)
     }
   }, [isAuth, navigate])
+
+  useEffect(() => {
+    getUser()
+  }, [getUser])
 
   return { isAuth }
 }
