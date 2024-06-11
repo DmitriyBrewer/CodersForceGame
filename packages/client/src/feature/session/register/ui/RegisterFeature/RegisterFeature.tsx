@@ -6,7 +6,7 @@ import TextInput from '@/shared/components/core/TextInput'
 import PhoneInput from '@/shared/components/core/PhoneInput'
 import SubmitButton from '@/shared/components/core/SubmitButton'
 
-import { conditions } from '@/shared/components/core/FormData/constant'
+import { conditions } from '@/shared/components/constant'
 
 import FormData from '@/shared/components/core/FormData/FormData'
 

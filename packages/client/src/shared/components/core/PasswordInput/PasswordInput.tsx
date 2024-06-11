@@ -6,8 +6,8 @@ import BaseIconButton from '@/shared/components/ui/BaseIconButton'
 
 import { IconVisibility, IconVisibilityOff } from '@/shared/components/icons/iconsMui'
 
-import { InputProps } from '@/shared/components/core/FormData/types'
-import { conditions } from '@/shared/components/core/FormData/constant'
+import { conditions } from '@/shared/components/constant'
+import { InputProps } from '@/shared/types'
 
 const PasswordInput: FC<InputProps> = ({
   formData,

@@ -1,23 +1,37 @@
-import { FormEvent } from 'react'
+import { useState } from 'react'
 
-import { useFormData } from '@/shared/components/core/FormData/hooks/useFormData'
-import { FormDataPayload } from '@/shared/components/core/FormData/types'
+import { validateField } from '@/shared/components/core/FormData/model/validateField'
+import { FormDataError, FormDataPayload } from '@/shared/types'
 
 export const useLogin = () => {
-  const initialState = {
+  const [formData, setFormData] = useState<FormDataPayload>({
     login: '',
     password: ''
+  })
+
+  const [errors, setErrors] = useState<FormDataError>({
+    login: '',
+    password: ''
+  })
+
+  const isError = Object.values(errors).some(error => error !== '')
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
+    setErrors({ ...errors, [name]: validateField(name, value, formData.password) })
   }
 
-  const { inputProps, handleSubmit, isError } = useFormData(initialState)
-
-  const submitLogin = (data: FormDataPayload) => {
-    console.log(`Отправка формы... \n ${JSON.stringify(data, null, 2)}`)
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    console.log(`Отправка формы... \n ${JSON.stringify(formData, null, 2)}`)
   }
+
+  const inputProps = { formData, handleChange, errors }
 
   return {
     inputProps,
-    handleSubmit: (e: FormEvent) => handleSubmit(e, submitLogin),
+    handleSubmit,
     isError
   }
 }

@@ -2,8 +2,8 @@ import { FC } from 'react'
 
 import BaseTextField from '@/shared/components/ui/BaseTextField'
 
-import { InputProps } from '@/shared/components/core/FormData/types'
-import { conditions } from '@/shared/components/core/FormData/constant'
+import { conditions } from '@/shared/components/constant'
+import { InputProps } from '@/shared/types'
 
 const TextInput: FC<InputProps> = ({
   type = 'text',

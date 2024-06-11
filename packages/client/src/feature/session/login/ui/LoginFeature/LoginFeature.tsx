@@ -11,6 +11,8 @@ import FormData from '@/shared/components/core/FormData'
 
 import Header from '@/shared/components/core/Header'
 
+import { conditions } from '@/shared/components/constant'
+
 import styles from './LoginFeature.module.scss'
 import { useLogin } from '@/feature/session/login/hooks/useLogin'
 
@@ -24,7 +26,7 @@ const LoginFeature: FC = () => {
       </Header>
 
       <FormData handleSubmit={handleSubmit} className={styles.root__formData}>
-        <TextInput label="Логин" name="login" {...inputProps} />
+        <TextInput label="Логин" name="login" {...inputProps} pattern={conditions.login.pattern} />
         <PasswordInput label="Пароль" name="password" {...inputProps} />
 
         <SubmitButton>Авторизация</SubmitButton>
