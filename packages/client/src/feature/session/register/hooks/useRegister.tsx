@@ -52,7 +52,7 @@ export const useRegister = () => {
     try {
       const registerResult = await register({ ...formData }).unwrap()
       if (registerResult) {
-        await getUser().unwrap()
+        await getUser()
         navigate('/')
       }
     } catch (err) {
