@@ -40,8 +40,7 @@ export const useLogin = () => {
     dispatch(setLoading(true))
 
     try {
-      const loginResult = await login(formData).unwrap()
-      console.log('eto LoginResult', loginResult)
+      const loginResult = await login(formData)
       if (loginResult) {
         await getUser()
         navigate('/')

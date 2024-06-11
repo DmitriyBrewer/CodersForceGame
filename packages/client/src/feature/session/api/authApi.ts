@@ -1,16 +1,37 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { BaseQueryFn, FetchArgs, FetchBaseQueryError, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 import { User } from '@/entities/user/types'
 
 import { RegisterResponse, RegisterPayload } from '../register/types'
 import { LoginPayload, LoginResponse } from '../login/types'
 
-export const authApiSlice = createApi({
-  reducerPath: 'authApi',
-  baseQuery: fetchBaseQuery({
+// так как API авторизации яндекса отвечает не JSON-ом, чтобы RTK Query не валился с ошибкой
+const customBaseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
+  args,
+  api,
+  extraOptions
+) => {
+  const rawBaseQuery = fetchBaseQuery({
     baseUrl: 'https://ya-praktikum.tech/api/v2/auth',
     credentials: 'include'
-  }),
+  })
+
+  const result = await rawBaseQuery(args, api, extraOptions)
+
+  if (result.error) {
+    return result
+  }
+
+  if (result.data === 'OK') {
+    result.data = { message: 'OK' }
+  }
+
+  return result
+}
+
+export const authApiSlice = createApi({
+  reducerPath: 'authApi',
+  baseQuery: customBaseQuery,
   endpoints: builder => ({
     register: builder.mutation<RegisterResponse, RegisterPayload>({
       query: credentials => ({
