@@ -6,16 +6,16 @@ import TextInput from '@/shared/components/core/TextInput'
 import PhoneInput from '@/shared/components/core/PhoneInput'
 import SubmitButton from '@/shared/components/core/SubmitButton'
 
-import { useFormData } from '@/shared/components/core/FormData/hooks/useFormData'
-
 import { conditions } from '@/shared/components/core/FormData/constant'
 
 import FormData from '@/shared/components/core/FormData/FormData'
 
 import Header from '@/shared/components/core/Header'
 
+import { useRegister } from '@/feature/session/register/hooks/useRegister'
+
 const RegisterFeature: FC = () => {
-  const { inputProps, handleSubmit, isError } = useFormData()
+  const { inputProps, handleSubmit, isError } = useRegister()
 
   return (
     <FormData handleSubmit={handleSubmit}>

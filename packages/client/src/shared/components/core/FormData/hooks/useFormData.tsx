@@ -1,28 +1,17 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 
-import { FormDataError, FormDataPayload } from '../types'
 import { validateField } from '../model/validateField'
 
-export const useFormData = () => {
-  const [formData, setFormData] = useState<FormDataPayload>({
-    first_name: '',
-    second_name: '',
-    login: '',
-    email: '',
-    phone: '',
-    password: '',
-    password_repeat: ''
-  })
+import { FormDataError, FormDataPayload } from '../types'
 
-  const [errors, setErrors] = useState<FormDataError>({
-    first_name: '',
-    second_name: '',
-    login: '',
-    email: '',
-    phone: '',
-    password: '',
-    password_repeat: ''
-  })
+export const useFormData = (initialState: FormDataPayload) => {
+  const [formData, setFormData] = useState<FormDataPayload>(initialState)
+  const [errors, setErrors] = useState<FormDataError>(
+    Object.keys(initialState).reduce((acc, key) => {
+      acc[key] = ''
+      return acc
+    }, {} as FormDataError)
+  )
 
   const isError = Object.values(errors).some(error => error !== '')
 
@@ -32,10 +21,11 @@ export const useFormData = () => {
     setErrors({ ...errors, [name]: validateField(name, value, formData.password) })
   }
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent, callback: (data: FormDataPayload) => void) => {
     e.preventDefault()
-    // TODO:feature/cfg-23 удалить console.log и добавить api backend
-    console.log(`Отправка формы... ${formData}`)
+    if (!isError) {
+      callback(formData)
+    }
   }
 
   const inputProps = { formData, handleChange, errors }

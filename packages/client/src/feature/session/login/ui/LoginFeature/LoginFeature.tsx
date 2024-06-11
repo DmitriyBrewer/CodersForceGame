@@ -6,16 +6,16 @@ import BaseButton from '@/shared/components/ui/BaseButton'
 import TextInput from '@/shared/components/core/TextInput'
 import PasswordInput from '@/shared/components/core/PasswordInput'
 import SubmitButton from '@/shared/components/core/SubmitButton'
-import { useFormData } from '@/shared/components/core/FormData/hooks/useFormData'
 
 import FormData from '@/shared/components/core/FormData'
 
 import Header from '@/shared/components/core/Header'
 
 import styles from './LoginFeature.module.scss'
+import { useLogin } from '@/feature/session/login/hooks/useLogin'
 
 const LoginFeature: FC = () => {
-  const { inputProps, handleSubmit } = useFormData()
+  const { inputProps, handleSubmit } = useLogin()
 
   return (
     <div className={styles.root}>
