@@ -3,11 +3,9 @@ import styled from '@emotion/styled'
 
 type Props = {
   children: ReactNode
-  // eslint-disable-next-line react/require-default-props
-  className?: string
+  className?: string | undefined
   backgroundUrl: string
-  // eslint-disable-next-line react/require-default-props
-  filter?: string
+  filter?: string | undefined
 }
 
 const Wrapper = styled.div`

@@ -9,7 +9,7 @@ module.exports = {
     'plugin:prettier/recommended',
     'prettier'
   ],
-  plugins: ['react', '@typescript-eslint', 'import', 'prettier'],
+  plugins: ['react', '@typescript-eslint', 'import', 'prettier', 'css-modules'],
   env: {
     browser: true,
     es2020: true,
@@ -26,6 +26,7 @@ module.exports = {
     }
   },
   rules: {
+    'react/require-default-props': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     'react/jsx-filename-extension': [
       'error',
@@ -82,6 +83,10 @@ module.exports = {
     ],
     'prettier/prettier': 'error',
     // TODO: feature/feature/cfg-70 разрешаю использовать state.nameParam = value напряму без return {...state, namePara: value}
-    'no-param-reassign': 'off'
+    'no-param-reassign': 'off',
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    'no-unused-vars': 'off',
+    'css-modules/no-unused-class': [2],
+    'css-modules/no-undef-class': [2]
   }
 }

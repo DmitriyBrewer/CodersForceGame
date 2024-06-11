@@ -6,8 +6,9 @@ import { useDispatch } from 'react-redux'
 
 import { setError, setLoading } from '@/entities/user/model'
 
+import { validateField } from '@/shared/components/core/FormData/model/validateField'
+
 import { RegisterApiError, RegisterError, RegisterPayload } from '../types'
-import { validateField } from '../model/validateField'
 import { useLazyGetUserQuery, useRegisterMutation } from '../../api/authApi'
 
 export const useRegister = () => {

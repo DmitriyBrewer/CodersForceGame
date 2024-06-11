@@ -1,6 +1,6 @@
 import { Component, ReactNode } from 'react'
 
-import Page404 from '@/pages/error/Error404'
+import Error404Page from '@/pages/error/error-404'
 
 interface ErrorBoundaryProps {
   children: ReactNode
@@ -25,7 +25,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     const { children } = this.props
 
     if (hasError) {
-      return <Page404 />
+      return <Error404Page />
     }
 
     return children
