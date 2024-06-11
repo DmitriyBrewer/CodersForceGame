@@ -1,13 +1,13 @@
-import { useRef, useEffect, Dispatch } from 'react'
+import { useRef, useEffect, Dispatch, SetStateAction } from 'react'
 
 const useCanvasAnimation = (
   pause: boolean,
   restart: boolean,
   stop: boolean,
-  setEndGame: Dispatch<React.SetStateAction<boolean>>
+  setEndGame: Dispatch<SetStateAction<boolean>>
 ) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
-  const requestIdRef = useRef<number>()
+  const requestIdRef = useRef<number | null>(null)
   const animationStopped = useRef<boolean>(false)
 
   useEffect(() => {
@@ -34,26 +34,30 @@ const useCanvasAnimation = (
       requestIdRef.current = requestAnimationFrame(draw)
     }
 
-    const animate = () => {
-      if (animationStopped.current) {
-        return
+    const startAnimation = () => {
+      if (!animationStopped.current) {
+        draw()
       }
-
-      draw()
     }
 
-    if (stop && requestIdRef.current) {
-      cancelAnimationFrame(requestIdRef.current)
+    const stopAnimation = () => {
+      if (requestIdRef.current) {
+        cancelAnimationFrame(requestIdRef.current)
+        requestIdRef.current = null
+      }
       animationStopped.current = true
     }
 
-    if (restart && requestIdRef.current) {
-      cancelAnimationFrame(requestIdRef.current)
-      animationStopped.current = false
+    if (stop) {
+      stopAnimation()
     }
-
+    if (restart) {
+      stopAnimation()
+      animationStopped.current = false
+      startAnimation()
+    }
     if (!stop && !pause && !animationStopped.current) {
-      animate()
+      startAnimation()
     }
 
     const timeoutId = setTimeout(() => {
