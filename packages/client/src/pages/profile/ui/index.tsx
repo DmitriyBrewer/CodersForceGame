@@ -1,4 +1,4 @@
-import ProfileWidget from '@/widgets/profileWidget/ui/ProfileWidget'
+import ProfileWidget from '@/widgets/profile/ui/ProfileWidget'
 
 const ProfilePage = () => {
   return <ProfileWidget />
