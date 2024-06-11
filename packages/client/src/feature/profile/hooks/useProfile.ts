@@ -25,7 +25,7 @@ export const useProfile = () => {
   const [error, setError] = useState<nullable<Error>>(null)
   const [loading, setLoading] = useState(true)
 
-  // TODO:
+  // TODO: feature/cfg-25 fetch to times
   useEffect(() => {
     const fetchProfile = async () => {
       try {
