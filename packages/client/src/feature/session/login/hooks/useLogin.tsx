@@ -38,13 +38,16 @@ export const useLogin = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     dispatch(setLoading(true))
+
     try {
       const loginResult = await login(formData).unwrap()
+      console.log('eto LoginResult', loginResult)
       if (loginResult) {
         await getUser()
         navigate('/')
       }
     } catch (err) {
+      console.log('eTo, ERr', err)
       const typedError = err as LoginApiError
       dispatch(setError(typedError.data.reason))
     } finally {

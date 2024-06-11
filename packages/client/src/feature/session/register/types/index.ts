@@ -1,3 +1,4 @@
+
 export type RegisterPayload = {
   first_name: string
   second_name: string
