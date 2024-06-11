@@ -11,7 +11,6 @@ interface Props {
 const PrivateRoute = (props: Props) => {
   const { component: Component } = props
   const isAuth = useSelector(getAuth)
-  console.log(isAuth)
 
   return isAuth ? <Component /> : <Navigate to="/login" />
 }
