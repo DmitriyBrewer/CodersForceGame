@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
-import { RegisterError, RegisterPayload } from '../types'
-import { validateField } from '../model/validateField'
+import { FormDataError, FormDataPayload } from '@/shared/types'
+import { validateField } from '@/shared/components/core/FormData/model/validateField'
 
 export const useRegister = () => {
-  const [formData, setFormData] = useState<RegisterPayload>({
+  const [formData, setFormData] = useState<FormDataPayload>({
     first_name: '',
     second_name: '',
     login: '',
@@ -14,7 +14,7 @@ export const useRegister = () => {
     password_repeat: ''
   })
 
-  const [errors, setErrors] = useState<RegisterError>({
+  const [errors, setErrors] = useState<FormDataError>({
     first_name: '',
     second_name: '',
     login: '',
@@ -34,8 +34,7 @@ export const useRegister = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // TODO:feature/cfg-23 удалить console.log и добавить api backend
-    console.log(`Отправка формы... ${formData}`)
+    console.log(`Отправка формы... \n ${JSON.stringify(formData, null, 2)}`)
   }
 
   const inputProps = { formData, handleChange, errors }

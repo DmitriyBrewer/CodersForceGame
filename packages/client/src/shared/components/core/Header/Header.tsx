@@ -3,20 +3,22 @@ import { FC, PropsWithChildren } from 'react'
 import BaseTypography from '@/shared/components/ui/BaseTypography'
 import { BaseTypographyProps } from '@/shared/types'
 
-import styles from './LoginHeader.module.scss'
+interface Props extends BaseTypographyProps {
+  className?: string | undefined
+}
 
-const LoginHeader: FC<PropsWithChildren<BaseTypographyProps>> = ({
+const Header: FC<PropsWithChildren<Props>> = ({
   children,
   component = 'h1',
   variant = 'h1',
-  color = 'primary.dark',
+  className = '',
   ...rest
 }) => {
   return (
-    <BaseTypography className={styles.root} component={component} variant={variant} color={color} {...rest}>
+    <BaseTypography className={className} component={component} variant={variant} {...rest}>
       {children}
     </BaseTypography>
   )
 }
 
-export default LoginHeader
+export default Header

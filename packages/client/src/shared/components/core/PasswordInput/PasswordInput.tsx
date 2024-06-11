@@ -6,10 +6,10 @@ import BaseIconButton from '@/shared/components/ui/BaseIconButton'
 
 import { IconVisibility, IconVisibilityOff } from '@/shared/components/icons/iconsMui'
 
-import { InputProps } from '../../types'
-import { conditions } from '../../constant'
+import { conditions } from '@/shared/components/constant'
+import { InputProps } from '@/shared/types'
 
-const RegisterPasswordInput: FC<InputProps> = ({
+const PasswordInput: FC<InputProps> = ({
   formData,
   handleChange,
   errors,
@@ -57,4 +57,4 @@ const RegisterPasswordInput: FC<InputProps> = ({
   )
 }
 
-export default RegisterPasswordInput
+export default PasswordInput

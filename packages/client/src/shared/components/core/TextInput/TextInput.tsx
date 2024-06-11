@@ -2,10 +2,10 @@ import { FC } from 'react'
 
 import BaseTextField from '@/shared/components/ui/BaseTextField'
 
-import { InputProps } from '../../types'
-import { conditions } from '../../constant'
+import { conditions } from '@/shared/components/constant'
+import { InputProps } from '@/shared/types'
 
-const RegisterTextInput: FC<InputProps> = ({
+const TextInput: FC<InputProps> = ({
   type = 'text',
   formData,
   handleChange,
@@ -34,4 +34,4 @@ const RegisterTextInput: FC<InputProps> = ({
   )
 }
 
-export default RegisterTextInput
+export default TextInput

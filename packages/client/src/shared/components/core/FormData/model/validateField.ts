@@ -1,4 +1,4 @@
-import { conditions } from '../constant'
+import { conditions } from '../../../constant'
 
 const isValidName = (name: string) => {
   const nameRegExp = conditions.name.pattern
