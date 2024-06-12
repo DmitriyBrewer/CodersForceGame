@@ -6,8 +6,8 @@ type nullable<T> = T | null
 
 const useProfileAvatar = () => {
   const [avatar, setAvatar] = useState<File>()
-  const [error, setError] = useState<nullable<Error>>(null)
-  const [loading, setLoading] = useState(true)
+  const [, setError] = useState<nullable<unknown>>(null)
+  const [, setLoading] = useState(true)
 
   const fileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { files, form } = e.target
@@ -28,8 +28,8 @@ const useProfileAvatar = () => {
       formData.append('avatar', avatar)
 
       try {
-        const data = await fetchInstance('/user/profile/avatar', { method: 'PUT', body: formData })
-      } catch (err: any) {
+        await fetchInstance('/user/profile/avatar', { method: 'PUT', body: formData })
+      } catch (err: unknown) {
         setError(err)
       } finally {
         setLoading(false)

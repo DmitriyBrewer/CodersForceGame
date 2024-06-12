@@ -22,7 +22,7 @@ export type Field = {
 
 export const useProfile = () => {
   const [userData, setUserData] = useState<nullable<User>>(null)
-  const [error, setError] = useState<nullable<Error>>(null)
+  const [error, setError] = useState<nullable<unknown>>(null)
   const [loading, setLoading] = useState(true)
 
   // TODO: feature/cfg-25 fetch to times
@@ -31,7 +31,7 @@ export const useProfile = () => {
       try {
         const data = await fetchInstance('/auth/user')
         setUserData(data)
-      } catch (err: any) {
+      } catch (err) {
         setError(err)
       } finally {
         setLoading(false)

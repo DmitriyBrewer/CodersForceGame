@@ -1,5 +1,6 @@
 const primaryDark = 'primary.dark'
 const errorDark = 'error.dark'
+const bgDefault = 'background.default'
 
 export const styleMui = {
   errorPageWidget: {
@@ -17,5 +18,7 @@ export const styleMui = {
     }
   },
 
-  baseTableRow: { '&:last-child td, &:last-child th': { border: 0 } }
+  baseTableRow: { '&:last-child td, &:last-child th': { border: 0 } },
+
+  bgColorGame: { bgcolor: bgDefault }
 }

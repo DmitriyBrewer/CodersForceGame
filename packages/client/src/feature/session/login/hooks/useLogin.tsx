@@ -1,26 +1,37 @@
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { useState } from 'react'
+
+import { validateField } from '@/shared/components/core/FormData/model/validateField'
+import { FormDataError, FormDataPayload } from '@/shared/types'
 
 export const useLogin = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormDataPayload>({
     login: '',
     password: ''
   })
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const [errors, setErrors] = useState<FormDataError>({
+    login: '',
+    password: ''
+  })
+
+  const isError = Object.values(errors).some(error => error !== '')
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
+    setErrors({ ...errors, [name]: validateField(name, value, formData.password) })
   }
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // TODO:feature/cfg-23 удалить console.log и добавить api backend
-    console.log(`Отправка формы... ${formData}`)
+    console.log(`Отправка формы... \n ${JSON.stringify(formData, null, 2)}`)
   }
 
-  const inputProps = { formData, handleChange }
+  const inputProps = { formData, handleChange, errors }
 
   return {
     inputProps,
-    handleSubmit
+    handleSubmit,
+    isError
   }
 }

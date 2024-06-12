@@ -1,30 +1,39 @@
-import { ThemeProvider } from '@mui/material/styles'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 
-import { Dispatch, ReactNode, SetStateAction, createContext, useMemo, useState } from 'react'
+import { ReactNode, createContext, useMemo, useState, useEffect } from 'react'
+import { PaletteMode, useMediaQuery } from '@mui/material'
 
-import { darkMuiTheme, lightMuiTheme } from '@/themes'
+import { getDesignTokens } from '@/themes'
 
 interface ThemeContextType {
-  isDarkMode: boolean
-  setIsDarkMode: Dispatch<SetStateAction<boolean>>
+  toggleColorMode: () => void
 }
 
 export const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 const ThemeModeProvider = ({ children }: { children: ReactNode }) => {
-  const [isDarkMode, setIsDarkMode] = useState(true)
+  const [mode, setMode] = useState<PaletteMode>('light')
 
-  const contextValue = useMemo(
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
+
+  useEffect(() => {
+    setMode(prefersDarkMode ? 'dark' : 'light')
+  }, [prefersDarkMode])
+
+  const colorMode = useMemo(
     () => ({
-      isDarkMode,
-      setIsDarkMode
+      toggleColorMode: () => {
+        setMode((prevMode: PaletteMode) => (prevMode === 'light' ? 'dark' : 'light'))
+      }
     }),
-    [isDarkMode]
+    []
   )
 
+  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode])
+
   return (
-    <ThemeContext.Provider value={contextValue}>
-      <ThemeProvider theme={isDarkMode ? darkMuiTheme : lightMuiTheme}>{children}</ThemeProvider>
+    <ThemeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ThemeContext.Provider>
   )
 }
