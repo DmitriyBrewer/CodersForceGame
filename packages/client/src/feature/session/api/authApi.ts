@@ -23,13 +23,7 @@ const customBaseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryEr
   }
 
   if (!result.meta?.response?.ok) {
-    return {
-      error: {
-        status: result.meta?.response?.status || 500,
-        statusText: result.meta?.response?.statusText || 'Unknown error',
-        data: result.data
-      }
-    }
+    throw new Error(result.meta?.response?.statusText || 'Unknown error')
   }
 
   if (result.data === 'OK') {
