@@ -1,33 +1,27 @@
-import { BaseQueryFn, FetchArgs, FetchBaseQueryError, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery, FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/query/react'
+import { BaseQueryFn, FetchArgs } from '@reduxjs/toolkit/query'
 
 import { User } from '@/entities/user/types'
 
 import { RegisterResponse, RegisterPayload } from '../register/types'
 import { LoginPayload, LoginResponse } from '../login/types'
 
-// так как API авторизации яндекса отвечает не JSON-ом, чтобы RTK Query не валился с ошибкой
-const customBaseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
+const customFetchBaseQuery = fetchBaseQuery({
+  baseUrl: 'https://ya-praktikum.tech/api/v2/auth',
+  credentials: 'include'
+})
+
+const baseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, object, FetchBaseQueryMeta> = async (
   args,
   api,
   extraOptions
 ) => {
-  const rawBaseQuery = fetchBaseQuery({
-    baseUrl: 'https://ya-praktikum.tech/api/v2/auth',
-    credentials: 'include'
-  })
+  const result = await customFetchBaseQuery(args, api, extraOptions)
 
-  const result = await rawBaseQuery(args, api, extraOptions)
-
-  if (result.error) {
-    return result
-  }
-
-  if (!result.meta?.response?.ok) {
-    throw new Error(result.meta?.response?.statusText || 'Unknown error')
-  }
-
-  if (result.data === 'OK') {
-    result.data = { message: 'OK' }
+  // так как API авторизации яндекса отвечает не JSON-ом, чтобы RTK Query не валился с ошибкой
+  // @ts-ignore: в типе FetchBaseQueryError нет originalStatus
+  if (result.error && result.error.originalStatus === 200 && result.error.data === 'OK') {
+    return { data: 'OK' }
   }
 
   return result
@@ -35,7 +29,7 @@ const customBaseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryEr
 
 export const authApiSlice = createApi({
   reducerPath: 'authApi',
-  baseQuery: customBaseQuery,
+  baseQuery,
   endpoints: builder => ({
     register: builder.mutation<RegisterResponse, RegisterPayload>({
       query: credentials => ({

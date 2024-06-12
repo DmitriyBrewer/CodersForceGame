@@ -40,14 +40,14 @@ export const useLogin = () => {
     dispatch(setLoading(true))
 
     try {
-      const loginResult = await login(formData)
+      const loginResult = await login(formData).unwrap()
       if (loginResult) {
         await getUser()
         navigate('/')
       }
     } catch (err) {
       const typedError = err as LoginApiError
-      dispatch(setError(typedError.data.reason))
+      dispatch(setError(typedError.data?.reason || 'Неизвестная ошибка'))
     } finally {
       dispatch(setLoading(false))
     }

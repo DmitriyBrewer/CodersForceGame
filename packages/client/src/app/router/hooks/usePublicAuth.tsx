@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { getAuth } from '@/entities/user/model/selector'
+import { getAuth, getLoading } from '@/entities/user/model/selector'
 import { paths } from '@/shared/config/routing'
 
 import { useLazyGetUserQuery } from '@/feature/session/api/authApi'
@@ -11,6 +11,7 @@ export const usePublicAuth = () => {
   const isAuth = useSelector(getAuth)
   const navigate = useNavigate()
   const [getUser] = useLazyGetUserQuery()
+  const isLoading = useSelector(getLoading)
 
   useEffect(() => {
     if (isAuth) {
@@ -22,5 +23,5 @@ export const usePublicAuth = () => {
     getUser()
   }, [getUser])
 
-  return { isAuth }
+  return { isAuth, isLoading }
 }
