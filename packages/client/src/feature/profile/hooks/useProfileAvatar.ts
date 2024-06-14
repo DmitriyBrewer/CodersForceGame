@@ -1,12 +1,11 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 
 import profileApi from '@/feature/profile/api/profileApi'
-import { nullable } from '@/feature/profile/types'
 
 const useProfileAvatar = () => {
   const [avatar, setAvatar] = useState<File>()
-  const [, setError] = useState<nullable<unknown>>(null)
-  const [, setLoading] = useState(true)
+  const [isError, setError] = useState(false)
+  const [isLoading, setLoading] = useState(false)
 
   const fileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { files, form } = e.target
@@ -17,20 +16,23 @@ const useProfileAvatar = () => {
     setAvatar(files[0])
   }
 
-  // TODO: add snackbar after change
+  // TODO: feature/cfg-25 add snackbar after change
   useEffect(() => {
     async function submit() {
       if (!avatar) {
         return
       }
+
       setLoading(true)
+      setError(false)
+
       const formData = new FormData()
       formData.append('avatar', avatar)
       try {
         await profileApi.updateAvatar(formData)
-        // TODO: update user in state
-      } catch (err: unknown) {
-        setError(err)
+        // TODO: feature/cfg-25 update user in state
+      } catch (err) {
+        setError(true)
       } finally {
         setLoading(false)
       }
@@ -39,7 +41,7 @@ const useProfileAvatar = () => {
     submit()
   }, [avatar])
 
-  return { fileChange }
+  return { fileChange, isLoading, isError }
 }
 
 export default useProfileAvatar

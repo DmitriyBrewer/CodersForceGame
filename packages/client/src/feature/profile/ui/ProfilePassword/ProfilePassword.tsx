@@ -25,9 +25,9 @@ const ProfilePassword: FC = () => {
       <BaseDialog open={open}>
         <FormData handleSubmit={handleSubmit}>
           <BaseTypography>Изменить пароль</BaseTypography>
-          <PasswordInput label="Старый пароль" name="newPassword" {...inputProps} />
-          <PasswordInput label="Новый пароль" name="oldPassword" {...inputProps} />
-          <BaseButton color="success" type="button" disabled={isLoading}>
+          <PasswordInput label="Старый пароль" name="oldPassword" {...inputProps} />
+          <PasswordInput label="Новый пароль" name="newPassword" {...inputProps} />
+          <BaseButton color="success" type="submit" disabled={isLoading}>
             Сохранить
           </BaseButton>
           <BaseButton type="button" color="secondary" onClick={closeDialog}>

@@ -13,8 +13,8 @@ export const useProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        // TODO: replace to store
-        const data = await fetchInstance<User>('/auth/user')
+        // TODO: feature/cfg-25 replace to store
+        const data = await fetchInstance('/auth/user')
         setUserData(data)
       } catch (err) {
         setError(err)
@@ -26,11 +26,11 @@ export const useProfile = () => {
   }, [])
 
   const fields: Field[] = [
-    { label: 'Имя', name: 'first_name' },
-    { label: 'Фамилия', name: 'second_name' },
-    { label: 'Логин', name: 'login' },
-    { label: 'Email', name: 'email' },
-    { label: 'Телефон', name: 'phone' }
+    { label: 'Имя', name: 'first_name', id: 1 },
+    { label: 'Фамилия', name: 'second_name', id: 2 },
+    { label: 'Логин', name: 'login', id: 3 },
+    { label: 'Email', name: 'email', id: 4 },
+    { label: 'Телефон', name: 'phone', id: 5 }
   ]
 
   return { userData, error, loading, fields }

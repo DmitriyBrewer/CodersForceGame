@@ -19,4 +19,5 @@ export type User = {
 export type Field = {
   name: keyof User
   label: string
+  id: number
 }
