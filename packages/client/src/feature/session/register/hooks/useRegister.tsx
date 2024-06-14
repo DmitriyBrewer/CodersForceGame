@@ -1,10 +1,18 @@
-import { useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 
-import { FormDataError, FormDataPayload } from '@/shared/types'
+import { useNavigate } from 'react-router-dom'
+
+import { useDispatch } from 'react-redux'
+
+import { setError, setLoading } from '@/entities/user/model'
+
 import { validateField } from '@/shared/components/core/FormData/model/validateField'
 
+import { RegisterApiError, RegisterError, RegisterPayload } from '../types'
+import { useLazyGetUserQuery, useRegisterMutation } from '../../api/authApi'
+
 export const useRegister = () => {
-  const [formData, setFormData] = useState<FormDataPayload>({
+  const [formData, setFormData] = useState<RegisterPayload>({
     first_name: '',
     second_name: '',
     login: '',
@@ -14,7 +22,7 @@ export const useRegister = () => {
     password_repeat: ''
   })
 
-  const [errors, setErrors] = useState<FormDataError>({
+  const [errors, setErrors] = useState<RegisterError>({
     first_name: '',
     second_name: '',
     login: '',
@@ -26,15 +34,33 @@ export const useRegister = () => {
 
   const isError = Object.values(errors).some(error => error !== '')
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [register] = useRegisterMutation()
+  const [getUser] = useLazyGetUserQuery()
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
     setErrors({ ...errors, [name]: validateField(name, value, formData.password) })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    console.log(`Отправка формы... \n ${JSON.stringify(formData, null, 2)}`)
+    dispatch(setLoading(true))
+    try {
+      const registerResult = await register({ ...formData }).unwrap()
+      if (registerResult) {
+        await getUser()
+        navigate('/')
+      }
+    } catch (err) {
+      const typedError = err as RegisterApiError
+      dispatch(setError(typedError.data.reason))
+    } finally {
+      dispatch(setLoading(false))
+    }
   }
 
   const inputProps = { formData, handleChange, errors }
