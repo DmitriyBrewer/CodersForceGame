@@ -1,8 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 
-import fetchInstance from '@/shared/api/fetchInstance'
-
-type nullable<T> = T | null
+import profileApi from '@/feature/profile/api/profileApi'
+import { nullable } from '@/feature/profile/types'
 
 const useProfileAvatar = () => {
   const [avatar, setAvatar] = useState<File>()
@@ -18,6 +17,7 @@ const useProfileAvatar = () => {
     setAvatar(files[0])
   }
 
+  // TODO: add snackbar after change
   useEffect(() => {
     async function submit() {
       if (!avatar) {
@@ -26,9 +26,9 @@ const useProfileAvatar = () => {
       setLoading(true)
       const formData = new FormData()
       formData.append('avatar', avatar)
-
       try {
-        await fetchInstance('/user/profile/avatar', { method: 'PUT', body: formData })
+        await profileApi.updateAvatar(formData)
+        // TODO: update user in state
       } catch (err: unknown) {
         setError(err)
       } finally {

@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import BaseButton from '@/shared/components/ui/BaseButton'
 import BaseBox from '@/shared/components/ui/BaseBox'
@@ -12,8 +12,7 @@ import BaseTypography from '@/shared/components/ui/BaseTypography'
 import { useProfilePassword } from '@/feature/profile/hooks/useProfilePassword'
 
 const ProfilePassword: FC = () => {
-  const [open, setOpen] = useState<boolean>(false)
-  const { inputProps, handleSubmit } = useProfilePassword()
+  const { inputProps, handleSubmit, isLoading, open, setOpen } = useProfilePassword()
 
   const closeDialog = () => setOpen(false)
   const openDialog = () => setOpen(true)
@@ -25,11 +24,13 @@ const ProfilePassword: FC = () => {
       </BaseButton>
       <BaseDialog open={open}>
         <FormData handleSubmit={handleSubmit}>
-          <BaseTypography color="primary.dark">Изменить пароль</BaseTypography>
+          <BaseTypography>Изменить пароль</BaseTypography>
           <PasswordInput label="Старый пароль" name="newPassword" {...inputProps} />
           <PasswordInput label="Новый пароль" name="oldPassword" {...inputProps} />
-          <BaseButton type="submit">Сохранить</BaseButton>
-          <BaseButton type="button" onClick={closeDialog}>
+          <BaseButton color="success" type="button" disabled={isLoading}>
+            Сохранить
+          </BaseButton>
+          <BaseButton type="button" color="secondary" onClick={closeDialog}>
             Отмена
           </BaseButton>
         </FormData>

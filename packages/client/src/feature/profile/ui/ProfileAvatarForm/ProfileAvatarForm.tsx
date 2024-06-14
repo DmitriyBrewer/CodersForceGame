@@ -1,12 +1,13 @@
-import { FC } from 'react'
+import { ChangeEvent, FC } from 'react'
 
 import ProfileAvatarButton from '@/feature/profile/ui/ProfileAvatarButton'
 import ProfileFileInput from '@/feature/profile/ui/ProfileFileInput'
-import useProfileAvatar from '@/feature/profile/hooks/useProfileAvatar'
 
-const ProfileAvatarForm: FC = () => {
-  const { fileChange } = useProfileAvatar()
+type Props = {
+  fileChange: (e: ChangeEvent<HTMLInputElement>) => void
+}
 
+const ProfileAvatarForm: FC<Props> = ({ fileChange }) => {
   return (
     <form id="profile-avatar-form" onSubmit={e => e.preventDefault()}>
       <ProfileAvatarButton>

@@ -1,4 +1,5 @@
-const fetchInstance = async (endPoint: string, options = {}) => {
+// TODO: add errors type
+const fetchInstance = async <T>(endPoint: string, options = {}): Promise<T> => {
   const baseUrl = 'https:\\ya-praktikum.tech/api/v2'
   const url = `${baseUrl}${endPoint}`
 
@@ -7,8 +8,8 @@ const fetchInstance = async (endPoint: string, options = {}) => {
   if (!response.ok) {
     throw new Error(`Error fetching ${endPoint}; Error: ${response.statusText}`)
   }
-
-  return response.json()
+  // TODO: handle if not correct json
+  return response.json() as Promise<T>
 }
 
 export default fetchInstance

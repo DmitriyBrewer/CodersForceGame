@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import BaseContainer from '@/shared/components/ui/BaseContainer'
 
-import ProfileFeature from '@/feature/profile/ui/ProfileFeature'
+import ProfileFeature from '@/feature/profile/ui'
 
 const ProfileWidget: FC = () => {
   return (

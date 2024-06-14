@@ -2,34 +2,19 @@ import { useEffect, useState } from 'react'
 
 import fetchInstance from '@/shared/api/fetchInstance'
 
-type nullable<T> = T | null
-
-export type User = {
-  id: number
-  first_name: string
-  second_name: string
-  display_name: string
-  phone: string
-  login: string
-  avatar: string
-  email: string
-}
-
-export type Field = {
-  name: keyof User
-  label: string
-}
+import { Field, nullable, User } from '@/feature/profile/types'
 
 export const useProfile = () => {
   const [userData, setUserData] = useState<nullable<User>>(null)
   const [error, setError] = useState<nullable<unknown>>(null)
   const [loading, setLoading] = useState(true)
 
-  // TODO: feature/cfg-25 fetch to times
+  // TODO: feature/cfg-25 fetch two times
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const data = await fetchInstance('/auth/user')
+        // TODO: replace to store
+        const data = await fetchInstance<User>('/auth/user')
         setUserData(data)
       } catch (err) {
         setError(err)

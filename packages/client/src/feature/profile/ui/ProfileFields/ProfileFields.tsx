@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 import BaseTextField from '@/shared/components/ui/BaseTextField'
 
-import { User, Field } from '@/feature/profile/hooks/useProfile'
+import { Field, User } from '@/feature/profile/types'
 
 type Props = {
   fields: Field[]
