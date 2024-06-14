@@ -19,7 +19,7 @@ const ProfileAvatarGroup: FC<Props> = ({ src }) => {
   return (
     <BaseBox display="flex">
       <ProfileAvatar src={src} />
-      <ProfileAvatarForm isError={isError} isLoading={isLoading} fileChange={fileChange} />
+      <ProfileAvatarForm isLoading={isLoading} fileChange={fileChange} />
       {/* TODO: feature/cfg-25 move to global snackbar
        */}
       <BaseSnackbar open={isError} message="Ошибка изменения аватара!" />
