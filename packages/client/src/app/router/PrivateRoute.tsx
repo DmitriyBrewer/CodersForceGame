@@ -17,7 +17,7 @@ interface Props {
 const PrivateRoute = (props: Props) => {
   const { component: Component } = props
   const { isAuth, isLoading } = useAuth()
-  console.log(isAuth)
+
   if (isLoading) {
     return (
       <BaseBox className={styles.root}>
