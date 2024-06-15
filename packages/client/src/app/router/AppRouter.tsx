@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { paths } from '@/shared/config/routing'
 
 import RegisterPage from '@/pages/session/register'
+import ProfilePage from '@/pages/profile'
 
 import LoginPage from '@/pages/session/login'
 
@@ -40,7 +41,8 @@ const router = createBrowserRouter([
         element: <PublicRoute component={RegisterPage} />
       },
       {
-        path: paths.profile
+        path: paths.profile,
+        element: <PublicRoute component={ProfilePage} />
       },
       {
         path: paths.game,
