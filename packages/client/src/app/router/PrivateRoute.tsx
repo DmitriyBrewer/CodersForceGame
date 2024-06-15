@@ -5,6 +5,8 @@ import BaseLoader from '@/shared/components/ui/BaseLoader'
 
 import BaseBox from '@/shared/components/ui/BaseBox'
 
+import { paths } from '@/shared/config/routing'
+
 import { useAuth } from './hooks/useAuth'
 import styles from './PrivateRoute.module.scss'
 
@@ -24,7 +26,7 @@ const PrivateRoute = (props: Props) => {
     )
   }
 
-  return isAuth ? <Component /> : <Navigate to="/login" />
+  return isAuth ? <Component /> : <Navigate to={paths.login} />
 }
 
 export default PrivateRoute

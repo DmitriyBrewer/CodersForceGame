@@ -6,7 +6,7 @@ import RegisterPage from '@/pages/session/register'
 
 import LoginPage from '@/pages/session/login'
 
-import Error500Page from '@/pages/error/error-500'
+import Error500Page from '@/pages/error/500'
 
 import StartGamePage from '@/pages/game/game-engine'
 
@@ -16,7 +16,7 @@ import ForumTopicPage from '@/pages/social/forum-topic'
 
 import LeaderboardPage from '@/pages/leaderboard'
 
-import Error404Page from '@/pages/error/error-404'
+import Error404Page from '@/pages/error/404'
 
 import PrivateRoute from '@/app/router/PrivateRoute'
 import PublicRoute from '@/app/router/PublicRoute'
