@@ -88,7 +88,7 @@ function generateSWPlugin(): Plugin {
       const files = await getFiles(outDir, fileList, outDir)
 
       const swContent = generateSWContent(files)
-      await fs.writeFile(resolve(outDir, 'service-worker1.js'), swContent)
+      await fs.writeFile(resolve(outDir, 'service-worker.js'), swContent)
     }
   }
 }
