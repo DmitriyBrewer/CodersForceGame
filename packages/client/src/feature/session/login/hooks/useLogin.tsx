@@ -8,6 +8,8 @@ import { validateField } from '@/shared/components/core/FormData/model/validateF
 
 import { setError, setLoading } from '@/entities/user/model'
 
+import { paths } from '@/shared/config/routing'
+
 import { useLazyGetUserQuery, useLoginMutation } from '../../api/authApi'
 import { LoginApiError, LoginError, LoginPayload } from '../types'
 
@@ -43,7 +45,7 @@ export const useLogin = () => {
       const loginResult = await login(formData).unwrap()
       if (loginResult) {
         await getUser()
-        navigate('/')
+        navigate(paths.game)
       }
     } catch (err) {
       const typedError = err as LoginApiError

@@ -1,9 +1,8 @@
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import { paths } from '@/shared/config/routing'
 
 import RegisterPage from '@/pages/session/register'
-import Profile from '@/pages/Profile'
 
 import LoginPage from '@/pages/session/login'
 
@@ -15,13 +14,14 @@ import ForumPage from '@/pages/social/forum'
 
 import ForumTopicPage from '@/pages/social/forum-topic'
 
-import LeaderboardPage from '@/pages/leader-board'
+import LeaderboardPage from '@/pages/leaderboard'
 
 import Error404Page from '@/pages/error/error-404'
 
 import PrivateRoute from '@/app/router/PrivateRoute'
 import PublicRoute from '@/app/router/PublicRoute'
 import BaseLayout from '@/layouts/BaseLayout'
+import HomePage from '@/pages'
 
 const router = createBrowserRouter([
   {
@@ -29,12 +29,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: paths.home,
-        element: (
-          <>
-            <Navigate to={paths.game} />
-            <PrivateRoute component={StartGamePage} />
-          </>
-        )
+        element: <PublicRoute component={HomePage} />
       },
       {
         path: paths.login,
@@ -45,8 +40,7 @@ const router = createBrowserRouter([
         element: <PublicRoute component={RegisterPage} />
       },
       {
-        path: paths.profile,
-        element: <PrivateRoute component={Profile} />
+        path: paths.profile
       },
       {
         path: paths.game,

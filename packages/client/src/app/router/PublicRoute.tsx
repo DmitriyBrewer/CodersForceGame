@@ -1,7 +1,4 @@
 import React from 'react'
-import { Navigate } from 'react-router-dom'
-
-import { paths } from '@/shared/config/routing'
 
 import BaseLoader from '@/shared/components/ui/BaseLoader'
 import BaseBox from '@/shared/components/ui/BaseBox'
@@ -15,7 +12,7 @@ interface Props {
 
 const PublicRoute = (props: Props) => {
   const { component: Component } = props
-  const { isAuth, isLoading } = usePublicAuth()
+  const { isLoading } = usePublicAuth()
 
   if (isLoading) {
     return (
@@ -24,7 +21,7 @@ const PublicRoute = (props: Props) => {
       </BaseBox>
     )
   }
-  return isAuth ? <Navigate to={paths.game} /> : <Component />
+  return <Component />
 }
 
 export default PublicRoute
