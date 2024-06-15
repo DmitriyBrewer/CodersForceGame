@@ -14,15 +14,20 @@ import { useProfilePassword } from '@/feature/profile/hooks/useProfilePassword'
 const ProfilePassword: FC = () => {
   const { inputProps, handleSubmit, isLoading, open, setOpen } = useProfilePassword()
 
-  const closeDialog = () => setOpen(false)
-  const openDialog = () => setOpen(true)
+  const closeDialog = () => {
+    setOpen(false)
+  }
+
+  const openDialog = () => {
+    setOpen(true)
+  }
 
   return (
     <BaseBox display="flex">
       <BaseButton color="secondary" onClick={openDialog}>
         Изменить пароль
       </BaseButton>
-      <BaseDialog open={open}>
+      <BaseDialog open={open} onClose={closeDialog}>
         <FormData handleSubmit={handleSubmit}>
           <BaseTypography>Изменить пароль</BaseTypography>
           <PasswordInput label="Старый пароль" name="oldPassword" {...inputProps} />
