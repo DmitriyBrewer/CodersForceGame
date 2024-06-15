@@ -6,7 +6,6 @@
     "allowSyntheticDefaultImports": true
   },
   "include": ["vite.config.ts",
-    "vite-plugin-generate-sw.ts",
-    "src/shared/config/routing.ts"
+    "vite-plugin-generate-sw.ts"
   ]
 }
