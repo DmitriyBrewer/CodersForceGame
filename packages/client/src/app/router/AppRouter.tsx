@@ -42,7 +42,7 @@ const router = createBrowserRouter([
       },
       {
         path: paths.profile,
-        element: <PublicRoute component={ProfilePage} />
+        element: <PrivateRoute component={ProfilePage} />
       },
       {
         path: paths.game,
