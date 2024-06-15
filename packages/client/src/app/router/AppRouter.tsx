@@ -3,7 +3,7 @@ import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import { paths } from '@/shared/config/routing'
 
 import RegisterPage from '@/pages/session/register'
-import Profile from '@/pages/Profile'
+import Profile from '@/pages/profile'
 
 import LoginPage from '@/pages/session/login'
 
