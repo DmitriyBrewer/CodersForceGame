@@ -19,10 +19,11 @@ import LeaderboardPage from '@/pages/leaderboard'
 
 import Error404Page from '@/pages/error/404'
 
-import PrivateRoute from '@/app/router/PrivateRoute'
-import PublicRoute from '@/app/router/PublicRoute'
 import BaseLayout from '@/layouts/BaseLayout'
 import HomePage from '@/pages'
+import PublicRoute from '../PublicRouter'
+import SessionRoute from '../SessionRoute'
+import PrivateRoute from '../PrivateRouter'
 
 const router = createBrowserRouter([
   {
@@ -34,11 +35,11 @@ const router = createBrowserRouter([
       },
       {
         path: paths.login,
-        element: <PublicRoute component={LoginPage} />
+        element: <SessionRoute component={LoginPage} />
       },
       {
         path: paths.register,
-        element: <PublicRoute component={RegisterPage} />
+        element: <SessionRoute component={RegisterPage} />
       },
       {
         path: paths.profile,

@@ -7,7 +7,7 @@ import BaseBox from '@/shared/components/ui/BaseBox'
 
 import { paths } from '@/shared/config/routing'
 
-import { useAuth } from './hooks/useAuth'
+import { useAuth } from '../hooks/useAuth'
 import styles from './PrivateRoute.module.scss'
 
 interface Props {
