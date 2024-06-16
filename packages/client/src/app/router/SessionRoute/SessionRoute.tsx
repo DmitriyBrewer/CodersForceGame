@@ -1,11 +1,9 @@
 import React from 'react'
 
 import BaseLoader from '@/shared/components/ui/BaseLoader'
-import BaseBox from '@/shared/components/ui/BaseBox'
 
 import { useSessionRouter } from '../hooks/useSessionRouter'
-
-import styles from './SessionRoute.module.scss'
+import RouteBox from '../RouteBox'
 
 interface Props {
   component: React.FC
@@ -17,9 +15,9 @@ const SessionRoute = (props: Props) => {
 
   if (isLoading) {
     return (
-      <BaseBox className={styles.root}>
+      <RouteBox>
         <BaseLoader />
-      </BaseBox>
+      </RouteBox>
     )
   }
   return <Component />

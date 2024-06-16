@@ -1,10 +1,9 @@
 import React from 'react'
 
 import BaseLoader from '@/shared/components/ui/BaseLoader'
-import BaseBox from '@/shared/components/ui/BaseBox'
 
 import { usePublicAuth } from '../hooks/usePublicAuth'
-import styles from './PublicRoute.module.scss'
+import RouteBox from '../RouteBox'
 
 interface Props {
   component: React.FC
@@ -16,9 +15,9 @@ const PublicRoute = (props: Props) => {
 
   if (isLoading) {
     return (
-      <BaseBox className={styles.root}>
+      <RouteBox>
         <BaseLoader />
-      </BaseBox>
+      </RouteBox>
     )
   }
   return <Component />

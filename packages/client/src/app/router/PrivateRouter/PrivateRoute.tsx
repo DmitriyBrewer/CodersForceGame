@@ -3,12 +3,10 @@ import { Navigate } from 'react-router-dom'
 
 import BaseLoader from '@/shared/components/ui/BaseLoader'
 
-import BaseBox from '@/shared/components/ui/BaseBox'
-
 import { paths } from '@/shared/config/routing'
 
 import { useAuth } from '../hooks/useAuth'
-import styles from './PrivateRoute.module.scss'
+import RouteBox from '../RouteBox'
 
 interface Props {
   component: React.FC
@@ -20,9 +18,9 @@ const PrivateRoute = (props: Props) => {
 
   if (isLoading) {
     return (
-      <BaseBox className={styles.root}>
+      <RouteBox>
         <BaseLoader />
-      </BaseBox>
+      </RouteBox>
     )
   }
 
