@@ -1,13 +1,14 @@
-import { Dispatch, FC } from 'react'
+import { Dispatch, FC, SetStateAction } from 'react'
+
+import useCanvasAnimation from '../../hooks/useCanvasAnimation'
 
 import styles from './GameEntities.module.scss'
-import useCanvasAnimation from '../../hooks/useCanvasAnimation'
 
 interface Props {
   pause: boolean
   restart: boolean
   stop: boolean
-  setEndGame: Dispatch<React.SetStateAction<boolean>>
+  setEndGame: Dispatch<SetStateAction<boolean>>
 }
 
 const GameEntities: FC<Props> = ({ pause, restart, stop, setEndGame }) => {

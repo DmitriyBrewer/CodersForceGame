@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 
 import BaseLoader from '@/shared/components/ui/BaseLoader'
 
@@ -6,7 +6,7 @@ import { useSessionRouter } from '../hooks/useSessionRouter'
 import RouteBox from '../RouteBox'
 
 interface Props {
-  component: React.FC
+  component: FC
 }
 
 const SessionRoute = (props: Props) => {

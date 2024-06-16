@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 import { Navigate } from 'react-router-dom'
 
 import BaseLoader from '@/shared/components/ui/BaseLoader'
@@ -9,7 +9,7 @@ import { useAuth } from '../hooks/useAuth'
 import RouteBox from '../RouteBox'
 
 interface Props {
-  component: React.FC
+  component: FC
 }
 
 const PrivateRoute = (props: Props) => {
