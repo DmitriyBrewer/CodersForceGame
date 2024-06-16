@@ -3,22 +3,39 @@ export interface Position {
   yPosition: number
 }
 
-export interface Speed {
+export type Speed = {
   xSpeed: number
   ySpeed: number
 }
 
-export interface Acceleration {
+export type Acceleration = {
   xAcceleration: number
   yAcceleration: number
 }
 
-export interface RoadLimit {
+export type RoadLimit = {
   height: number
   width: number
   position: Position
 }
 
-export interface InputStates {
+export type InputStates = {
   [key: string]: boolean
+}
+
+export type ImageDictionary = {
+  [key: string]: HTMLImageElement
+}
+
+export type SpriteConfig = {
+  x: number
+  y: number
+  width: number
+  height: number
+}
+
+export type DrawConfig = {
+  xPosition: number
+  yPosition: number
+  scale: number
 }

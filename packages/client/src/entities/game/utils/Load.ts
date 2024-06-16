@@ -1,15 +1,17 @@
+import { ImageDictionary } from '@/entities/types/types'
+
 class Load {
-  static images(...files: string[]): Promise<{ [key: string]: HTMLImageElement }> {
+  static images(...files: string[]): Promise<ImageDictionary> {
     let loaded = 0
-    const images: { [key: string]: HTMLImageElement } = {}
+    const images: ImageDictionary = {}
 
     return new Promise(resolve => {
       files.forEach((file: string) => {
-        const img = new Image()
-        img.src = file
-        img.onload = () => {
+        const image = new Image()
+        image.src = file
+        image.onload = () => {
           loaded++
-          images[file] = img
+          images[file] = image
           if (loaded === files.length) {
             resolve(images)
           }

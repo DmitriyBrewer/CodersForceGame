@@ -1,4 +1,4 @@
-import { RoadLimit } from '@/entities/types/types'
+import { ImageDictionary, InputStates, RoadLimit } from '@/entities/types/types'
 
 import Timer from './utils/Timer'
 import Road from '../road'
@@ -19,7 +19,7 @@ const INITIAL_SPEED = {
 }
 
 class Game {
-  public inputStates: { [key: string]: boolean }
+  public inputStates: InputStates
 
   public currentGameState: number
 
@@ -46,16 +46,16 @@ class Game {
     this.currentLevelTime = TIME_BETWEEN_LEVELS
   }
 
-  async loadAssets(cb: (images: { [key: string]: HTMLImageElement }) => void) {
+  async loadAssets(callback: (images: ImageDictionary) => void): Promise<void> {
     try {
       const images = await Load.images(road)
-      cb(images)
+      callback(images)
     } catch (error) {
       console.error('Ошибка загрузки ассетов:', error)
     }
   }
 
-  start(canvasElement: HTMLCanvasElement) {
+  start(canvasElement: HTMLCanvasElement): void {
     try {
       this.canvas = canvasElement
       this.ctx = this.canvas.getContext('2d')
@@ -84,7 +84,9 @@ class Game {
 
       this.loadAssets(images => {
         if (this.road) {
-          this.road.setImage(images[road], 0, 0, 840, 647)
+          const spriteConfig = { x: 0, y: 0, width: 840, height: 647 }
+
+          this.road.setImage(images[road], spriteConfig)
           this.resetEntities()
 
           requestAnimationFrame(this.mainLoop.bind(this))
@@ -98,7 +100,7 @@ class Game {
   resetEntities() {
     if (this.road) {
       this.road.speed.ySpeed = INITIAL_SPEED.ROAD
-      this.road.accel.yAcceleration = 0
+      this.road.acceleration.yAcceleration = 0
     }
   }
 
@@ -109,18 +111,18 @@ class Game {
     }
   }
 
-  running(dt: number) {
+  running(deltaTime: number) {
     try {
       this.clearCanvas()
 
       if (this.road) {
         if (this.nextRoadSpeed < this.road.speed.ySpeed) {
-          this.road.accel.yAcceleration = 0
+          this.road.acceleration.yAcceleration = 0
         }
 
-        this.road.update(dt)
+        this.road.update(deltaTime)
         this.displayScore()
-        this.currentLevelTime -= dt
+        this.currentLevelTime -= deltaTime
       }
     } catch (error) {
       console.error('Ошибка во время выполнения игры:', error)
@@ -130,30 +132,34 @@ class Game {
 
   gameOver() {
     if (this.ctx) {
-      const pad = 100
-      const tOff = 150
-      const line = 50
+      const padding = 100
+      const textOffset = 150
+      const lineHeight = 50
 
-      const { width: cW, height: cH } = this.ctx.canvas
+      const { width: canvasWidth, height: canvasHeight } = this.ctx.canvas
       this.ctx.save()
       this.ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'
-      this.ctx.fillRect(pad, 50, cW - pad * 2, cH - pad)
+      this.ctx.fillRect(padding, 50, canvasWidth - padding * 2, canvasHeight - padding)
       this.ctx.fillStyle = 'white'
-      this.ctx.fillText('GAME OVER', cW / 2 - tOff, pad + line)
-      this.ctx.fillText('Press SPACE to start again', cW / 2 - tOff, pad + line * 2)
-      this.ctx.fillText('Move with arrow keys', cW / 2 - tOff, pad + line * 3)
-      this.ctx.fillText(`Survive ${TIME_BETWEEN_LEVELS / 1000} seconds for next level`, cW / 2 - tOff, pad + line * 4)
+      this.ctx.fillText('GAME OVER', canvasWidth / 2 - textOffset, padding + lineHeight)
+      this.ctx.fillText('Press SPACE to start again', canvasWidth / 2 - textOffset, padding + lineHeight * 2)
+      this.ctx.fillText('Move with arrow keys', canvasWidth / 2 - textOffset, padding + lineHeight * 3)
+      this.ctx.fillText(
+        `Survive ${TIME_BETWEEN_LEVELS / 1000} seconds for next level`,
+        canvasWidth / 2 - textOffset,
+        padding + lineHeight * 4
+      )
       this.ctx.restore()
     }
   }
 
   mainLoop(time: number) {
     try {
-      const dt = Timer.getDelta(time)
+      const deltaTime = Timer.getDelta(time)
 
       switch (this.currentGameState) {
         case GAME_STATE.RUNNING:
-          this.running(dt)
+          this.running(deltaTime)
 
           if (this.currentLevelTime < 0) {
             this.goToNextLevel()
@@ -186,7 +192,7 @@ class Game {
 
     if (this.road) {
       this.nextRoadSpeed = this.road.speed.ySpeed * difficult
-      this.road.accel.yAcceleration = 0.00001
+      this.road.acceleration.yAcceleration = 0.00001
     }
   }
 

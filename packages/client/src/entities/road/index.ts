@@ -1,4 +1,4 @@
-import { Acceleration, InputStates, Speed } from '@/entities/types/types'
+import { Acceleration, InputStates, Speed, SpriteConfig } from '@/entities/types/types'
 
 import SpriteImage from '../sprite-image'
 
@@ -11,7 +11,7 @@ class Road {
 
   public speed: Speed
 
-  public accel: Acceleration
+  public acceleration: Acceleration
 
   public totalSeconds: number
 
@@ -24,33 +24,36 @@ class Road {
       xSpeed: 0,
       ySpeed: 0
     }
-
-    this.accel = {
+    this.acceleration = {
       xAcceleration: 0,
       yAcceleration: 0
     }
-
     this.totalSeconds = 0
   }
 
-  setImage(img: HTMLImageElement, ...args: [number, number, number, number]) {
-    this.sprite = new SpriteImage(img, ...args)
+  setImage(image: HTMLImageElement, spriteConfig: SpriteConfig) {
+    this.sprite = new SpriteImage(image, spriteConfig)
   }
 
-  update(dt: number) {
-    const { width: cW } = this.ctx.canvas
-    const { height: sH, width: sW } = this.sprite
-    this.totalSeconds += dt
+  update(deltaTime: number) {
+    const { width: canvasWidth } = this.ctx.canvas
+    const { height: spriteHeight, width: spriteWidth } = this.sprite
+    this.totalSeconds += deltaTime
 
-    this.speed.ySpeed += this.accel.yAcceleration * dt
+    this.speed.ySpeed += this.acceleration.yAcceleration * deltaTime
 
-    const numImages = Math.ceil(cW / sW) + 1
-    const yPos = (this.totalSeconds * this.speed.ySpeed) % sH
+    const numImages = Math.ceil(canvasWidth / spriteWidth) + 1
+    const yPosition = (this.totalSeconds * this.speed.ySpeed) % spriteHeight
 
     this.ctx.save()
-    this.ctx.translate(0, yPos)
+    this.ctx.translate(0, yPosition)
     for (let i = 0; i < numImages; i++) {
-      this.sprite.draw(this.ctx, cW / 2 - sW / 2, -i * sH, 1)
+      const drawConfig = {
+        xPosition: canvasWidth / 2 - spriteWidth / 2,
+        yPosition: -i * spriteHeight,
+        scale: 1
+      }
+      this.sprite.draw(this.ctx, drawConfig)
     }
     this.ctx.restore()
   }

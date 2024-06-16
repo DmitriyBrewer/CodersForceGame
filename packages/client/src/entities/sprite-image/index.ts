@@ -1,5 +1,7 @@
+import { DrawConfig, SpriteConfig } from '@/entities/types/types'
+
 class SpriteImage {
-  public img: HTMLImageElement
+  public image: HTMLImageElement
 
   public x: number
 
@@ -9,23 +11,27 @@ class SpriteImage {
 
   public height: number
 
-  constructor(img: HTMLImageElement, x: number, y: number, width: number, height: number) {
-    this.img = img
+  constructor(image: HTMLImageElement, config: SpriteConfig) {
+    const { x, y, width, height } = config
+
+    this.image = image
     this.x = x
     this.y = y
     this.width = width
     this.height = height
   }
 
-  draw(ctx: CanvasRenderingContext2D, xPos: number, yPos: number, scale: number) {
+  draw(ctx: CanvasRenderingContext2D, drawConfig: DrawConfig) {
+    const { xPosition, yPosition, scale } = drawConfig
+
     ctx.drawImage(
-      this.img,
+      this.image,
       this.x,
       this.y,
       this.width,
       this.height,
-      xPos,
-      yPos,
+      xPosition,
+      yPosition,
       this.width * scale,
       this.height * scale
     )
