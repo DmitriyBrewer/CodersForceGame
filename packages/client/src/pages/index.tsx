@@ -1,8 +1,8 @@
 import { FC } from 'react'
 
-import BaseLink from '@/shared/components/ui/BaseLink'
 import { paths } from '@/shared/config/routing'
 import BaseTypography from '@/shared/components/ui/BaseTypography'
+import BaseLink from '@/shared/components/ui/BaseLink'
 
 const HomePage: FC = () => {
   return (
