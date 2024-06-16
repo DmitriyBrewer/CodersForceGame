@@ -30,7 +30,6 @@ export const useProfilePassword = () => {
   const [open, setOpen] = useState<boolean>(false)
 
   const isError = Object.values(errors).some(error => error !== '')
-  console.log(isError)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
