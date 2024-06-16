@@ -12,7 +12,7 @@ import BaseTypography from '@/shared/components/ui/BaseTypography'
 import { useProfilePassword } from '@/feature/profile/hooks/useProfilePassword'
 
 const ProfilePassword: FC = () => {
-  const { inputProps, handleSubmit, isLoading, open, setOpen } = useProfilePassword()
+  const { inputProps, handleSubmit, isLoading, open, setOpen, isError } = useProfilePassword()
 
   const closeDialog = () => {
     setOpen(false)
@@ -32,7 +32,7 @@ const ProfilePassword: FC = () => {
           <BaseTypography>Изменить пароль</BaseTypography>
           <PasswordInput label="Старый пароль" name="oldPassword" {...inputProps} />
           <PasswordInput label="Новый пароль" name="newPassword" {...inputProps} />
-          <BaseButton color="success" type="submit" disabled={isLoading}>
+          <BaseButton color="success" type="submit" disabled={isError || isLoading}>
             Сохранить
           </BaseButton>
           <BaseButton type="button" color="secondary" onClick={closeDialog}>

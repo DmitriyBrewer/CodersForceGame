@@ -45,6 +45,10 @@ export const validateField = (name: string, value: string, password: string) => 
       return isValidPassword(value) ? '' : conditions.password.errorText
     case 'password_repeat':
       return isValidPasswordRepeat(value, password) ? '' : conditions.passwordRepeat.errorText
+    case 'oldPassword':
+      return isValidPassword(value) ? '' : conditions.password.errorText
+    case 'newPassword':
+      return isValidPassword(value) ? '' : conditions.password.errorText
     default:
       return ''
   }

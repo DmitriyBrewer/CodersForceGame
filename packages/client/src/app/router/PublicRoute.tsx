@@ -18,7 +18,7 @@ const PublicRoute = (props: Props) => {
   const { isAuth, isLoading } = usePublicAuth()
   const { pathname } = useLocation()
 
-  const isSession = (isAuth && pathname.includes(paths.login)) || pathname.includes(paths.register)
+  const isSession = isAuth && pathname.includes(paths.login)
 
   if (isLoading) {
     return (
