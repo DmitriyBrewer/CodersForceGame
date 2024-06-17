@@ -16,7 +16,7 @@ const GameEntities: FC<Props> = ({ pause, restart, stop, setEndGame }) => {
 
   return (
     <div className={styles.root}>
-      <canvas ref={canvasRef} className={styles.root__canvas} />
+      <canvas ref={canvasRef} className={styles.root__canvas} width="800" height="600" />
     </div>
   )
 }

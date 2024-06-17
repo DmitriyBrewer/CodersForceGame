@@ -54,7 +54,7 @@ export const useGame = () => {
           return newProgress >= 100 ? 100 : newProgress
         })
       }
-    }, 200)
+    }, 50)
   }
 
   const onRetryGame = () => {
