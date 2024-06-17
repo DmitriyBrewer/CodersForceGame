@@ -2323,6 +2323,11 @@
     "@types/node" "*"
     "@types/send" "*"
 
+"@types/serviceworker@^0.0.87":
+  version "0.0.87"
+  resolved "https://registry.yarnpkg.com/@types/serviceworker/-/serviceworker-0.0.87.tgz#12386f6cc49fb07c4c5421b62dd2df8a586a3ab7"
+  integrity sha512-/ktjrXTmw09ZkkcJbk+potBRTirFdTK/uShbMhvtjyW+kAx/EXUCPF5vvxqZeFXv7K5noTFjJpsmK8PSYGpTsA==
+
 "@types/stack-utils@^2.0.0":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.3.tgz#6209321eb2c1712a7e7466422b8cb1fc0d9dd5d8"
