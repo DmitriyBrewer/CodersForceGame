@@ -11,13 +11,13 @@ import BasePaperPolymorphic from '@/shared/components/ui/BasePaperPolymorphic'
 
 import BaseBox from '@/shared/components/ui/BaseBox'
 
-import backgroundImage from '@/assets/images/login-background.png'
+import backgroundImage from '@/assets/images/bg.png'
 
 import styles from './HomeWidget.module.scss'
 
 const HomeWidget: FC = () => {
   return (
-    <BackgroundWrapper backgroundUrl={backgroundImage} filter="blur(2px)">
+    <BackgroundWrapper backgroundUrl={backgroundImage} filter="blur(0.5px)">
       <BaseBox className={styles.box}>
         <BaseContainer maxWidth="sm">
           <BasePaperPolymorphic elevation={4} rgap="--g28">
