@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { addMessage } from '@/entities/message/model'
@@ -15,7 +15,7 @@ const useMessage = ({ replyToId, setReplyToId }: Props) => {
   const messagesData = useSelector(getMessages)
   const dispatch = useDispatch()
 
-  const handleAddMessage = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleAddMessage = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     dispatch(
       addMessage({
@@ -32,7 +32,7 @@ const useMessage = ({ replyToId, setReplyToId }: Props) => {
     setReplyToId(undefined)
   }
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setNewMessage(event.target.value)
   }
 

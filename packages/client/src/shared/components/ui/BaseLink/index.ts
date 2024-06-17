@@ -1,3 +1,3 @@
-import BaseLink from '@/shared/components/ui/BaseLink/BaseLink'
+import BaseLink from './BaseLink'
 
 export default BaseLink

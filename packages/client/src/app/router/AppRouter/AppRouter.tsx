@@ -1,13 +1,13 @@
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import { paths } from '@/shared/config/routing'
 
 import RegisterPage from '@/pages/session/register'
-import Profile from '@/pages/profile'
+import ProfilePage from '@/pages/profile'
 
 import LoginPage from '@/pages/session/login'
 
-import Error500Page from '@/pages/error/error-500'
+import Error500Page from '@/pages/error/500'
 
 import StartGamePage from '@/pages/game/game-engine'
 
@@ -15,13 +15,16 @@ import ForumPage from '@/pages/social/forum'
 
 import ForumTopicPage from '@/pages/social/forum-topic'
 
-import LeaderboardPage from '@/pages/leader-board'
+import LeaderboardPage from '@/pages/leaderboard'
 
-import Error404Page from '@/pages/error/error-404'
+import Error404Page from '@/pages/error/404'
 
-import PrivateRoute from '@/app/router/PrivateRoute'
-import PublicRoute from '@/app/router/PublicRoute'
-import BaseLayout from '@/layouts/BaseLayout'
+import BaseLayout from '@/layouts/base-layout'
+
+import HomePage from '@/pages'
+import PublicRoute from '../PublicRouter'
+import SessionRoute from '../SessionRoute'
+import PrivateRoute from '../PrivateRouter'
 
 const router = createBrowserRouter([
   {
@@ -29,24 +32,19 @@ const router = createBrowserRouter([
     children: [
       {
         path: paths.home,
-        element: (
-          <>
-            <Navigate to={paths.game} />
-            <PrivateRoute component={StartGamePage} />
-          </>
-        )
+        element: <PublicRoute component={HomePage} />
       },
       {
         path: paths.login,
-        element: <PublicRoute component={LoginPage} />
+        element: <SessionRoute component={LoginPage} />
       },
       {
         path: paths.register,
-        element: <PublicRoute component={RegisterPage} />
+        element: <SessionRoute component={RegisterPage} />
       },
       {
         path: paths.profile,
-        element: <PrivateRoute component={Profile} />
+        element: <PrivateRoute component={ProfilePage} />
       },
       {
         path: paths.game,

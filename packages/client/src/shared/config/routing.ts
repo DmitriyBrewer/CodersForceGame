@@ -1,12 +1,12 @@
 export const paths = {
   home: '/',
-  login: '/login',
-  register: '/register',
+  login: '/session/login',
+  register: '/session/register',
   profile: '/profile',
   game: '/game',
   leaderboard: '/leaderboard',
-  forum: '/forum',
-  forumTopic: '/forumTopic',
+  forum: '/social/forum',
+  forumTopic: '/social/forumTopic',
   page404: '*',
-  page500: '/500'
+  page500: 'error/500'
 }

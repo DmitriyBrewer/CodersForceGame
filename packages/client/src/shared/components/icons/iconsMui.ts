@@ -3,10 +3,13 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import CloseIcon from '@mui/icons-material/Close'
 import ReplayIcon from '@mui/icons-material/Replay'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'
+import LoginIcon from '@mui/icons-material/Login'
 
-// TODO: feature/cfg-23 удалить позже, идея заключается в том, чтобы все иконки начинались с Icon
 export const IconLocalPhone = LocalPhoneIcon
 export const IconVisibility = VisibilityIcon
 export const IconVisibilityOff = VisibilityOffIcon
 export const IconClose = CloseIcon
 export const IconReplay = ReplayIcon
+export const IconExitToApp = ExitToAppIcon
+export const IconLogin = LoginIcon

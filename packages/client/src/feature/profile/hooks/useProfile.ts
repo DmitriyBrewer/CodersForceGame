@@ -5,6 +5,7 @@ import fetchInstance from '@/shared/api/fetchInstance'
 import { Field, nullable, User } from '@/feature/profile/types'
 
 export const useProfile = () => {
+  // TODO: feature/cfg-82 убргать в задаче feature/cfg-80 userData в redux + rtk и при успешном await profileApi.updateAvatar(formData) обновлять user
   const [userData, setUserData] = useState<nullable<User>>(null)
   const [error, setError] = useState<nullable<unknown>>(null)
   const [loading, setLoading] = useState(true)

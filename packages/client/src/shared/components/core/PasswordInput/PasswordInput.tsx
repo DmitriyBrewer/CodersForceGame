@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { ClipboardEvent, FC, useState } from 'react'
 
 import BaseTextField from '@/shared/components/ui/BaseTextField'
 
@@ -21,7 +21,7 @@ const PasswordInput: FC<InputProps> = ({
 }) => {
   const [showPassword, setShowPassword] = useState(false)
 
-  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+  const handlePaste = (e: ClipboardEvent<HTMLInputElement>) => {
     e.preventDefault()
   }
 

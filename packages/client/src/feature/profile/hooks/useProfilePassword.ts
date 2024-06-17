@@ -26,6 +26,7 @@ export const useProfilePassword = () => {
     oldPassword: '',
     newPassword: ''
   })
+
   const [open, setOpen] = useState<boolean>(false)
 
   const isError = Object.values(errors).some(error => error !== '')
@@ -52,7 +53,6 @@ export const useProfilePassword = () => {
       setLoading(false)
     }
   }
-
   const inputProps = { formData, handleChange, errors }
 
   return {

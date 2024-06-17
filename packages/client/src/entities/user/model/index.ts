@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { User } from '../types'
 import { authApiSlice } from '@/feature/session/api/authApi'
+import { navbarApiSlice } from '@/feature/base-layout/api/navbarApi'
 
 export interface UserState {
   userData?: User
@@ -28,7 +29,7 @@ const userSlice = createSlice({
   },
 
   extraReducers: builder => {
-    builder.addMatcher(authApiSlice.endpoints.logout.matchFulfilled, state => {
+    builder.addMatcher(navbarApiSlice.endpoints.logout.matchFulfilled, state => {
       state.userData = undefined
       state.isAuth = false
       state.isLoading = false

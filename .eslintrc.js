@@ -85,7 +85,6 @@ module.exports = {
       }
     ],
     'prettier/prettier': 'error',
-    // TODO: feature/feature/cfg-70 разрешаю использовать state.nameParam = value напряму без return {...state, namePara: value}
     'no-param-reassign': 'off',
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'no-unused-vars': 'off',

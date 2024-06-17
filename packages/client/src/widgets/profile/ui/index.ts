@@ -1,3 +1,3 @@
-import profileWidget from '@/widgets/profile/ui/ProfileWidget'
+import ProfileWidget from '@/widgets/profile/ui/ProfileWidget'
 
-export default profileWidget
+export default ProfileWidget

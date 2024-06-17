@@ -36,7 +36,7 @@ const GameMenu: FC<Props> = ({
 
   return (
     <BaseBox className={styles.end}>
-      <BaseButton variant="text" color="info" onClick={handleClickOpenEndGame}>
+      <BaseButton size="large" variant="contained" color="info" onClick={handleClickOpenEndGame}>
         Меню
       </BaseButton>
 
