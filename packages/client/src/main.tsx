@@ -7,7 +7,6 @@ import '@/app/styles/global.module.scss'
 import registerServiceWorker from '@/app/service-worker/registerServiceWorker'
 
 registerServiceWorker()
-
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
     <App />
