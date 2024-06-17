@@ -26,6 +26,9 @@ module.exports = {
     }
   },
   rules: {
+    'class-methods-use-this': 'off',
+    'no-plusplus': 'off',
+    'no-return-assign': 'off',
     'react/require-default-props': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     'react/jsx-filename-extension': [

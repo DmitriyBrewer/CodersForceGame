@@ -1,20 +1,26 @@
-import { FC } from 'react'
-
-import GameEntities from '@/entities/game/ui/GameEntities'
+import { FC, useEffect, useRef } from 'react'
 
 import BaseBox from '@/shared/components/ui/BaseBox'
-
 import { styleMui } from '@/shared/styleMui'
 
-import StartGame from '../StartGame/StartGame'
+import Game from '@/entities/game'
 
+import StartGame from '../StartGame/StartGame'
 import styles from './GameEngineFeature.module.scss'
-import GameMenu from '../GameMenu'
 import { useGame } from '../../hooks/useGame'
 
 const GameEngineFeature: FC = () => {
-  const { progress, isGameStarted, isButtonDisabled, handleStartGame, menuGameProps, restart, endGame, setEndGame } =
-    useGame()
+  const { progress, isGameStarted, isButtonDisabled, handleStartGame } = useGame()
+
+  const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const gameInstance = useRef<Game | null>(null)
+
+  useEffect(() => {
+    if (canvasRef.current && isGameStarted && !gameInstance.current) {
+      gameInstance.current = new Game()
+      gameInstance.current.start(canvasRef.current)
+    }
+  }, [isGameStarted])
 
   if (!isGameStarted) {
     return <StartGame progress={progress} isButtonDisabled={isButtonDisabled} handleStartGame={handleStartGame} />
@@ -22,8 +28,7 @@ const GameEngineFeature: FC = () => {
 
   return (
     <BaseBox className={styles.root} sx={styleMui.bgColorGame}>
-      <GameEntities pause={menuGameProps.openMenuGame} restart={restart} stop={endGame} setEndGame={setEndGame} />
-      <GameMenu {...menuGameProps} endGame={endGame} />
+      <canvas ref={canvasRef} width="800" height="600" />
     </BaseBox>
   )
 }
