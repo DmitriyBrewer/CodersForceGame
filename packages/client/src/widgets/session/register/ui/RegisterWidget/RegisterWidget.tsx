@@ -10,13 +10,13 @@ import BaseBox from '@/shared/components/ui/BaseBox'
 
 import RegisterFeature from '@/feature/session/register'
 
-import backgroundImage from '@/assets/images/login-background.png'
+import backgroundImage from '@/assets/images/bg.png'
 
 import styles from './RegisterWidget.module.scss'
 
 const RegisterWidget: FC = () => {
   return (
-    <BackgroundWrapper backgroundUrl={backgroundImage} filter="blur(2px)">
+    <BackgroundWrapper backgroundUrl={backgroundImage} filter="blur(0.5px)">
       <BaseBox className={styles.box}>
         <BaseContainer maxWidth="sm" sx={styleMui.secsionContainer}>
           <RegisterFeature />
