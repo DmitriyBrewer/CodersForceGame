@@ -12,7 +12,11 @@ class SpriteImage {
   public height: number
 
   constructor(image: HTMLImageElement, config: SpriteConfig) {
-    const { x, y, width, height } = config
+    const {
+      position: { xPosition: x, yPosition: y },
+      width,
+      height
+    } = config
 
     this.image = image
     this.x = x
@@ -22,7 +26,10 @@ class SpriteImage {
   }
 
   draw(ctx: CanvasRenderingContext2D, drawConfig: DrawConfig) {
-    const { xPosition, yPosition, scale } = drawConfig
+    const {
+      position: { xPosition, yPosition },
+      scale
+    } = drawConfig
 
     ctx.drawImage(
       this.image,
