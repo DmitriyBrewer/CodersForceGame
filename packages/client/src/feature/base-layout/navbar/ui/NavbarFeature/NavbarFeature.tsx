@@ -16,9 +16,11 @@ import BaseLoader from '@/shared/components/ui/BaseLoader'
 
 import BaseAlert from '@/shared/components/ui/BaseAlert'
 
-import { IconExitToApp } from '@/shared/components/icons/iconsMui'
+import { IconExitToApp, IconLogin } from '@/shared/components/icons/iconsMui'
 
 import { getAuth } from '@/entities/user/model/selector'
+
+import BaseLink from '@/shared/components/ui/BaseLink'
 
 import NavbarLink from '@/feature/base-layout/navbar/ui/NavbarLink'
 import { useLogout } from '../../../hooks/useLogout'
@@ -50,6 +52,13 @@ const NavbarFeature: FC = () => {
           <BaseButton color="error" variant="contained" onClick={handleLogout} endIcon={<IconExitToApp />}>
             Выйти
           </BaseButton>
+        )}
+        {!isAuth && (
+          <BaseLink to={paths.login}>
+            <BaseButton color="secondary" variant="contained" endIcon={<IconLogin />}>
+              Войти
+            </BaseButton>
+          </BaseLink>
         )}
       </BaseContainer>
     </>
