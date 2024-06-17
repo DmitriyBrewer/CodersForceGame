@@ -19,7 +19,8 @@ import LeaderboardPage from '@/pages/leaderboard'
 
 import Error404Page from '@/pages/error/404'
 
-import BaseLayout from '@/layouts/BaseLayout'
+import BaseLayout from '@/layouts/base-layout'
+
 import HomePage from '@/pages'
 import PublicRoute from '../PublicRouter'
 import SessionRoute from '../SessionRoute'

@@ -1,11 +1,6 @@
 import { createApi, fetchBaseQuery, FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/query/react'
 import { BaseQueryFn, FetchArgs } from '@reduxjs/toolkit/query'
 
-import { User } from '@/entities/user/types'
-
-import { RegisterResponse, RegisterPayload } from '../register/types'
-import { LoginPayload, LoginResponse } from '../login/types'
-
 const customFetchBaseQuery = fetchBaseQuery({
   baseUrl: 'https://ya-praktikum.tech/api/v2/auth',
   credentials: 'include'
@@ -27,28 +22,17 @@ const baseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, o
   return result
 }
 
-export const authApiSlice = createApi({
-  reducerPath: 'authApi',
+export const navbarApiSlice = createApi({
+  reducerPath: 'navbarApi',
   baseQuery,
   endpoints: builder => ({
-    register: builder.mutation<RegisterResponse, RegisterPayload>({
-      query: credentials => ({
-        url: '/signup',
-        method: 'POST',
-        body: credentials
+    logout: builder.mutation<void, void>({
+      query: () => ({
+        url: '/logout',
+        method: 'POST'
       })
-    }),
-    login: builder.mutation<LoginResponse, LoginPayload>({
-      query: credentials => ({
-        url: '/signin',
-        method: 'POST',
-        body: credentials
-      })
-    }),
-    getUser: builder.query<User, void>({
-      query: () => '/user'
     })
   })
 })
 
-export const { useRegisterMutation, useLoginMutation, useGetUserQuery, useLazyGetUserQuery } = authApiSlice
+export const { useLogoutMutation } = navbarApiSlice

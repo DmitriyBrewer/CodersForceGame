@@ -22,5 +22,9 @@ export const styleMui = {
 
   baseTableRow: { '&:last-child td, &:last-child th': { border: 0 } },
 
-  bgColorGame: { bgcolor: bgDefault }
+  bgColorGame: { bgcolor: bgDefault },
+  navbarContainer: { display: 'flex', justifyContent: 'space-between', padding: 'var(--s20)' },
+  navbarBox: { display: 'flex', gap: 'var(--g20)' },
+
+  navbar: { marginBottom: 'var(--m20)', position: 'relative' }
 }
