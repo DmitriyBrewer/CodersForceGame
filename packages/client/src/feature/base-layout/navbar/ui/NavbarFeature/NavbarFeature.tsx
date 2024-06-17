@@ -14,8 +14,8 @@ import BaseLoader from '@/shared/components/ui/BaseLoader'
 
 import BaseAlert from '@/shared/components/ui/BaseAlert'
 
-import NavbarLink from '@/feature/base-layout/navbar/NavbarLink'
-import { useLogout } from '../../hooks/useLogout'
+import NavbarLink from '@/feature/base-layout/navbar/ui/NavbarLink'
+import { useLogout } from '../../../hooks/useLogout'
 
 const NavbarFeature: FC = () => {
   const { isLoading, isError, handleLogout, error } = useLogout()
@@ -33,7 +33,7 @@ const NavbarFeature: FC = () => {
       )}
       <BaseContainer sx={styleMui.navbarContainer}>
         <BaseBox sx={styleMui.navbarBox}>
-          <NavbarLink to={paths.forum}>Главная</NavbarLink>
+          <NavbarLink to={paths.home}>Главная</NavbarLink>
           <NavbarLink to={paths.forum}>Форум</NavbarLink>
           <NavbarLink to={paths.leaderboard}>Таблица рекордов</NavbarLink>
           <NavbarLink to={paths.profile}>Профиль</NavbarLink>

@@ -1,3 +1,3 @@
-import NavbarFeature from './NavbarFeature'
+import NavbarFeature from './ui/NavbarFeature'
 
 export default NavbarFeature

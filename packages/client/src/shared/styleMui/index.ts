@@ -1,6 +1,8 @@
 const primaryDark = 'primary.dark'
 const errorDark = 'error.dark'
 const bgDefault = 'background.default'
+const primary = 'primary.main'
+const primaryContrastText = 'primary.contrastText'
 
 export const styleMui = {
   errorPageWidget: {
@@ -24,7 +26,15 @@ export const styleMui = {
 
   bgColorGame: { bgcolor: bgDefault },
   navbarContainer: { display: 'flex', justifyContent: 'space-between', padding: 'var(--s20)' },
-  navbarBox: { display: 'flex', gap: 'var(--g20)' },
+  navbarBox: { display: 'flex', columnGap: 'var(--g20)' },
 
-  navbar: { marginBottom: 'var(--m20)', position: 'relative' }
+  navbar: { position: 'relative' },
+  footer: { bgcolor: primary },
+  footerText: { color: primaryContrastText },
+  homeBox: {
+    height: 'var(--h100vh)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 }

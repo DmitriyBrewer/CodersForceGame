@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { Outlet } from 'react-router-dom'
 
 import NavbarWidget from '@/widgets/base-layout/navbar'
+import FooterWidget from '@/widgets/base-layout/footer/FooterWidget'
 
 const BaseLayout: FC = () => {
   return (
@@ -11,9 +12,7 @@ const BaseLayout: FC = () => {
       <main>
         <Outlet />
       </main>
-      <footer>
-        <h4>тут будет футер</h4>
-      </footer>
+      <FooterWidget />
     </>
   )
 }
