@@ -28,7 +28,7 @@ export const styleMui = {
   navbarContainer: { display: 'flex', justifyContent: 'space-between', padding: 'var(--s20)' },
   navbarBox: { display: 'flex', columnGap: 'var(--g20)' },
 
-  navbar: { position: 'relative' },
+  navbar: { position: 'relative', zIndex: '999' },
   footer: { bgcolor: primary },
   footerText: { color: primaryContrastText }
 }
