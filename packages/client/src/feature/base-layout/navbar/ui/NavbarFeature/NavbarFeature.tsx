@@ -1,5 +1,7 @@
 import { FC } from 'react'
 
+import { useSelector } from 'react-redux'
+
 import { paths } from '@/shared/config/routing'
 
 import BaseContainer from '@/shared/components/ui/BaseContainer'
@@ -14,11 +16,16 @@ import BaseLoader from '@/shared/components/ui/BaseLoader'
 
 import BaseAlert from '@/shared/components/ui/BaseAlert'
 
+import { IconExitToApp } from '@/shared/components/icons/iconsMui'
+
+import { getAuth } from '@/entities/user/model/selector'
+
 import NavbarLink from '@/feature/base-layout/navbar/ui/NavbarLink'
 import { useLogout } from '../../../hooks/useLogout'
 
 const NavbarFeature: FC = () => {
   const { isLoading, isError, handleLogout, error } = useLogout()
+  const isAuth = useSelector(getAuth)
 
   if (isLoading) {
     return <BaseLoader />
@@ -39,9 +46,11 @@ const NavbarFeature: FC = () => {
           <NavbarLink to={paths.profile}>Профиль</NavbarLink>
           <NavbarLink to={paths.game}>Игра</NavbarLink>
         </BaseBox>
-        <BaseButton color="error" variant="contained" onClick={handleLogout}>
-          Выйти
-        </BaseButton>
+        {isAuth && (
+          <BaseButton color="error" variant="contained" onClick={handleLogout} endIcon={<IconExitToApp />}>
+            Выйти
+          </BaseButton>
+        )}
       </BaseContainer>
     </>
   )

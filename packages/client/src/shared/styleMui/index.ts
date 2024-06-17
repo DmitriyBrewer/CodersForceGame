@@ -30,11 +30,5 @@ export const styleMui = {
 
   navbar: { position: 'relative' },
   footer: { bgcolor: primary },
-  footerText: { color: primaryContrastText },
-  homeBox: {
-    height: 'var(--h100vh)',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
+  footerText: { color: primaryContrastText }
 }

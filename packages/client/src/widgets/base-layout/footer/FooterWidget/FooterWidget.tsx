@@ -9,8 +9,12 @@ import styles from './FooterWidget.module.scss'
 const FooterWidget: FC = () => {
   return (
     <BaseBox component="footer" sx={styleMui.footer} className={styles.footer}>
-      <BaseTypography sx={styleMui.footerText}>Произведено CodersForceGame совместно с Яндекс Практикум</BaseTypography>
-      <BaseTypography sx={styleMui.footerText}>version 0.0.1</BaseTypography>
+      <BaseTypography variant="caption" sx={styleMui.footerText}>
+        Совместный проект: CodersForceGame & Яндекс Практикум
+      </BaseTypography>
+      <BaseTypography variant="caption" sx={styleMui.footerText}>
+        version 0.0.1
+      </BaseTypography>
     </BaseBox>
   )
 }
