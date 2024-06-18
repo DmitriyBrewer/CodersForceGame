@@ -2,11 +2,13 @@ import { FC } from 'react'
 
 import BaseTextField from '@/shared/components/ui/BaseTextField'
 
-import { Field, User } from '@/feature/profile/types'
+import { User } from '@/entities/user/types'
+
+import { Field } from '@/feature/profile/types'
 
 type Props = {
   fields: Field[]
-  userData: User | null
+  userData: User | undefined
 }
 
 const ProfileFields: FC<Props> = ({ fields, userData }) => {
