@@ -10,6 +10,18 @@
 - Redux
 - Service Workers
 
+## Доступные ссылки
+
+-   [Главная страница] (https://coders-force-game-client-git-develop-dmitriybrewers-projects.vercel.app/)
+-   [Страница регистрации](https://coders-force-game-client-git-develop-dmitriybrewers-projects.vercel.app/session/register)
+-   [Страница логина](https://coders-force-game-client-git-develop-dmitriybrewers-projects.vercel.app/session/login)
+-   [Страница форума](https://coders-force-game-client-git-develop-dmitriybrewers-projects.vercel.app/social/forum)
+-   [Страница лидерборда](https://coders-force-game-client-git-develop-dmitriybrewers-projects.vercel.app/leaderboard)
+-   [Страница профиля пользователя](https://coders-force-game-client-git-develop-dmitriybrewers-projects.vercel.app/profile)
+-   [Страница игры](https://coders-force-game-client-git-develop-dmitriybrewers-projects.vercel.app/game)
+-   [Страница 404](https://coders-force-game-client-git-develop-dmitriybrewers-projects.vercel.app/error/404)
+-   [Страница 500](https://coders-force-game-client-git-develop-dmitriybrewers-projects.vercel.app/error/500)
+
 ### Как запускать?
 
 1. Убедитесь что у вас установлен `node` и `docker`
