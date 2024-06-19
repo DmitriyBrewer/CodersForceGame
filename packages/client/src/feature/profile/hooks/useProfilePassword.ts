@@ -9,8 +9,8 @@ import { validateField } from '@/shared/components/core/FormData/model/validateF
 
 import { setError } from '@/entities/user/model'
 
-import profileApi from '@/feature/profile/api/profileApi'
 import { PasswordPayload } from '@/feature/profile/types'
+import profileApi from '@/feature/profile/api/profileApi'
 
 export const useProfilePassword = () => {
   const dispatch = useDispatch()

@@ -7,19 +7,22 @@ import message, { initialState as initialStateMessage } from '@/entities/message
 
 import { ReducerState, RTKStoreState } from './types'
 import { authApiSlice } from '@/feature/session/api/authApi'
+import { profileApiSlice } from '@/feature/profile/api/profileApi'
 
 export const rootReducer: ReducerState = combineReducers({
   user: user.reducer,
   topics: topic.reducer,
   messages: message.reducer,
-  authApi: authApiSlice.reducer
+  authApi: authApiSlice.reducer,
+  profileApi: profileApiSlice.reducer
 })
 
 export const preloadState: RTKStoreState = {
   user: initialStateUser,
   topics: initialStateTopic,
   messages: initialStateMessage,
-  authApi: authApiSlice.reducer(undefined, { type: 'unknown' })
+  authApi: authApiSlice.reducer(undefined, { type: 'unknown' }),
+  profileApi: profileApiSlice.reducer(undefined, { type: 'unknown' })
 }
 
 const store = configureStore({
