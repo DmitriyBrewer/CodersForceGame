@@ -39,11 +39,11 @@ class Player implements Entity {
   }
 
   get height(): number {
-    return this._sprite.height * this._scale
+    return this._sprite.spriteConfig.height * this._scale
   }
 
   get width(): number {
-    return this._sprite.width * this._scale
+    return this._sprite.spriteConfig.width * this._scale
   }
 
   get speed(): Speed {
@@ -76,9 +76,10 @@ class Player implements Entity {
 
   moveToStartPosition(): void {
     const { height: canvasHeight, width: canvasWidth } = this._ctx.canvas
+    const { height: spriteHeight, width: spriteWidth } = this._sprite.spriteConfig
     this._position = {
-      xPosition: canvasWidth / 2 - (this._sprite.width * this._scale) / 2,
-      yPosition: canvasHeight - 16 - this._sprite.height * this._scale
+      xPosition: canvasWidth / 2 - (spriteWidth * this._scale) / 2,
+      yPosition: canvasHeight - 16 - spriteHeight * this._scale
     }
   }
 
@@ -92,17 +93,21 @@ class Player implements Entity {
           this._position.xPosition += Player.maxSpeed * deltaTime
         }
 
-        this._sprite.draw(this._ctx, {
-          position: {
-            xPosition: this._position.xPosition,
-            yPosition: this._position.yPosition
-          },
-          scale: this._scale
-        })
+        if (this._sprite) {
+          this._sprite.draw(this._ctx, {
+            position: {
+              xPosition: this._position.xPosition,
+              yPosition: this._position.yPosition
+            },
+            scale: this._scale
+          })
+        }
         break
 
       case Player.EXPLODING:
-        this._explosion.draw(this._ctx, this._position.xPosition, this._position.yPosition)
+        if (this._explosion) {
+          this._explosion.draw(this._ctx, this._position.xPosition, this._position.yPosition)
+        }
         break
 
       default:

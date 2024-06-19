@@ -42,11 +42,11 @@ class Vehicle implements Entity {
   }
 
   get height() {
-    return this._sprite.height
+    return this._sprite.spriteConfig.height
   }
 
   get width() {
-    return this._sprite.width
+    return this._sprite.spriteConfig.width
   }
 
   get speed(): Speed {
@@ -61,7 +61,7 @@ class Vehicle implements Entity {
     const sOff = startOffset || this._startOffset
     this._lane = Vehicle.getRandomInt(0, Road.LANE_CENTER.length)
     if (this._sprite) {
-      const { height: spriteHeight, width: spriteWidth } = this._sprite
+      const { height: spriteHeight, width: spriteWidth } = this._sprite.spriteConfig
       this._position = {
         xPosition: Road.LANE_CENTER[this._lane] - spriteWidth / 2,
         yPosition: -(spriteHeight + sOff)
@@ -73,7 +73,7 @@ class Vehicle implements Entity {
   update(deltaTime: number): void {
     if (this._position && this._sprite) {
       const laneX = Road.LANE_CENTER[this._lane]
-      const { width: spriteWidth } = this._sprite
+      const { width: spriteWidth } = this._sprite.spriteConfig
 
       if (Math.abs(laneX - spriteWidth / 2 - this._position.xPosition) > 20) {
         this._speed.xSpeed = -this._speed.xSpeed

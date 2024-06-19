@@ -14,7 +14,7 @@ class SpriteAnimation {
   constructor() {
     this.spriteArray = []
     this.currentFrame = 0
-    this.delayBetweenFrames = 10
+    this.delayBetweenFrames = 100 // default to 10 fps
     this.then = performance.now()
     this.totalTimeSinceLastRedraw = 0
   }
@@ -26,7 +26,7 @@ class SpriteAnimation {
     spriteWidth: number,
     spriteHeight: number
   ): void {
-    const numberOfSprites = numberOfPostures * numberOfFramesPerPosture - 1
+    const numberOfSprites = numberOfPostures * numberOfFramesPerPosture
     const numberOfSpritesPerRow = Math.floor(spriteSheet.width / spriteWidth)
 
     for (let index = 0; index < numberOfSprites; index++) {
@@ -49,19 +49,19 @@ class SpriteAnimation {
     const now = performance.now()
     const delta = now - this.then
 
-    const currentSpriteImage = this.spriteArray[this.currentFrame]
-    currentSpriteImage.draw(ctx, {
-      position: {
-        xPosition,
-        yPosition
-      },
-      scale: 1
-    })
+    if (this.spriteArray.length > 0) {
+      const currentSpriteImage = this.spriteArray[this.currentFrame]
+      currentSpriteImage.draw(ctx, {
+        position: {
+          xPosition,
+          yPosition
+        },
+        scale: 1
+      })
+    }
 
     if (this.totalTimeSinceLastRedraw > this.delayBetweenFrames) {
-      this.currentFrame++
-      this.currentFrame %= this.spriteArray.length
-
+      this.currentFrame = (this.currentFrame + 1) % this.spriteArray.length
       this.totalTimeSinceLastRedraw = 0
     } else {
       this.totalTimeSinceLastRedraw += delta

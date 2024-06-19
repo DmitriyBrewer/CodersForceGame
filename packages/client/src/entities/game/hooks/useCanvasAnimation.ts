@@ -1,6 +1,6 @@
 import { useRef, useEffect, Dispatch, SetStateAction } from 'react'
 
-import Game from '..'
+import Game from '@/entities/game'
 
 const useCanvasAnimation = (
   pause: boolean,
@@ -10,13 +10,10 @@ const useCanvasAnimation = (
 ) => {
   const requestIdRef = useRef<number | null>(null)
   const animationStopped = useRef<boolean>(false)
-
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const gameInstance = useRef<Game | null>(null)
 
   useEffect(() => {
-    if (!canvasRef.current) return
-
     const startAnimation = () => {
       if (!animationStopped.current) {
         if (canvasRef.current && !gameInstance.current) {
@@ -40,25 +37,15 @@ const useCanvasAnimation = (
     if (restart) {
       stopAnimation()
       animationStopped.current = false
-
       startAnimation()
     }
     if (!stop && !pause && !animationStopped.current) {
       startAnimation()
     }
 
-    const timeoutId = setTimeout(() => {
-      setEndGame(true)
-    }, 400000)
-
     // TODO:feature/cfg-65 тут сделал ignore по месту, по другому не получается, а в целом отключать правило consistent-return нет смысла
-    // eslint-disable-next-line consistent-return
-    return () => {
-      clearTimeout(timeoutId)
-      if (requestIdRef.current) {
-        cancelAnimationFrame(requestIdRef.current)
-      }
-    }
+    // eslint-disable-next-line consistent-return,@typescript-eslint/no-empty-function
+    return () => {}
   }, [pause, restart, stop, setEndGame])
 
   return canvasRef

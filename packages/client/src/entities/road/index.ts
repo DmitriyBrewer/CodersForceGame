@@ -53,9 +53,9 @@ class Road {
 
   update(deltaTime: number) {
     const { width: canvasWidth } = this._ctx.canvas
-    const { height: spriteHeight, width: spriteWidth } = this._sprite
-    this._totalSeconds += deltaTime
+    const { height: spriteHeight, width: spriteWidth } = this._sprite.spriteConfig
 
+    this._totalSeconds += deltaTime
     this._speed.ySpeed += this._acceleration.yAcceleration * deltaTime
 
     const numImages = Math.ceil(canvasWidth / spriteWidth) + 1

@@ -5,6 +5,7 @@ export interface Entity {
   width: number
   height: number
   speed?: Speed
+  setSpeed?: (speed: Speed) => void
   moveToStartPosition?: () => void
 }
 
