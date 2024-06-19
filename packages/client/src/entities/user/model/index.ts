@@ -38,11 +38,11 @@ const userSlice = createSlice({
       state.userData = payload
       state.isAuth = true
       state.isLoading = false
+      state.errorMessage = undefined
     })
-    builder.addMatcher(authApiSlice.endpoints.getUser.matchRejected, (state, { error }) => {
+    builder.addMatcher(authApiSlice.endpoints.getUser.matchRejected, state => {
       state.userData = undefined
       state.isAuth = false
-      state.errorMessage = error?.message ?? 'Ошибка получения пользователя'
       state.isLoading = false
     })
   }

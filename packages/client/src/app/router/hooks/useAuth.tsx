@@ -13,7 +13,7 @@ export const useAuth = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        getUser()
+        await getUser()
       } catch (err) {
         // TODO придумать нотификацию пользователя с причиной ошибки
         console.log(err)
