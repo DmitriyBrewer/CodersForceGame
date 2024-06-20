@@ -15,7 +15,6 @@ export const useAuth = () => {
       try {
         await getUser()
       } catch (err) {
-        // TODO придумать нотификацию пользователя с причиной ошибки
         console.log(err)
       }
     }
