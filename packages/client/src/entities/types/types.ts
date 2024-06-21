@@ -31,3 +31,10 @@ export type DrawConfig = {
   position: Position
   scale: number
 }
+
+export type AnimationConfig = {
+  numberOfPostures: number
+  numberOfFramesPerPosture: number
+  width: number
+  height: number
+}

@@ -11,9 +11,10 @@ import Load from './utils/Load'
 
 import road from '../images/road.png'
 import player from '../images/player.png'
-import truck from '../images/truck.png'
 import taxi from '../images/taxi.png'
 import car from '../images/car.png'
+import police from '../images/police.png'
+import ambulance from '../images/ambulance.png'
 import explosion from '../images/explosion.png'
 
 const TIME_BETWEEN_LEVELS = 5000
@@ -25,10 +26,11 @@ export const GAME_STATE = {
 }
 
 const INITIAL_SPEED = {
-  TRUCK: 0.15,
-  CAR: 0.12,
-  TAXI: 0.14,
-  ROAD: 0.4
+  POLICE: 0.15,
+  CAR: 0.21,
+  TAXI: 0.11,
+  ROAD: 0.4,
+  AMBULANCE: 0.09
 }
 
 class Game {
@@ -48,11 +50,13 @@ class Game {
 
   private _player!: Player
 
-  private _truck!: Vehicle
-
   private _taxi!: Vehicle
 
   private _car!: Vehicle
+
+  private _police!: Vehicle
+
+  private _ambulance!: Vehicle
 
   private _roadLimitLeft!: Entity
 
@@ -65,7 +69,7 @@ class Game {
   constructor() {
     this._inputStates = {}
     this._currentGameState = GAME_STATE.RUNNING
-    this._currentLevel = 1
+    this._currentLevel = 0
     this._currentLevelTime = TIME_BETWEEN_LEVELS
   }
 
@@ -86,7 +90,7 @@ class Game {
   }
 
   async loadAssets(callback: (images: ImageDictionary) => void): Promise<void> {
-    const imagePaths = [road, player, truck, taxi, car, explosion]
+    const imagePaths = [road, player, taxi, car, explosion, police, ambulance]
 
     try {
       const images = await Load.images(...imagePaths)
@@ -107,9 +111,10 @@ class Game {
 
     this._road = new Road(this._ctx, this._inputStates)
     this._player = new Player(this._ctx, this._inputStates)
-    this._truck = new Vehicle(this._ctx)
+    this._police = new Vehicle(this._ctx)
     this._taxi = new Vehicle(this._ctx)
     this._car = new Vehicle(this._ctx)
+    this._ambulance = new Vehicle(this._ctx)
     this._roadLimitLeft = {
       height: this._canvas.height,
       width: 1,
@@ -130,8 +135,8 @@ class Game {
     this.loadAssets(images => {
       this._player.setImage(images[player], {
         position: { xPosition: 78, yPosition: 24 },
-        width: 96,
-        height: 216
+        width: 110,
+        height: 200
       })
       this._player.setExplosion(images[explosion])
 
@@ -141,25 +146,33 @@ class Game {
         height: 647
       })
 
-      this._truck.setImage(images[truck], {
+      this._police.setImage(images[police], {
         position: { xPosition: 78, yPosition: 24 },
-        width: 96,
-        height: 216
+        width: 110,
+        height: 200
       })
+      this._car.setScale(0.79)
 
       this._car.setImage(images[car], {
         position: { xPosition: 78, yPosition: 24 },
-        width: 96,
-        height: 216
+        width: 110,
+        height: 200
       })
       this._car.setScale(0.79)
 
       this._taxi.setImage(images[taxi], {
-        position: { xPosition: 72, yPosition: 18 },
-        width: 102,
-        height: 220
+        position: { xPosition: 72, yPosition: 24 },
+        width: 110,
+        height: 200
       })
-      this._taxi.setScale(0.68)
+      this._taxi.setScale(0.79)
+
+      this._ambulance.setImage(images[ambulance], {
+        position: { xPosition: 72, yPosition: 24 },
+        width: 110,
+        height: 200
+      })
+      this._ambulance.setScale(0.9)
 
       this.resetEntities()
       this._currentGameState = GAME_STATE.RUNNING
@@ -170,16 +183,18 @@ class Game {
 
   resetEntities() {
     this._player.moveToStartPosition()
-    this._taxi.moveToStartPosition(200)
-    this._truck.moveToStartPosition(450)
+    this._taxi.moveToStartPosition(650)
+    this._police.moveToStartPosition(450)
     this._car.moveToStartPosition(700)
+    this._ambulance.moveToStartPosition(400)
 
     this._road.setSpeed({ xSpeed: 0, ySpeed: INITIAL_SPEED.ROAD })
     this._road.setAcceleration({ xAcceleration: 0, yAcceleration: 0 })
 
-    this._truck.setSpeed({ xSpeed: 0, ySpeed: INITIAL_SPEED.TRUCK })
+    this._police.setSpeed({ xSpeed: 0, ySpeed: INITIAL_SPEED.POLICE })
     this._taxi.setSpeed({ xSpeed: 0, ySpeed: INITIAL_SPEED.TAXI })
     this._car.setSpeed({ xSpeed: 0, ySpeed: INITIAL_SPEED.CAR })
+    this._ambulance.setSpeed({ xSpeed: 0, ySpeed: INITIAL_SPEED.AMBULANCE })
 
     this._player.setState(Player.RUNNING)
   }
@@ -194,8 +209,6 @@ class Game {
   running(deltaTime: number) {
     this.clearCanvas()
 
-    console.log(this._currentGameState)
-
     this._currentGameState = GAME_STATE.RUNNING
 
     if (this._nextRoadSpeed < this._road.speed.ySpeed) {
@@ -204,17 +217,21 @@ class Game {
 
     this._road.update(deltaTime)
     this._player.update(deltaTime)
-    this._truck.update(deltaTime)
+    this._police.update(deltaTime)
     this._taxi.update(deltaTime)
     this._car.update(deltaTime)
+    this._ambulance.update(deltaTime)
     this._currentLevelTime -= deltaTime
 
     this.displayScore()
     this.gameOver()
 
-    Game.checkCollision(this._car, this._truck)
+    Game.checkCollision(this._car, this._police)
     Game.checkCollision(this._car, this._taxi)
-    Game.checkCollision(this._taxi, this._truck)
+    Game.checkCollision(this._car, this._ambulance)
+    Game.checkCollision(this._taxi, this._ambulance)
+    Game.checkCollision(this._ambulance, this._police)
+    Game.checkCollision(this._taxi, this._police)
   }
 
   mainLoop(time: number) {
@@ -250,7 +267,16 @@ class Game {
   }
 
   gameOver() {
-    if (this._player.checkCollision(this._truck, this._taxi, this._car, this._roadLimitLeft, this._roadLimitRight)) {
+    if (
+      this._player.checkCollision(
+        this._police,
+        this._taxi,
+        this._car,
+        this._ambulance,
+        this._roadLimitLeft,
+        this._roadLimitRight
+      )
+    ) {
       this._player.setState(Player.EXPLODING)
       setTimeout(() => (this._currentGameState = GAME_STATE.GAME_OVER), 1000)
     }

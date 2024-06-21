@@ -1,6 +1,6 @@
-import { Position, Speed, SpriteConfig } from '@/entities/types/types'
-
+import { AnimationConfig, Position, Speed, SpriteConfig } from '@/entities/types/types'
 import { Entity } from '@/entities/game/utils/Сollision'
+import SpriteAnimation from '@/entities/sprite-animation'
 
 import SpriteImage from '../sprite-image'
 import Road from '../road'
@@ -15,6 +15,8 @@ class Vehicle implements Entity {
   private _position!: Position
 
   private _sprite!: SpriteImage
+
+  private _animation!: SpriteAnimation
 
   private _startOffset!: number
 
@@ -31,6 +33,13 @@ class Vehicle implements Entity {
 
   setImage(img: HTMLImageElement, spriteConfig: SpriteConfig): void {
     this._sprite = new SpriteImage(img, spriteConfig)
+  }
+
+  setAnimation(img: HTMLImageElement, animationConfig: AnimationConfig) {
+    this._animation = new SpriteAnimation()
+    this._animation.extractSprites(img, animationConfig)
+    this._animation.draw(this._ctx, this._position.xPosition, this._position.yPosition)
+    this._animation.reset()
   }
 
   setScale(scale: number): void {

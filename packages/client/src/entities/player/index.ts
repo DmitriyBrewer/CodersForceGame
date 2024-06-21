@@ -34,7 +34,7 @@ class Player implements Entity {
       xPosition: 0,
       yPosition: 0
     }
-    this._scale = 0.7
+    this._scale = 0.79
     this._state = Player.RUNNING
   }
 
@@ -67,7 +67,7 @@ class Player implements Entity {
 
   setExplosion(img: HTMLImageElement): void {
     this._explosion = new SpriteAnimation()
-    this._explosion.extractSprites(img, 16, 10, 64, 64)
+    this._explosion.extractSprites(img, { numberOfPostures: 16, numberOfFramesPerPosture: 10, width: 64, height: 64 })
   }
 
   checkCollision(...entities: Entity[]): boolean {
@@ -87,10 +87,16 @@ class Player implements Entity {
     switch (this._state) {
       case Player.RUNNING:
         if (this._inputStates.left) {
-          this._position.xPosition -= Player.maxSpeed * deltaTime
+          this._position.xPosition -= Player.maxSpeed * deltaTime * 0.5
         }
         if (this._inputStates.right) {
-          this._position.xPosition += Player.maxSpeed * deltaTime
+          this._position.xPosition += Player.maxSpeed * deltaTime * 0.5
+        }
+        if (this._inputStates.up) {
+          this._position.yPosition -= Player.maxSpeed * deltaTime * 0.2
+        }
+        if (this._inputStates.down) {
+          this._position.yPosition += Player.maxSpeed * deltaTime * 0.5
         }
 
         if (this._sprite) {

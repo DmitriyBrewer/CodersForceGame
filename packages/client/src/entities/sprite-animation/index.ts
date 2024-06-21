@@ -1,3 +1,5 @@
+import { AnimationConfig } from '@/entities/types/types'
+
 import SpriteImage from '../sprite-image'
 
 class SpriteAnimation {
@@ -14,31 +16,25 @@ class SpriteAnimation {
   constructor() {
     this.spriteArray = []
     this.currentFrame = 0
-    this.delayBetweenFrames = 100 // default to 10 fps
+    this.delayBetweenFrames = 10 // default to 10 fps
     this.then = performance.now()
     this.totalTimeSinceLastRedraw = 0
   }
 
-  extractSprites(
-    spriteSheet: HTMLImageElement,
-    numberOfPostures: number,
-    numberOfFramesPerPosture: number,
-    spriteWidth: number,
-    spriteHeight: number
-  ): void {
-    const numberOfSprites = numberOfPostures * numberOfFramesPerPosture
-    const numberOfSpritesPerRow = Math.floor(spriteSheet.width / spriteWidth)
+  extractSprites(spriteSheet: HTMLImageElement, animationConfig: AnimationConfig): void {
+    const numberOfSprites = animationConfig.numberOfPostures * animationConfig.numberOfFramesPerPosture
+    const numberOfSpritesPerRow = Math.floor(spriteSheet.width / animationConfig.width)
 
     for (let index = 0; index < numberOfSprites; index++) {
-      const xPosition = (index % numberOfSpritesPerRow) * spriteWidth
-      const yPosition = Math.floor(index / numberOfSpritesPerRow) * spriteHeight
+      const xPosition = (index % numberOfSpritesPerRow) * animationConfig.width
+      const yPosition = Math.floor(index / numberOfSpritesPerRow) * animationConfig.height
       const spriteImage = new SpriteImage(spriteSheet, {
         position: {
           xPosition,
           yPosition
         },
-        width: spriteWidth,
-        height: spriteHeight
+        width: animationConfig.width,
+        height: animationConfig.height
       })
 
       this.spriteArray.push(spriteImage)
