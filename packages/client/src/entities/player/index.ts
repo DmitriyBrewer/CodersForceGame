@@ -96,7 +96,7 @@ class Player implements Entity {
           this._position.yPosition -= Player.maxSpeed * deltaTime * 0.2
         }
         if (this._inputStates.down) {
-          this._position.yPosition += Player.maxSpeed * deltaTime * 0.5
+          this._position.yPosition += Player.maxSpeed * deltaTime * 0.3
         }
 
         if (this._sprite) {

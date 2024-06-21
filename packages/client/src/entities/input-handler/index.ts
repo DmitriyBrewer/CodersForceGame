@@ -6,73 +6,24 @@ class InputHandler {
   }
 
   static addWindowListeners(inputStates: InputStates): void {
-    document.addEventListener(
-      'keydown',
-      (event: KeyboardEvent) => {
-        switch (event.key) {
-          case 'ArrowLeft':
-          case 'a':
-          case 'A':
-            inputStates.left = true
-            break
-          case 'ArrowUp':
-          case 'W':
-          case 'w':
-            inputStates.up = true
-            break
-          case 'ArrowRight':
-          case 'D':
-          case 'd':
-            inputStates.right = true
-            break
-          case 'ArrowDown':
-          case 'S':
-          case 's':
-            inputStates.down = true
-            break
-          case ' ':
-            inputStates.space = true
-            break
-          default:
-            break
-        }
-      },
-      false
-    )
+    const keyMap = {
+      left: ['ArrowLeft', 'a', 'A', 'Ф', 'ф'],
+      up: ['ArrowUp', 'w', 'W', 'Ц', 'ц'],
+      right: ['ArrowRight', 'd', 'D', 'В', 'в'],
+      down: ['ArrowDown', 's', 'S', 'Ы', 'ы'],
+      space: [' ']
+    }
 
-    document.addEventListener(
-      'keyup',
-      (event: KeyboardEvent) => {
-        switch (event.key) {
-          case 'ArrowLeft':
-          case 'a':
-          case 'A':
-            inputStates.left = false
-            break
-          case 'ArrowUp':
-          case 'W':
-          case 'w':
-            inputStates.up = false
-            break
-          case 'ArrowRight':
-          case 'D':
-          case 'd':
-            inputStates.right = false
-            break
-          case 'ArrowDown':
-          case 'S':
-          case 's':
-            inputStates.down = false
-            break
-          case ' ':
-            inputStates.space = false
-            break
-          default:
-            break
+    const handleKeyEvent = (event: KeyboardEvent, isKeyDown: boolean) => {
+      Object.entries(keyMap).forEach(([key, values]) => {
+        if (values.includes(event.key)) {
+          inputStates[key] = isKeyDown
         }
-      },
-      false
-    )
+      })
+    }
+
+    document.addEventListener('keydown', (event: KeyboardEvent) => handleKeyEvent(event, true), false)
+    document.addEventListener('keyup', (event: KeyboardEvent) => handleKeyEvent(event, false), false)
   }
 }
 

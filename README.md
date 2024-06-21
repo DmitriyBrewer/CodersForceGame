@@ -1,10 +1,34 @@
+# Volga Checkers
+
+**Volga Checkers** - это игра, в которой игрок управляет машиной на многополосной дороге, пытаясь маневрировать между другими машинами и избегать столкновений. Цель - продержаться максимальное количество времени, не врезаясь в другие автомобили. 
+
+## Используемые технологии
+
+- React
+- TypeScript
+- Canvas
+- Redux
+- Service Workers
+
+## Доступные ссылки
+
+-   [Главная страница] (https://coders-force-game-client-git-develop-dmitriybrewers-projects.vercel.app/)
+-   [Страница регистрации](https://coders-force-game-client-git-develop-dmitriybrewers-projects.vercel.app/session/register)
+-   [Страница логина](https://coders-force-game-client-git-develop-dmitriybrewers-projects.vercel.app/session/login)
+-   [Страница форума](https://coders-force-game-client-git-develop-dmitriybrewers-projects.vercel.app/social/forum)
+-   [Страница лидерборда](https://coders-force-game-client-git-develop-dmitriybrewers-projects.vercel.app/leaderboard)
+-   [Страница профиля пользователя](https://coders-force-game-client-git-develop-dmitriybrewers-projects.vercel.app/profile)
+-   [Страница игры](https://coders-force-game-client-git-develop-dmitriybrewers-projects.vercel.app/game)
+-   [Страница 404](https://coders-force-game-client-git-develop-dmitriybrewers-projects.vercel.app/error/404)
+-   [Страница 500](https://coders-force-game-client-git-develop-dmitriybrewers-projects.vercel.app/error/500)
+
 ### Как запускать?
 
 1. Убедитесь что у вас установлен `node` и `docker`
 2. Выполните команду `yarn bootstrap` - это обязательный шаг, без него ничего работать не будет :)
 3. Выполните команду `yarn dev`
-3. Выполните команду `yarn dev --scope=client` чтобы запустить только клиент
-4. Выполните команду `yarn dev --scope=server` чтобы запустить только server
+4. Выполните команду `yarn dev --scope=client` чтобы запустить только клиент
+5. Выполните команду `yarn dev --scope=server` чтобы запустить только server
 
 
 ### Как добавить зависимости?
@@ -74,3 +98,10 @@
 
 Если вам понадобится только один сервис, просто уточните какой в команде
 `docker compose up {sevice_name}`, например `docker compose up server`
+
+## Команда
+
+- Дмитрий Яненко
+- Михаил Костиков
+- Константин Салов
+- Анастасия Хлызова

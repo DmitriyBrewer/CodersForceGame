@@ -29,7 +29,7 @@ const INITIAL_SPEED = {
   POLICE: 0.15,
   CAR: 0.21,
   TAXI: 0.11,
-  ROAD: 0.4,
+  ROAD: 0.3,
   AMBULANCE: 0.09
 }
 
@@ -151,7 +151,7 @@ class Game {
         width: 110,
         height: 200
       })
-      this._car.setScale(0.79)
+      this._police.setScale(0.79)
 
       this._car.setImage(images[car], {
         position: { xPosition: 78, yPosition: 24 },
@@ -184,7 +184,7 @@ class Game {
   resetEntities() {
     this._player.moveToStartPosition()
     this._taxi.moveToStartPosition(650)
-    this._police.moveToStartPosition(450)
+    this._police.moveToStartPosition(950)
     this._car.moveToStartPosition(700)
     this._ambulance.moveToStartPosition(400)
 
