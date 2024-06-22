@@ -8,10 +8,14 @@ export const GlobalErrorWrapper: FC<PropsWithChildren> = ({ children }) => {
   const dispatch = useDispatch()
   const { isError, message } = useSelector((state: any) => state.error)
 
+  const handleClose = () => {
+    dispatch(clearError())
+  }
+
   return (
     <>
       {isError && (
-        <BaseAlert variant="filled" severity="error" onClose={() => dispatch(clearError())}>
+        <BaseAlert variant="filled" severity="error" onClose={handleClose}>
           {message}
         </BaseAlert>
       )}
