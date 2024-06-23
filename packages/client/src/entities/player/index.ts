@@ -87,15 +87,15 @@ class Player implements Entity {
     switch (this._state) {
       case Player.RUNNING:
         if (this._inputStates.left) {
-          this._position.xPosition -= Player.maxSpeed * deltaTime * 0.5
+          this._position.xPosition -= Player.maxSpeed * deltaTime * 0.6
         }
         if (this._inputStates.right) {
-          this._position.xPosition += Player.maxSpeed * deltaTime * 0.5
+          this._position.xPosition += Player.maxSpeed * deltaTime * 0.6
         }
-        if (this._inputStates.up) {
-          this._position.yPosition -= Player.maxSpeed * deltaTime * 0.2
+        if (this._inputStates.up && this._position.yPosition > 100) {
+          this._position.yPosition -= Player.maxSpeed * deltaTime * 0.25
         }
-        if (this._inputStates.down) {
+        if (this._inputStates.down && this._position.yPosition < 430) {
           this._position.yPosition += Player.maxSpeed * deltaTime * 0.3
         }
 

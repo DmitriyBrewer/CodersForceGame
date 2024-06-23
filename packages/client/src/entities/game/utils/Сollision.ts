@@ -25,6 +25,18 @@ class Collision {
     return !(y1 > y2 + h2 + extra || y1 + h1 + extra < y2)
   }
 
+  static checkCollision(entity1: Entity, entity2: Entity) {
+    if (this.collision(entity1, entity2, 20)) {
+      if (this.collision(entity1, entity2)) {
+        if (entity1 && entity1.moveToStartPosition) {
+          entity1.moveToStartPosition()
+        }
+      } else if (entity1 && entity1.setSpeed && entity2 && entity2.speed) {
+        entity1.setSpeed({ xSpeed: entity2.speed.xSpeed, ySpeed: entity2.speed.ySpeed })
+      }
+    }
+  }
+
   static collision(entity1: Entity, entity2: Entity, extra = 0): boolean {
     const { height: h1, width: w1 } = entity1
     const { height: h2, width: w2 } = entity2

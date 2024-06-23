@@ -1,4 +1,4 @@
-import { AnimationConfig, Position, Speed, SpriteConfig } from '@/entities/types/types'
+import { Acceleration, AnimationConfig, Position, Speed, SpriteConfig } from '@/entities/types/types'
 import { Entity } from '@/entities/game/utils/Сollision'
 import SpriteAnimation from '@/entities/sprite-animation'
 
@@ -11,6 +11,8 @@ class Vehicle implements Entity {
   private _scale: number
 
   private _speed: Speed
+
+  private _acceleration: Acceleration
 
   private _position!: Position
 
@@ -29,6 +31,14 @@ class Vehicle implements Entity {
       xSpeed: 0.002,
       ySpeed: 0.1
     }
+    this._acceleration = {
+      xAcceleration: 0,
+      yAcceleration: 0
+    }
+  }
+
+  get acceleration() {
+    return this._acceleration
   }
 
   setImage(img: HTMLImageElement, spriteConfig: SpriteConfig): void {
@@ -48,6 +58,10 @@ class Vehicle implements Entity {
 
   setSpeed(speed: Speed): void {
     this._speed = speed
+  }
+
+  setAcceleration(acceleration: Acceleration): void {
+    this._acceleration = acceleration
   }
 
   get height() {
