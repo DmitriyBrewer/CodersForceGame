@@ -1,13 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
-
 import { useNavigate } from 'react-router-dom'
-
 import { useDispatch } from 'react-redux'
 
 import { validateField } from '@/shared/components/core/FormData/model/validateField'
-
-import { setError, setLoading } from '@/entities/user/model'
-
+import { clearError, setError } from '@/entities/error'
+import { setLoading } from '@/entities/user/model'
 import { paths } from '@/shared/config/routing'
 
 import { useLazyGetUserQuery, useLoginMutation } from '../../api/authApi'
@@ -45,6 +42,7 @@ export const useLogin = () => {
       const loginResult = await login(formData).unwrap()
       if (loginResult) {
         await getUser()
+        dispatch(clearError())
         navigate(paths.game)
       }
     } catch (err) {

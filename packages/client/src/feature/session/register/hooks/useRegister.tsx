@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router-dom'
 
 import { useDispatch } from 'react-redux'
 
-import { setError, setLoading } from '@/entities/user/model'
+import { setLoading } from '@/entities/user/model'
 
 import { validateField } from '@/shared/components/core/FormData/model/validateField'
 
 import { paths } from '@/shared/config/routing'
+
+import { clearError, setError } from '@/entities/error'
 
 import { RegisterApiError, RegisterError, RegisterPayload } from '../types'
 import { useLazyGetUserQuery, useRegisterMutation } from '../../api/authApi'
@@ -55,6 +57,7 @@ export const useRegister = () => {
       const registerResult = await register({ ...formData }).unwrap()
       if (registerResult) {
         await getUser()
+        dispatch(clearError())
         navigate(paths.game)
       }
     } catch (err) {
