@@ -1,5 +1,4 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
-
 import { useDispatch } from 'react-redux'
 
 import { ApiError } from 'src/shared/api/types'
@@ -7,7 +6,7 @@ import { ApiError } from 'src/shared/api/types'
 import { FormDataError } from '@/shared/types'
 import { validateField } from '@/shared/components/core/FormData/model/validateField'
 
-import { setError } from '@/entities/user/model'
+import { setError, clearError } from '@/entities/error'
 
 import profileApi from '@/feature/profile/api/profileApi'
 import { PasswordPayload } from '@/feature/profile/types'
@@ -37,13 +36,13 @@ export const useProfilePassword = () => {
     setErrors({ ...errors, [name]: validateField(name, value, formData.oldPassword) })
   }
 
-  // TODO: feature/cfg-25 add global snackbar after change
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
     setLoading(true)
     try {
       await profileApi.updatePassword(formData)
+      dispatch(clearError())
       setOpen(false)
     } catch (err) {
       const typedError = err as ApiError
