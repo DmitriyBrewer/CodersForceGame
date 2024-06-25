@@ -6,15 +6,15 @@ import Load from './utils/Load'
 
 import road from '../images/road.png'
 
-const TIME_BETWEEN_LEVELS = 5000
+export const TIME_BETWEEN_LEVELS = 5000
 
-const GAME_STATE = {
+export const GAME_STATE = {
   MAIN_MENU: 0,
   RUNNING: 1,
   GAME_OVER: 2
 }
 
-const INITIAL_SPEED = {
+export const INITIAL_SPEED = {
   ROAD: 0.4
 }
 
