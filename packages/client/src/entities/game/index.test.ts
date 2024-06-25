@@ -10,6 +10,8 @@ describe('Game Class', () => {
   let game: Game
   let mockCanvas: HTMLCanvasElement
   let mockCtx: CanvasRenderingContext2D
+  let deltaTime: number
+  let nextRoadSpeed: number
 
   beforeEach(() => {
     game = new Game()
@@ -62,46 +64,40 @@ describe('Game Class', () => {
     expect(game.road.acceleration.yAcceleration).toBe(0)
   })
 
-  // test('should clear the canvas', () => {
-  //   const spyClearRect = jest.spyOn(mockCtx, 'clearRect')
-  //   game.clearCanvas()
+  it('should clear the canvas', () => {
+    jest.spyOn(game, 'clearCanvas')
+    game.running(deltaTime)
+    expect(game.clearCanvas).toHaveBeenCalled()
+  })
 
-  //   expect(spyClearRect).toHaveBeenCalledWith(0, 0, mockCanvas.width, mockCanvas.height)
-  // })
+  it('should update road if road exists', () => {
+    game.road = new Road(mockCtx, {})
 
-  // test('should run the game loop', () => {
-  //   const spyClearCanvas = jest.spyOn(game, 'clearCanvas')
-  //   game.road = new Road(mockCtx, {})
-  //   game.running(16)
+    game.road.speed = {
+      xSpeed: 0,
+      ySpeed: 1
+    }
+    game.road.acceleration = {
+      xAcceleration: 0,
+      yAcceleration: 0
+    }
+    const initialYAcceleration = game.road.acceleration.yAcceleration
+    game.nextRoadSpeed = nextRoadSpeed
+    game.running(deltaTime)
+    expect(game.road.update).toHaveBeenCalledWith(deltaTime)
+    expect(game.road.acceleration.yAcceleration).toBe(initialYAcceleration)
+  })
 
-  //   expect(spyClearCanvas).toHaveBeenCalled()
-  //   expect(game.currentLevelTime).toBeLessThan(5000)
-  // })
+  it('should handle errors and change game state to GAME_OVER', () => {
+    const spyConsoleError = jest.spyOn(console, 'error')
+    game.road = new Road(mockCtx, {})
+    game.road.update = jest.fn(() => {
+      throw new Error('Test error')
+    })
 
-  // test('should handle game over state', () => {
-  //   const spyFillText = jest.spyOn(mockCtx, 'fillText')
-  //   game.currentGameState = 2 // GAME_STATE.GAME_OVER
-  //   game.gameOver()
+    game.running(deltaTime)
 
-  //   expect(spyFillText).toHaveBeenCalledWith('GAME OVER', expect.any(Number), expect.any(Number))
-  // })
-
-  // test('should advance to next level', () => {
-  //   game.road = new Road(mockCtx, {})
-  //   game.currentLevelTime = -1
-  //   game.goToNextLevel()
-
-  //   expect(game.currentLevel).toBe(1)
-  //   expect(game.currentLevelTime).toBe(5000)
-  //   expect(game.nextRoadSpeed).toBeGreaterThan(0.4)
-  // })
-
-  // test('should start a new game', () => {
-  //   game.startNewGame()
-
-  //   expect(game.currentLevel).toBe(1)
-  //   expect(game.currentGameState).toBe(1) // GAME_STATE.RUNNING
-  //   expect(game.currentLevelTime).toBe(5000)
-  //   expect(game.nextRoadSpeed).toBe(0.4) // INITIAL_SPEED.ROAD
-  // })
+    expect(spyConsoleError).toHaveBeenCalledWith('Ошибка во время выполнения игры:', expect.any(Error))
+    expect(game.currentGameState).toBe(GAME_STATE.GAME_OVER)
+  })
 })
