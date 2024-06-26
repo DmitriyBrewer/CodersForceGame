@@ -14,7 +14,7 @@ export type Acceleration = {
 }
 
 export type InputStates = {
-  [key: string]: unknown
+  [key: string]: boolean
 }
 
 export type ImageDictionary = {

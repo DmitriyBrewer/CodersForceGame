@@ -14,6 +14,7 @@ const useCanvasAnimation = (
   const gameInstance = useRef<Game | null>(null)
 
   useEffect(() => {
+    // TODO:feature/cfg-85 доделать паузу старт и стоп анимаций + рестарт
     const startAnimation = () => {
       if (!animationStopped.current) {
         if (canvasRef.current && !gameInstance.current) {
@@ -23,6 +24,7 @@ const useCanvasAnimation = (
       }
     }
 
+    // TODO:feature/cfg-85 доделать паузу старт и стоп анимаций + рестарт
     const stopAnimation = () => {
       if (requestIdRef.current) {
         cancelAnimationFrame(requestIdRef.current)
@@ -31,6 +33,7 @@ const useCanvasAnimation = (
       animationStopped.current = true
     }
 
+    // TODO:feature/cfg-85 доделать паузу старт и стоп анимаций + рестарт
     if (stop) {
       stopAnimation()
     }
@@ -43,6 +46,7 @@ const useCanvasAnimation = (
       startAnimation()
     }
 
+    // TODO:feature/cfg-85 доделать паузу старт и стоп анимаций + рестарт
     // TODO:feature/cfg-65 тут сделал ignore по месту, по другому не получается, а в целом отключать правило consistent-return нет смысла
     // eslint-disable-next-line consistent-return,@typescript-eslint/no-empty-function
     return () => {}
