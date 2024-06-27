@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { hydrateRoot } from 'react-dom/client'
 
 // import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import { Provider } from 'react-redux'
 
@@ -19,31 +19,14 @@ registerServiceWorker()
 hydrateRoot(
   document.getElementById('root') as HTMLElement,
   <StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        {/* <App /> */}
+        <Routes>
+          <Route element={<App />} path="/test" key={1} />
+          <Route element={<p>ss</p>} path="/test2" key={2} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   </StrictMode>
 )
-// <StrictMode>
-//   <App />
-// </StrictMode>
-// <BrowserRouter>
-// {
-//   /* <App /> */
-// }
-// {
-//   /* <Routes>
-//       <Route element={<h1>Hello</h1>} path="/" key={1} />
-//     </Routes> */
-// }
-// {
-//   /* <Routes>
-//       <Route element={<App />} path="/" key={1} />
-//     </Routes> */
-// }
-// {
-//   /* <h1>Hello</h1>
-//   </BrowserRouter> */
-// }
