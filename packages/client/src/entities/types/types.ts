@@ -1,4 +1,4 @@
-export interface Position {
+export type Position = {
   xPosition: number
   yPosition: number
 }
@@ -13,12 +13,6 @@ export type Acceleration = {
   yAcceleration: number
 }
 
-export type RoadLimit = {
-  height: number
-  width: number
-  position: Position
-}
-
 export type InputStates = {
   [key: string]: boolean
 }
@@ -28,14 +22,19 @@ export type ImageDictionary = {
 }
 
 export type SpriteConfig = {
-  x: number
-  y: number
+  position: Position
   width: number
   height: number
 }
 
 export type DrawConfig = {
-  xPosition: number
-  yPosition: number
+  position: Position
   scale: number
+}
+
+export type AnimationConfig = {
+  numberOfPostures: number
+  numberOfFramesPerPosture: number
+  width: number
+  height: number
 }
