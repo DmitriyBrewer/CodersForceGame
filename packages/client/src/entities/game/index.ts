@@ -15,18 +15,18 @@ import policeImage from '../images/police.png'
 import ambulanceImage from '../images/ambulance.png'
 import explosionImage from '../images/explosion.png'
 
-const TIME_BETWEEN_LEVELS = 5000
-const INITIAL_SPEED = {
+export const TIME_BETWEEN_LEVELS = 5000
+export const INITIAL_SPEED = {
   VEHICLE: 0.21,
   ROAD: 0.3
 }
-const GAME_STATE = {
+export const GAME_STATE = {
   RUNNING: 1,
   GAME_OVER: 2
 }
 
 class Game {
-  private readonly _inputStates: InputStates
+  private _inputStates: InputStates
 
   private _currentGameState: number
 
@@ -57,6 +57,66 @@ class Game {
 
   get currentGameState() {
     return this._currentGameState
+  }
+
+  get currentLevel() {
+    return this._currentLevel
+  }
+
+  get currentLevelTime() {
+    return this._currentLevelTime
+  }
+
+  get inputStates() {
+    return this._inputStates
+  }
+
+  get canvas() {
+    return this._canvas
+  }
+
+  set canvas(value: HTMLCanvasElement | null) {
+    this._canvas = value
+  }
+
+  get ctx() {
+    return this._ctx
+  }
+
+  set ctx(value: CanvasRenderingContext2D | null) {
+    this._ctx = value
+  }
+
+  get road() {
+    return this._road
+  }
+
+  set road(value: Road) {
+    this._road = value
+  }
+
+  get player() {
+    return this._player
+  }
+
+  set player(value: Player) {
+    this._player = value
+  }
+
+  get vehicles() {
+    return this._vehicles
+  }
+
+  set vehicles(value: Vehicle[]) {
+    this._vehicles = value
+  }
+
+  get nextRoadSpeed() {
+    return this._nextRoadSpeed
+  }
+
+  set nextRoadSpeed(value: number) {
+    this._nextRoadSpeed = value
   }
 
   async loadAssets(callback: (images: ImageDictionary) => void): Promise<void> {

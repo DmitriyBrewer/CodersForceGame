@@ -80,6 +80,10 @@ class Vehicle implements Entity {
     return this._position
   }
 
+  set position(value: Position) {
+    this._position = value
+  }
+
   moveToStartPosition(startOffset?: number): void {
     const sOff = startOffset || this._startOffset
     this._lane = Vehicle.getRandomInt(0, Road.LANE_CENTER.length)
