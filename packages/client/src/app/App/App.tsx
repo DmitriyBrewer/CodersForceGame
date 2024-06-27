@@ -1,7 +1,7 @@
 // import { CssBaseline } from '@mui/material'
 // import { Provider } from 'react-redux'
 
-import { Suspense, useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 // import store from '@/shared/store'
 // import ErrorBoundary from '@/shared/context/error-boundary'
@@ -12,32 +12,6 @@ import { Suspense, useEffect, useState } from 'react'
 // import AppRouter from '../router'
 
 const App = () => {
-  // const [mounted, setMounted] = useState(false)
-  // useEffect(() => {
-  //   setMounted(true)
-  // }, [])
-  // useEffect(() => {
-  //   const fetchServerData = async () => {
-  //     const url = `http://localhost:${__SERVER_PORT__}/api`
-  //     const response = await fetch(url)
-  //     const data = await response.json()
-  //     console.log(data)
-  //   }
-
-  //   fetchServerData()
-  // }, [])
-
-  // const [mounted, setMounted] = useState(false)
-  const [test, setTest] = useState('olo')
-
-  useEffect(() => {
-    setTest('llo')
-  }, [])
-
-  // useEffect(() => {
-  //   setMounted(true)
-  // }, [])
-
   useEffect(() => {
     const fetchServerData = async () => {
       const url = `http://localhost:${__SERVER_PORT__}/api`
@@ -50,10 +24,6 @@ const App = () => {
   }, [])
 
   return (
-    <Suspense>
-      <div className="App">Hello world :) {test}</div>
-    </Suspense>
-
     // <Provider store={store}>
     //   <ErrorBoundary>
     //     <ThemeModeProvider>
@@ -64,6 +34,7 @@ const App = () => {
     //     </ThemeModeProvider>
     //   </ErrorBoundary>
     // </Provider>
+    <p>hello World</p>
   )
 }
 
