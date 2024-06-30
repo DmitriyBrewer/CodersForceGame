@@ -1,23 +1,28 @@
+import Collision from '@/entities/game/utils/Сollision'
+
 import Player from '../player'
 import Road from '../road'
 import Vehicle from '../vehicle'
 import Game, { GAME_STATE, INITIAL_SPEED, TIME_BETWEEN_LEVELS } from './index'
 import Load from './utils/Load'
+import Timer from './utils/Timer'
 
 jest.mock('./utils/Load')
 jest.mock('./utils/Timer')
 jest.mock('../road')
 jest.mock('../player')
 jest.mock('../vehicle')
+jest.mock('@/entities/game/utils/Сollision')
 
 describe('Game Class', () => {
   let game: Game
   let mockCanvas: HTMLCanvasElement
   let mockCtx: CanvasRenderingContext2D
   let deltaTime: number
-  const INITIAL_ROAD_SPEED = 0.1
-  const NEXT_ROAD_SPEED = 0.05
+
   const FRAME_TIME = 16
+  const INITIAL_ROAD_SPEED = INITIAL_SPEED.ROAD
+  const NEXT_ROAD_SPEED = 0.05
 
   beforeEach(() => {
     game = new Game()
@@ -72,6 +77,15 @@ describe('Game Class', () => {
     game.vehicles = mockVehicles
     game.road = mockRoad
 
+    game.road.speed = {
+      xSpeed: 0,
+      ySpeed: 0
+    }
+    game.road.acceleration = {
+      xAcceleration: 0,
+      yAcceleration: 0
+    }
+
     const spyPlayerMoveToStart = jest.spyOn(mockPlayer, 'moveToStartPosition')
     const spyPlayerSetState = jest.spyOn(mockPlayer, 'setState')
 
@@ -119,6 +133,7 @@ describe('Game Class', () => {
     const spyRoadSetAcceleration = jest.spyOn(mockRoad, 'setAcceleration')
     const spyDisplayScore = jest.spyOn(game, 'displayScore')
     const spyCheckGameOver = jest.spyOn(game, 'checkGameOver')
+    const spyCollisionCheck = jest.spyOn(Collision, 'checkCollision')
 
     game.nextRoadSpeed = NEXT_ROAD_SPEED
     mockRoad.speed.ySpeed = INITIAL_ROAD_SPEED
@@ -134,5 +149,131 @@ describe('Game Class', () => {
     expect(game.currentLevelTime).toBeLessThan(TIME_BETWEEN_LEVELS)
     expect(spyDisplayScore).toHaveBeenCalled()
     expect(spyCheckGameOver).toHaveBeenCalled()
+    expect(spyCollisionCheck).toHaveBeenCalled()
+  })
+
+  it('should call running and goToNextLevel when game is running', () => {
+    const mockPlayer = new Player(mockCtx, {})
+    const mockRoad = new Road(mockCtx, {})
+    const mockVehicles = [new Vehicle(mockCtx), new Vehicle(mockCtx), new Vehicle(mockCtx)]
+
+    game.player = mockPlayer
+    game.road = mockRoad
+    game.vehicles = mockVehicles
+
+    mockRoad.speed = { xSpeed: 0, ySpeed: INITIAL_SPEED.ROAD }
+    jest.spyOn(Timer, 'getDelta').mockReturnValue(FRAME_TIME)
+    const spyRunning = jest.spyOn(game, 'running')
+    const spyGoToNextLevel = jest.spyOn(game, 'goToNextLevel')
+
+    game.currentGameState = GAME_STATE.RUNNING
+    const time = performance.now()
+    game.mainLoop(time)
+
+    expect(spyRunning).toHaveBeenCalledWith(FRAME_TIME)
+    expect(spyGoToNextLevel).toHaveBeenCalled()
+  })
+
+  it('should correctly transition to the next level', () => {
+    const mockRoad = new Road(mockCtx, {})
+    const mockVehicles = [new Vehicle(mockCtx), new Vehicle(mockCtx), new Vehicle(mockCtx)]
+
+    game.road = mockRoad
+    game.vehicles = mockVehicles
+
+    mockRoad.speed = { xSpeed: 0, ySpeed: INITIAL_SPEED.ROAD }
+    mockRoad.acceleration = { xAcceleration: 0, yAcceleration: 0 } // Ensure acceleration is defined
+    mockVehicles.forEach(vehicle => {
+      vehicle.speed = { xSpeed: 0, ySpeed: INITIAL_SPEED.VEHICLE }
+      vehicle.acceleration = { xAcceleration: 0, yAcceleration: 0 }
+    })
+
+    game.currentLevelTime = -1 // Simulate end of level
+
+    const spySetRoadSpeed = jest.spyOn(mockRoad, 'setSpeed')
+    const spySetRoadAcceleration = jest.spyOn(mockRoad, 'setAcceleration')
+    const spyVehicleSetSpeed = mockVehicles.map(vehicle => jest.spyOn(vehicle, 'setSpeed'))
+    const spyVehicleSetAcceleration = mockVehicles.map(vehicle => jest.spyOn(vehicle, 'setAcceleration'))
+
+    game.goToNextLevel()
+
+    expect(game.currentLevel).toBe(2)
+    expect(game.currentLevelTime).toBe(TIME_BETWEEN_LEVELS)
+
+    expect(spySetRoadAcceleration).toHaveBeenCalledWith({ xAcceleration: 0, yAcceleration: expect.any(Number) })
+    expect(spySetRoadSpeed).toHaveBeenCalledWith({ xSpeed: 0, ySpeed: expect.any(Number) })
+
+    mockVehicles.forEach((vehicle, index) => {
+      expect(spyVehicleSetAcceleration[index]).toHaveBeenCalledWith({
+        xAcceleration: 0,
+        yAcceleration: expect.any(Number)
+      })
+      expect(spyVehicleSetSpeed[index]).toHaveBeenCalledWith({ xSpeed: 0, ySpeed: expect.any(Number) })
+    })
+  })
+  it('should correctly display score', () => {
+    const spyFillText = jest.spyOn(mockCtx, 'fillText')
+    const spyStrokeText = jest.spyOn(mockCtx, 'strokeText')
+    game.displayScore()
+    expect(spyFillText).toHaveBeenCalled()
+    expect(spyStrokeText).toHaveBeenCalled()
+  })
+
+  it('should correctly check game over', () => {
+    const mockPlayer = new Player(mockCtx, {})
+    const mockVehicles = [new Vehicle(mockCtx), new Vehicle(mockCtx), new Vehicle(mockCtx)]
+    const mockRoadLimits = [
+      { height: mockCanvas.height, width: 1, position: { xPosition: 120, yPosition: 0 } },
+      { height: mockCanvas.height, width: 1, position: { xPosition: mockCanvas.width - 110, yPosition: 0 } }
+    ]
+
+    game.player = mockPlayer
+    game.vehicles = mockVehicles
+    game.roadLimits = mockRoadLimits
+
+    const spyCheckCollision = jest.spyOn(mockPlayer, 'checkCollision').mockReturnValue(true)
+    const spySetState = jest.spyOn(mockPlayer, 'setState')
+
+    game.checkGameOver()
+
+    expect(spyCheckCollision).toHaveBeenCalledWith(...mockVehicles, ...mockRoadLimits)
+    expect(spySetState).toHaveBeenCalledWith(Player.EXPLODING)
+    setTimeout(() => {
+      expect(game.currentGameState).toBe(GAME_STATE.GAME_OVER)
+    }, 1000)
+  })
+
+  it('should start a new game correctly', () => {
+    const mockPlayer = new Player(mockCtx, {})
+    const mockVehicles = [new Vehicle(mockCtx), new Vehicle(mockCtx), new Vehicle(mockCtx)]
+    const mockRoad = new Road(mockCtx, {})
+
+    game.player = mockPlayer
+    game.vehicles = mockVehicles
+    game.road = mockRoad
+
+    const spyResetEntities = jest.spyOn(game, 'resetEntities')
+    const spyPlayerMoveToStart = jest.spyOn(mockPlayer, 'moveToStartPosition')
+    const spyVehicleMoveToStart = mockVehicles.map(vehicle => jest.spyOn(vehicle, 'moveToStartPosition'))
+
+    mockVehicles.forEach(vehicle => {
+      jest.spyOn(vehicle, 'setSpeed')
+      jest.spyOn(vehicle, 'setAcceleration')
+    })
+
+    game.currentLevelTime = 0
+    game.currentLevel = 10
+    game.currentGameState = GAME_STATE.GAME_OVER
+    game.nextRoadSpeed = 10
+
+    game.startNewGame()
+
+    expect(game.currentLevelTime).toBe(TIME_BETWEEN_LEVELS)
+    expect(game.currentLevel).toBe(1)
+    expect(game.currentGameState).toBe(GAME_STATE.RUNNING)
+    expect(game.nextRoadSpeed).toBe(INITIAL_SPEED.ROAD)
+    expect(spyResetEntities).toHaveBeenCalled()
+    expect(spyPlayerMoveToStart).toHaveBeenCalled()
+    spyVehicleMoveToStart.forEach(spy => expect(spy).toHaveBeenCalled())
   })
 })

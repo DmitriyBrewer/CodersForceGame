@@ -59,12 +59,24 @@ class Game {
     return this._currentGameState
   }
 
+  set currentGameState(value: number) {
+    this._currentGameState = value
+  }
+
   get currentLevel() {
     return this._currentLevel
   }
 
+  set currentLevel(value: number) {
+    this._currentLevel = value
+  }
+
   get currentLevelTime() {
     return this._currentLevelTime
+  }
+
+  set currentLevelTime(value: number) {
+    this._currentLevelTime = value
   }
 
   get inputStates() {
@@ -117,6 +129,14 @@ class Game {
 
   set nextRoadSpeed(value: number) {
     this._nextRoadSpeed = value
+  }
+
+  get roadLimits() {
+    return this._roadLimits
+  }
+
+  set roadLimits(value: Entity[]) {
+    this._roadLimits = value
   }
 
   async loadAssets(callback: (images: ImageDictionary) => void): Promise<void> {
