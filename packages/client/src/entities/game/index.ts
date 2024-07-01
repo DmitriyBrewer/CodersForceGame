@@ -48,11 +48,14 @@ class Game {
 
   private _nextRoadSpeed = 0
 
-  constructor() {
+  private readonly _endGameCallback: () => void
+
+  constructor(endGameCallback: () => void) {
     this._inputStates = {}
     this._currentGameState = GAME_STATE.RUNNING
     this._currentLevel = 1
     this._currentLevelTime = TIME_BETWEEN_LEVELS
+    this._endGameCallback = endGameCallback
   }
 
   get currentGameState() {
@@ -130,7 +133,11 @@ class Game {
   }
 
   resetEntities() {
-    this._player.moveToStartPosition()
+    this._currentLevelTime = TIME_BETWEEN_LEVELS
+    this._currentLevel = 1
+    this._currentGameState = GAME_STATE.RUNNING
+    this._nextRoadSpeed = INITIAL_SPEED.ROAD
+
     this._vehicles.forEach((vehicle, index) => vehicle.moveToStartPosition(400 + index * 400))
     this._vehicles.forEach(vehicle => {
       vehicle.setSpeed({ xSpeed: 0, ySpeed: INITIAL_SPEED.VEHICLE })
@@ -139,6 +146,7 @@ class Game {
     this._road.setSpeed({ xSpeed: 0, ySpeed: INITIAL_SPEED.ROAD })
     this._road.setAcceleration({ xAcceleration: 0, yAcceleration: 0 })
 
+    this._player.moveToStartPosition()
     this._player.setState(Player.RUNNING)
   }
 
@@ -174,21 +182,20 @@ class Game {
   }
 
   mainLoop(time: number) {
-    const dt = Timer.getDelta(time)
+    const deltaTime = Timer.getDelta(time)
 
     switch (this.currentGameState) {
       case GAME_STATE.RUNNING:
-        this.running(dt)
+        this.running(deltaTime)
         this.goToNextLevel()
+        requestAnimationFrame(this.mainLoop.bind(this))
         break
       case GAME_STATE.GAME_OVER:
-        this.startNewGame()
+        this._endGameCallback()
         break
       default:
         break
     }
-
-    requestAnimationFrame(this.mainLoop.bind(this))
   }
 
   goToNextLevel() {
@@ -232,16 +239,8 @@ class Game {
       this._player.setState(Player.EXPLODING)
       setTimeout(() => {
         this._currentGameState = GAME_STATE.GAME_OVER
-      }, 1000)
+      }, 600)
     }
-  }
-
-  startNewGame() {
-    this._currentLevelTime = TIME_BETWEEN_LEVELS
-    this._currentLevel = 1
-    this._currentGameState = GAME_STATE.RUNNING
-    this._nextRoadSpeed = INITIAL_SPEED.ROAD
-    this.resetEntities()
   }
 }
 

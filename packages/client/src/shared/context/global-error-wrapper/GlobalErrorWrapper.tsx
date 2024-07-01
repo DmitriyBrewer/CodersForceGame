@@ -3,10 +3,11 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import BaseAlert from '@/shared/components/ui/BaseAlert'
 import { clearError } from '@/entities/error'
+import { ErrorState } from '@/shared/types'
 
 export const GlobalErrorWrapper: FC<PropsWithChildren> = ({ children }) => {
   const dispatch = useDispatch()
-  const { isError, message } = useSelector((state: any) => state.error)
+  const { isError, message } = useSelector((state: ErrorState) => state.error)
 
   const handleClose = () => {
     dispatch(clearError())
