@@ -13,6 +13,8 @@ import Header from '@/shared/components/core/Header'
 
 import { conditions } from '@/shared/components/constant'
 
+import OAuthButton from '@/feature/session/o-auth/ui'
+
 import { useLogin } from '@/feature/session/login/hooks/useLogin'
 
 const LoginFeature: FC = () => {
@@ -29,6 +31,7 @@ const LoginFeature: FC = () => {
       <BaseButton variant="outlined" href={paths.register} color="secondary">
         Ещё нет аккаунта?
       </BaseButton>
+      <OAuthButton />
     </FormData>
   )
 }
