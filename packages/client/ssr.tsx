@@ -8,7 +8,6 @@ import { paths } from './src/shared/config/routing'
 import HomePage from './src/pages'
 import store from './src/shared/store'
 import CoreLayout from '@/layouts/core-layout/ui'
-import MainLayout from '@/layouts/main-layout/ui'
 
 export function render(url: string) {
   return ReactDOMServer.renderToString(
@@ -17,15 +16,7 @@ export function render(url: string) {
       <CoreLayout>
         <StaticRouter location={url}>
           <Routes>
-            <Route
-              element={
-                <MainLayout>
-                  <HomePage />
-                </MainLayout>
-              }
-              path={paths.home}
-              key={paths.home}
-            />
+            <Route element={<HomePage />} path={paths.home} key={paths.home} />
             <Route element={<p>После добавления роутера здесь будет LoginPage</p>} path="/test" key={paths.login} />
             <Route
               element={<p>После добавления роутера здесь будет LeaderBoardPage</p>}

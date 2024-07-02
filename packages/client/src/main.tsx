@@ -12,7 +12,6 @@ import { paths } from './shared/config/routing'
 import HomePage from './pages'
 import '@/app/styles/global.module.scss'
 import CoreLayout from './layouts/core-layout/ui'
-import MainLayout from './layouts/main-layout/ui'
 
 registerServiceWorker()
 
@@ -24,15 +23,7 @@ hydrateRoot(
         {/* TODO: feature/cfg-88 в feature/cfg-89 сделать роутер для сервера, что-то вроде  <AppRouterClient/>  + Уставновить BaseLayout */}
         <BrowserRouter>
           <Routes>
-            <Route
-              element={
-                <MainLayout>
-                  <HomePage />
-                </MainLayout>
-              }
-              path={paths.home}
-              key={paths.home}
-            />
+            <Route element={<HomePage />} path={paths.home} key={paths.home} />
             <Route element={<p>После добавления роутера здесь будет LoginPage</p>} path="/test" key={paths.login} />
             <Route
               element={<p>После добавления роутера здесь будет LeaderBoardPage</p>}
