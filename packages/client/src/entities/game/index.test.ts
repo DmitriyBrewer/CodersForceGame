@@ -182,13 +182,13 @@ describe('Game Class', () => {
     game.vehicles = mockVehicles
 
     mockRoad.speed = { xSpeed: 0, ySpeed: INITIAL_SPEED.ROAD }
-    mockRoad.acceleration = { xAcceleration: 0, yAcceleration: 0 } // Ensure acceleration is defined
+    mockRoad.acceleration = { xAcceleration: 0, yAcceleration: 0 }
     mockVehicles.forEach(vehicle => {
       vehicle.speed = { xSpeed: 0, ySpeed: INITIAL_SPEED.VEHICLE }
       vehicle.acceleration = { xAcceleration: 0, yAcceleration: 0 }
     })
 
-    game.currentLevelTime = -1 // Simulate end of level
+    game.currentLevelTime = -1
 
     const spySetRoadSpeed = jest.spyOn(mockRoad, 'setSpeed')
     const spySetRoadAcceleration = jest.spyOn(mockRoad, 'setAcceleration')
