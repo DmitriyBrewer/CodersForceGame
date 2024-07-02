@@ -50,18 +50,22 @@ async function startServer() {
       } else {
         template = fs.readFileSync(path.resolve(srcPath, 'index.html'), 'utf-8')
 
+        // TODO: feature/cfg-88 тут оставим из-за особенностей vite, позже удалить сообщение
+        //  eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         template = await vite!.transformIndexHtml(url, template)
       }
 
-      let render: () => Promise<string>
+      let render: (requestUrl: string) => Promise<string>
 
       if (!isDev()) {
         render = (await import(ssrClientPath)).render
       } else {
+        // TODO: feature/cfg-88 тут оставим из-за особенностей vite, позже удалить сообщение
+        //  eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx'))).render
       }
 
-      const appHtml = await render()
+      const appHtml = await render(url)
       console.log(appHtml)
 
       const html = template.replace('<!--ssr-outlet-->', appHtml)
@@ -70,6 +74,8 @@ async function startServer() {
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {
       if (isDev()) {
+        // TODO: feature/cfg-88 тут оставим из-за особенностей vite, позже удалить сообщение
+        //  eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         vite!.ssrFixStacktrace(e as Error)
       }
       next(e)
