@@ -1,7 +1,7 @@
 import { CssBaseline } from '@mui/material'
 import { Provider } from 'react-redux'
 
-import { useEffect } from 'react'
+import { FC, PropsWithChildren, useEffect } from 'react'
 
 import store from '@/shared/store'
 import ErrorBoundary from '@/shared/context/error-boundary'
@@ -9,9 +9,7 @@ import ThemeModeProvider from '@/shared/context/theme-provider'
 
 import GlobalErrorWrapper from '@/shared/context/global-error-wrapper'
 
-import AppRouter from '../router'
-
-const App = () => {
+const CoreLayout: FC<PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     const fetchServerData = async () => {
       const url = `http://localhost:${__SERVER_PORT__}/api`
@@ -28,13 +26,11 @@ const App = () => {
       <ErrorBoundary>
         <ThemeModeProvider>
           <CssBaseline />
-          <GlobalErrorWrapper>
-            <AppRouter />
-          </GlobalErrorWrapper>
+          <GlobalErrorWrapper>{children}</GlobalErrorWrapper>
         </ThemeModeProvider>
       </ErrorBoundary>
     </Provider>
   )
 }
 
-export default App
+export default CoreLayout
