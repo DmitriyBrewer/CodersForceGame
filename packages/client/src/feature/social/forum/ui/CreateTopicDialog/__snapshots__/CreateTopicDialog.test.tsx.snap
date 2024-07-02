@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CreateTopicDialog /> Правильно рендерится с использованием стандартных свойств 1`] = `<DocumentFragment />`;
+
+exports[`<CreateTopicDialog /> Снимок правильный 1`] = `<DocumentFragment />`;
