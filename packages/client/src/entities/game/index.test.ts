@@ -33,14 +33,14 @@ describe('Game Class', () => {
     deltaTime = FRAME_TIME
   })
 
-  it('should initialize with correct default values', () => {
+  it('инициализация с правильными значениями по умолчанию', () => {
     expect(game.currentGameState).toBe(GAME_STATE.RUNNING)
     expect(game.currentLevel).toBe(1)
     expect(game.currentLevelTime).toBe(TIME_BETWEEN_LEVELS)
     expect(game.inputStates).toStrictEqual({})
   })
 
-  it('should load assets correctly', async () => {
+  it('правильная загрузка ресурсов', async () => {
     const mockImages: Record<string, HTMLImageElement> = {
       'packages/client/src/entities/images/road.png': new Image(),
       'packages/client/src/entities/images/player.png': new Image(),
@@ -59,7 +59,7 @@ describe('Game Class', () => {
     expect(callback).toHaveBeenCalledWith(mockImages)
   })
 
-  it('should start the game correctly', () => {
+  it('правильное начало игры', () => {
     const spyLoadAssets = jest.spyOn(game, 'loadAssets')
     game.start(mockCanvas)
 
@@ -68,7 +68,7 @@ describe('Game Class', () => {
     expect(spyLoadAssets).toHaveBeenCalled()
   })
 
-  it('should reset entities correctly', () => {
+  it('правильная сбрасывание сущностей', () => {
     const mockPlayer = new Player(mockCtx, {})
     const mockVehicles = [new Vehicle(mockCtx), new Vehicle(mockCtx), new Vehicle(mockCtx)]
     const mockRoad = new Road(mockCtx, {})
@@ -104,13 +104,13 @@ describe('Game Class', () => {
     expect(spyPlayerSetState).toHaveBeenCalledWith(Player.RUNNING)
   })
 
-  it('should clear the canvas', () => {
+  it('очистка канвас', () => {
     const clearRectSpy = jest.spyOn(mockCtx, 'clearRect')
     game.clearCanvas()
     expect(clearRectSpy).toHaveBeenCalledWith(0, 0, mockCanvas.width, mockCanvas.height)
   })
 
-  it('should run the game correctly', () => {
+  it('правильный запуск игры', () => {
     const mockPlayer = new Player(mockCtx, {})
     const mockVehicles = [new Vehicle(mockCtx), new Vehicle(mockCtx), new Vehicle(mockCtx)]
     const mockRoad = new Road(mockCtx, {})
@@ -152,7 +152,7 @@ describe('Game Class', () => {
     expect(spyCollisionCheck).toHaveBeenCalled()
   })
 
-  it('should call running and goToNextLevel when game is running', () => {
+  it('должен вызывать running и goToNextLevel, когда игра запущена', () => {
     const mockPlayer = new Player(mockCtx, {})
     const mockRoad = new Road(mockCtx, {})
     const mockVehicles = [new Vehicle(mockCtx), new Vehicle(mockCtx), new Vehicle(mockCtx)]
@@ -174,7 +174,7 @@ describe('Game Class', () => {
     expect(spyGoToNextLevel).toHaveBeenCalled()
   })
 
-  it('should correctly transition to the next level', () => {
+  it('правильный переход на следующий уровень', () => {
     const mockRoad = new Road(mockCtx, {})
     const mockVehicles = [new Vehicle(mockCtx), new Vehicle(mockCtx), new Vehicle(mockCtx)]
 
@@ -211,7 +211,7 @@ describe('Game Class', () => {
       expect(spyVehicleSetSpeed[index]).toHaveBeenCalledWith({ xSpeed: 0, ySpeed: expect.any(Number) })
     })
   })
-  it('should correctly display score', () => {
+  it('правильное отображение счёта', () => {
     const spyFillText = jest.spyOn(mockCtx, 'fillText')
     const spyStrokeText = jest.spyOn(mockCtx, 'strokeText')
     game.displayScore()
@@ -219,7 +219,7 @@ describe('Game Class', () => {
     expect(spyStrokeText).toHaveBeenCalled()
   })
 
-  it('should correctly check game over', () => {
+  it('правильная проверка завершения игры', () => {
     const mockPlayer = new Player(mockCtx, {})
     const mockVehicles = [new Vehicle(mockCtx), new Vehicle(mockCtx), new Vehicle(mockCtx)]
     const mockRoadLimits = [
@@ -243,7 +243,7 @@ describe('Game Class', () => {
     }, 1000)
   })
 
-  it('should start a new game correctly', () => {
+  it('правильное начало новой игры', () => {
     const mockPlayer = new Player(mockCtx, {})
     const mockVehicles = [new Vehicle(mockCtx), new Vehicle(mockCtx), new Vehicle(mockCtx)]
     const mockRoad = new Road(mockCtx, {})

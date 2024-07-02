@@ -53,6 +53,14 @@ class Vehicle implements Entity {
     this._speed = value
   }
 
+  get sprite() {
+    return this._sprite
+  }
+
+  set sprite(value: SpriteImage) {
+    this._sprite = value
+  }
+
   setImage(img: HTMLImageElement, spriteConfig: SpriteConfig): void {
     this._sprite = new SpriteImage(img, spriteConfig)
   }
