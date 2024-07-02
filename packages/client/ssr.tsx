@@ -1,33 +1,43 @@
-import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom/server'
 import { Provider } from 'react-redux'
-import { Routes, Route } from 'react-router-dom'
 
+import { Route, Routes } from 'react-router-dom'
+
+import { CssBaseline } from '@mui/material'
+
+import ErrorBoundary from '@/shared/context/error-boundary'
+
+import ThemeModeProvider from '@/shared/context/theme-provider/ThemeProvider'
+
+import GlobalErrorWrapper from '@/shared/context/global-error-wrapper'
+
+import { paths } from './src/shared/config/routing'
+import HomePage from './src/pages'
 import store from './src/shared/store'
 
-import App from './src/app/App/App'
-
-// export function render(url: string) {
-//   return ReactDOMServer.renderToString(
-//     <StaticRouter location={url}>
-//       <App />
-//     </StaticRouter>
-//   )
-// }
-
-export function render(path: string) {
-  console.log(path)
+export function render(url: string) {
   return ReactDOMServer.renderToString(
     <Provider store={store}>
-      <StaticRouter location={path}>
-        {/* <App /> */}
-        {/* <App /> */}
-        <Routes>
-          <Route element={<App />} path="/test" key={1} />
-          <Route element={<p>ss</p>} path="/test2" key={2} />
-        </Routes>
-      </StaticRouter>
+      {/* TODO: feature/cfg-88 в feature/cfg-89 сделать роутер для сервера, что-то вроде  <AppRouterServer requestUrl={url} /> + Уставновить BaseLayout  */}
+      <ErrorBoundary>
+        <ThemeModeProvider>
+          <CssBaseline />
+          <GlobalErrorWrapper>
+            <StaticRouter location={url}>
+              <Routes>
+                <Route element={<HomePage />} path={paths.home} key={paths.home} />
+                <Route element={<p>После добавления роутера здесь будет LoginPage</p>} path="/test" key={paths.login} />
+                <Route
+                  element={<p>После добавления роутера здесь будет LeaderBoardPage</p>}
+                  path="/test2"
+                  key={paths.leaderboard}
+                />
+              </Routes>
+            </StaticRouter>
+          </GlobalErrorWrapper>
+        </ThemeModeProvider>
+      </ErrorBoundary>
     </Provider>
   )
 }
