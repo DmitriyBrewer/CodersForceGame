@@ -31,6 +31,7 @@ async function startServer() {
     app.use(vite.middlewares)
   }
 
+  // TODO: feature/cfg-88 удалить, если будет не нужен
   app.get('/api', (_, res) => {
     res.json('👋 Howdy from the server :)')
   })
