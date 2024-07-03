@@ -1,3 +1,4 @@
+// TODO: feature/cfg-88 удалить позже, если не будет использоваться при ssr
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import { routes } from '../routes/routes'
