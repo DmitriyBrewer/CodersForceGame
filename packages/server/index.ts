@@ -62,7 +62,7 @@ async function startServer() {
       } else {
         // TODO: feature/cfg-88 тут оставим из-за особенностей vite, позже удалить сообщение
         //  eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx'))).render
+        render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'src/entry-server.tsx'))).render
       }
 
       const appHtml = await render(url)
