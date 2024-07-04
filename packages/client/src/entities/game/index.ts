@@ -1,54 +1,158 @@
-import { ImageDictionary, InputStates, RoadLimit } from '@/entities/types/types'
+import { ImageDictionary, InputStates } from '@/entities/types/types'
+import InputHandler from '@/entities/game/utils/InputHandler'
+import Collision, { Entity } from '@/entities/game/utils/Сollision'
+import Timer from '@/entities/game/utils/Timer'
+import Load from '@/entities/game/utils/Load'
+import Player from '@/entities/player'
+import Vehicle from '@/entities/vehicle'
+import Road from '@/entities/road'
 
-import Timer from './utils/Timer'
-import Road from '../road'
-import Load from './utils/Load'
+import roadImage from '../images/road.png'
+import playerImage from '../images/player.png'
+import taxiImage from '../images/taxi.png'
+import carImage from '../images/car.png'
+import policeImage from '../images/police.png'
+import ambulanceImage from '../images/ambulance.png'
+import explosionImage from '../images/explosion.png'
 
-import road from '../images/road.png'
-
-const TIME_BETWEEN_LEVELS = 5000
-
-const GAME_STATE = {
-  MAIN_MENU: 0,
+export const TIME_BETWEEN_LEVELS = 5000
+export const INITIAL_SPEED = {
+  VEHICLE: 0.21,
+  ROAD: 0.3
+}
+export const GAME_STATE = {
   RUNNING: 1,
   GAME_OVER: 2
 }
-
-const INITIAL_SPEED = {
-  ROAD: 0.4
-}
+const FPS_UPDATE_INTERVAL = 100
 
 class Game {
-  public inputStates: InputStates
+  private _inputStates: InputStates
 
-  public currentGameState: number
+  private _currentGameState: number
 
-  public currentLevel: number
+  private _currentLevel: number
 
-  public currentLevelTime: number
+  private _currentLevelTime: number
 
-  public canvas: HTMLCanvasElement | null = null
+  private _canvas: HTMLCanvasElement | null = null
 
-  public ctx: CanvasRenderingContext2D | null = null
+  private _ctx: CanvasRenderingContext2D | null = null
 
-  public road: Road | null = null
+  private _road!: Road
 
-  public roadLimitLeft: RoadLimit | null = null
+  private _player!: Player
 
-  public roadLimitRight: RoadLimit | null = null
+  private _vehicles: Vehicle[] = []
 
-  public nextRoadSpeed = 0
+  private _roadLimits: Entity[] = []
+
+  private _nextRoadSpeed = 0
+
+  private _lastFrameTime = 0
+
+  private _fps = 0
+
+  private _lastFpsUpdateTime = 0
+
+  private _frameCount = 0
 
   constructor() {
-    this.inputStates = {}
-    this.currentGameState = GAME_STATE.RUNNING
-    this.currentLevel = 0
-    this.currentLevelTime = TIME_BETWEEN_LEVELS
+    this._inputStates = {}
+    this._currentGameState = GAME_STATE.RUNNING
+    this._currentLevel = 1
+    this._currentLevelTime = TIME_BETWEEN_LEVELS
+  }
+
+  get currentGameState() {
+    return this._currentGameState
+  }
+
+  set currentGameState(value: number) {
+    this._currentGameState = value
+  }
+
+  get currentLevel() {
+    return this._currentLevel
+  }
+
+  set currentLevel(value: number) {
+    this._currentLevel = value
+  }
+
+  get currentLevelTime() {
+    return this._currentLevelTime
+  }
+
+  set currentLevelTime(value: number) {
+    this._currentLevelTime = value
+  }
+
+  get inputStates() {
+    return this._inputStates
+  }
+
+  get canvas() {
+    return this._canvas
+  }
+
+  set canvas(value: HTMLCanvasElement | null) {
+    this._canvas = value
+  }
+
+  get ctx() {
+    return this._ctx
+  }
+
+  set ctx(value: CanvasRenderingContext2D | null) {
+    this._ctx = value
+  }
+
+  get road() {
+    return this._road
+  }
+
+  set road(value: Road) {
+    this._road = value
+  }
+
+  get player() {
+    return this._player
+  }
+
+  set player(value: Player) {
+    this._player = value
+  }
+
+  get vehicles() {
+    return this._vehicles
+  }
+
+  set vehicles(value: Vehicle[]) {
+    this._vehicles = value
+  }
+
+  get nextRoadSpeed() {
+    return this._nextRoadSpeed
+  }
+
+  set nextRoadSpeed(value: number) {
+    this._nextRoadSpeed = value
+  }
+
+  get roadLimits() {
+    return this._roadLimits
+  }
+
+  set roadLimits(value: Entity[]) {
+    this._roadLimits = value
   }
 
   async loadAssets(callback: (images: ImageDictionary) => void): Promise<void> {
+    const imagePaths = [roadImage, playerImage, taxiImage, carImage, explosionImage, policeImage, ambulanceImage]
+
     try {
-      const images = await Load.images(road)
+      const images = await Load.images(...imagePaths)
       callback(images)
     } catch (error) {
       console.error('Ошибка загрузки ассетов:', error)
@@ -56,163 +160,205 @@ class Game {
   }
 
   start(canvasElement: HTMLCanvasElement): void {
-    try {
-      this.canvas = canvasElement
-      this.ctx = this.canvas.getContext('2d')
-      if (!this.ctx) throw new Error('Не удалось получить контекст холста')
+    this._canvas = canvasElement
+    this._ctx = this._canvas.getContext('2d')
+    if (!this._ctx) throw new Error('Не удалось получить контекст холста')
 
-      this.ctx.font = '22px Arial'
-      this.road = new Road(this.ctx, this.inputStates)
+    this._ctx.font = '22px Arial'
 
-      this.roadLimitLeft = {
-        height: this.canvas.height,
-        width: 1,
-        position: {
-          xPosition: 90,
-          yPosition: 0
-        }
-      }
+    InputHandler.listen(this._inputStates)
 
-      this.roadLimitRight = {
-        height: this.canvas.height,
-        width: 1,
-        position: {
-          xPosition: this.canvas.width - 90,
-          yPosition: 0
-        }
-      }
-
-      this.loadAssets(images => {
-        if (this.road) {
-          const spriteConfig = { x: 0, y: 0, width: 840, height: 647 }
-
-          this.road.setImage(images[road], spriteConfig)
-          this.resetEntities()
-
-          requestAnimationFrame(this.mainLoop.bind(this))
-        }
-      })
-    } catch (error) {
-      console.error('Ошибка при запуске игры:', error)
+    const road = new Road(this._ctx, this._inputStates)
+    const player = new Player(this._ctx, this._inputStates)
+    const police = new Vehicle(this._ctx)
+    const taxi = new Vehicle(this._ctx)
+    const car = new Vehicle(this._ctx)
+    // const ambulance = new Vehicle(this._ctx)
+    const roadLimitLeft = {
+      height: this._canvas.height,
+      width: 1,
+      position: { xPosition: 120, yPosition: 0 }
     }
+    const roadLimitRight = {
+      height: this._canvas.height,
+      width: 1,
+      position: { xPosition: this._canvas.width - 110, yPosition: 0 }
+    }
+
+    this._road = road
+    this._player = player
+    this._vehicles = [police, taxi, car]
+    this._roadLimits = [roadLimitLeft, roadLimitRight]
+    this.loadAssets(images => {
+      this._player.setImage(images[playerImage], {
+        position: { xPosition: 78, yPosition: 24 },
+        width: 110,
+        height: 200
+      })
+      this._player.setExplosion(images[explosionImage])
+
+      this._road.setImage(images[roadImage], { position: { xPosition: 0, yPosition: 0 }, width: 840, height: 647 })
+
+      const vehicleImages = [images[policeImage], images[carImage], images[taxiImage], images[ambulanceImage]]
+      const vehiclePositions = [78, 78, 72]
+      const vehicleScales = [0.79, 0.79, 0.79]
+
+      this._vehicles.forEach((vehicle, index) => {
+        vehicle.setImage(vehicleImages[index], {
+          position: { xPosition: vehiclePositions[index], yPosition: 24 },
+          width: 110,
+          height: 200
+        })
+        vehicle.setScale(vehicleScales[index])
+      })
+
+      this.resetEntities()
+      this._currentGameState = GAME_STATE.RUNNING
+      requestAnimationFrame(this.mainLoop.bind(this))
+    })
   }
 
   resetEntities() {
-    if (this.road) {
-      this.road.speed.ySpeed = INITIAL_SPEED.ROAD
-      this.road.acceleration.yAcceleration = 0
-    }
+    this._player.moveToStartPosition()
+    this._vehicles.forEach((vehicle, index) => vehicle.moveToStartPosition(400 + index * 400))
+    this._vehicles.forEach(vehicle => {
+      vehicle.setSpeed({ xSpeed: 0, ySpeed: INITIAL_SPEED.VEHICLE })
+    })
+
+    this._road.setSpeed({ xSpeed: 0, ySpeed: INITIAL_SPEED.ROAD })
+    this._road.setAcceleration({ xAcceleration: 0, yAcceleration: 0 })
+
+    this._player.setState(Player.RUNNING)
   }
 
   clearCanvas() {
-    if (this.canvas && this.ctx) {
-      const { width, height } = this.canvas
-      this.ctx.clearRect(0, 0, width, height)
+    if (this._canvas && this._ctx) {
+      const { width, height } = this._canvas
+      this._ctx.clearRect(0, 0, width, height)
     }
   }
 
   running(deltaTime: number) {
-    try {
-      this.clearCanvas()
+    this.clearCanvas()
 
-      if (this.road) {
-        if (this.nextRoadSpeed < this.road.speed.ySpeed) {
-          this.road.acceleration.yAcceleration = 0
-        }
+    this._currentGameState = GAME_STATE.RUNNING
 
-        this.road.update(deltaTime)
-        this.displayScore()
-        this.currentLevelTime -= deltaTime
+    if (this._nextRoadSpeed < this._road.speed.ySpeed) {
+      this._road.setAcceleration({ xAcceleration: 0, yAcceleration: 0 })
+    }
+
+    this._road.update(deltaTime)
+    this._player.update(deltaTime)
+    this._vehicles.forEach(vehicle => vehicle.update(deltaTime))
+    this._currentLevelTime -= deltaTime
+
+    this.displayScore()
+    this.displayFPS()
+    this.checkGameOver()
+
+    this._vehicles.forEach((vehicle, index) => {
+      for (let i = index + 1; i < this._vehicles.length; i++) {
+        Collision.checkCollision(vehicle, this._vehicles[i])
       }
-    } catch (error) {
-      console.error('Ошибка во время выполнения игры:', error)
-      this.currentGameState = GAME_STATE.GAME_OVER
-    }
-  }
-
-  gameOver() {
-    if (this.ctx) {
-      const padding = 100
-      const textOffset = 150
-      const lineHeight = 50
-
-      const { width: canvasWidth, height: canvasHeight } = this.ctx.canvas
-      this.ctx.save()
-      this.ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'
-      this.ctx.fillRect(padding, 50, canvasWidth - padding * 2, canvasHeight - padding)
-      this.ctx.fillStyle = 'white'
-      this.ctx.fillText('GAME OVER', canvasWidth / 2 - textOffset, padding + lineHeight)
-      this.ctx.fillText('Press SPACE to start again', canvasWidth / 2 - textOffset, padding + lineHeight * 2)
-      this.ctx.fillText('Move with arrow keys', canvasWidth / 2 - textOffset, padding + lineHeight * 3)
-      this.ctx.fillText(
-        `Survive ${TIME_BETWEEN_LEVELS / 1000} seconds for next level`,
-        canvasWidth / 2 - textOffset,
-        padding + lineHeight * 4
-      )
-      this.ctx.restore()
-    }
+    })
   }
 
   mainLoop(time: number) {
-    try {
-      const deltaTime = Timer.getDelta(time)
+    const dt = Timer.getDelta(time)
 
-      switch (this.currentGameState) {
-        case GAME_STATE.RUNNING:
-          this.running(deltaTime)
+    this.calculateFPS(performance.now())
 
-          if (this.currentLevelTime < 0) {
-            this.goToNextLevel()
-          }
+    switch (this.currentGameState) {
+      case GAME_STATE.RUNNING:
+        this.running(dt)
+        this.goToNextLevel()
+        break
+      case GAME_STATE.GAME_OVER:
+        this.startNewGame()
+        break
+      default:
+        break
+    }
 
-          break
-        case GAME_STATE.MAIN_MENU:
-          // TO DO !
-          break
-        case GAME_STATE.GAME_OVER:
-          this.gameOver()
-          if (this.inputStates.space) this.startNewGame()
-          break
-        default:
-          break
-      }
+    requestAnimationFrame(this.mainLoop.bind(this))
+  }
 
-      requestAnimationFrame(this.mainLoop.bind(this))
-    } catch (error) {
-      console.error('Ошибка в основном цикле игры:', error)
-      this.currentGameState = GAME_STATE.GAME_OVER
+  calculateFPS(time: number) {
+    this._frameCount++
+
+    if (time - this._lastFpsUpdateTime > FPS_UPDATE_INTERVAL) {
+      const delta = (time - this._lastFpsUpdateTime) / 1000
+      this._fps = this._frameCount / delta
+      this._lastFpsUpdateTime = time
+      this._frameCount = 0
+    }
+  }
+
+  displayFPS() {
+    if (this._ctx) {
+      this._ctx.save()
+      this._ctx.font = 'bold 18px Arial'
+      this._ctx.fillStyle = 'White'
+      this._ctx.strokeStyle = 'Black'
+      this._ctx.lineWidth = 1
+      const fpsText = `FPS: ${Math.round(this._fps)}`
+      this._ctx.fillText(fpsText, this._canvas!.width - 100, 30)
+      this._ctx.strokeText(fpsText, this._canvas!.width - 100, 30)
+      this._ctx.restore()
     }
   }
 
   goToNextLevel() {
-    this.currentLevelTime = TIME_BETWEEN_LEVELS
-    this.currentLevel++
+    if (this._currentLevelTime < 0) {
+      this._currentLevelTime = TIME_BETWEEN_LEVELS
+      this._currentLevel++
 
-    const difficult = 1.2
+      const difficult = 1.1
 
-    if (this.road) {
-      this.nextRoadSpeed = this.road.speed.ySpeed * difficult
-      this.road.acceleration.yAcceleration = 0.00001
+      if (this._road.speed.ySpeed < INITIAL_SPEED.ROAD * 5) {
+        this._road.setAcceleration({ xAcceleration: 0, yAcceleration: this._road.acceleration.yAcceleration + 0.05 })
+        this._road.setSpeed({ xSpeed: 0, ySpeed: this._road.speed.ySpeed * difficult })
+        this._nextRoadSpeed = this._road.speed.ySpeed
+      }
+
+      this._vehicles.forEach(vehicle => {
+        vehicle.setAcceleration({ xAcceleration: 0, yAcceleration: vehicle.acceleration.yAcceleration + 0.05 })
+        vehicle.setSpeed({ xSpeed: 0, ySpeed: vehicle.speed.ySpeed * difficult })
+      })
+    }
+  }
+
+  displayScore() {
+    if (this._ctx) {
+      const { _currentLevel, _currentLevelTime } = this
+      this._ctx.save()
+      this._ctx.font = 'bold 36px Arial'
+      this._ctx.fillStyle = 'White'
+      this._ctx.strokeStyle = 'Purple'
+      this._ctx.lineWidth = 1
+      this._ctx.fillText(`Level: ${_currentLevel}`, 55, 35)
+      this._ctx.strokeText(`Level: ${_currentLevel}`, 55, 35)
+      this._ctx.fillText(`Time: ${(_currentLevelTime / 1000).toFixed(1)}`, 55, 70)
+      this._ctx.strokeText(`Time: ${(_currentLevelTime / 1000).toFixed(1)}`, 55, 70)
+      this._ctx.restore()
+    }
+  }
+
+  checkGameOver() {
+    if (this._player.checkCollision(...this._vehicles, ...this._roadLimits)) {
+      this._player.setState(Player.EXPLODING)
+      setTimeout(() => {
+        this._currentGameState = GAME_STATE.GAME_OVER
+      }, 1000)
     }
   }
 
   startNewGame() {
-    this.currentLevelTime = TIME_BETWEEN_LEVELS
-    this.currentLevel = 1
-    this.currentGameState = GAME_STATE.RUNNING
-    this.nextRoadSpeed = INITIAL_SPEED.ROAD
+    this._currentLevelTime = TIME_BETWEEN_LEVELS
+    this._currentLevel = 1
+    this._currentGameState = GAME_STATE.RUNNING
+    this._nextRoadSpeed = INITIAL_SPEED.ROAD
     this.resetEntities()
-  }
-
-  displayScore() {
-    if (this.ctx) {
-      const { currentLevel, currentLevelTime } = this
-      this.ctx.save()
-      this.ctx.fillStyle = 'White'
-      this.ctx.fillText(`Level: ${currentLevel}`, 300, 30)
-      this.ctx.fillText(`Time: ${(currentLevelTime / 1000).toFixed(1)}`, 300, 60)
-      this.ctx.restore()
-    }
   }
 }
 

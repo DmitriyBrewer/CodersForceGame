@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BaseInput /> Renders correctly with default props 1`] = `
+<input
+  class="MuiInputBase-input css-yz9k0d-MuiInputBase-input"
+  type="text"
+  value=""
+/>
+`;
+
+exports[`<BaseInput /> Snapshot is correct 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiInputBase-root MuiInputBase-colorPrimary css-1le28he-MuiInputBase-root"
+  >
+    <input
+      class="MuiInputBase-input css-yz9k0d-MuiInputBase-input"
+      type="text"
+      value=""
+    />
+  </div>
+</DocumentFragment>
+`;

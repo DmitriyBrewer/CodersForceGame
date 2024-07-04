@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BaseDialogTitle /> Renders correctly with default props 1`] = `
+<h2
+  class="MuiTypography-root MuiTypography-h6 MuiDialogTitle-root css-jsgecs-MuiTypography-root-MuiDialogTitle-root"
+/>
+`;
+
+exports[`<BaseDialogTitle /> Snapshot is correct 1`] = `
+<DocumentFragment>
+  <h2
+    class="MuiTypography-root MuiTypography-h6 MuiDialogTitle-root css-jsgecs-MuiTypography-root-MuiDialogTitle-root"
+  />
+</DocumentFragment>
+`;

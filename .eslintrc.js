@@ -44,12 +44,7 @@ module.exports = {
     'import/no-unresolved': 'off',
     'react/function-component-definition': 'off',
     'react/jsx-props-no-spreading': 'off',
-    'no-underscore-dangle': [
-      'error',
-      {
-        allow: ['__SERVER_PORT__']
-      }
-    ],
+    'no-underscore-dangle': 'off',
     'import/order': [
       'error',
       {

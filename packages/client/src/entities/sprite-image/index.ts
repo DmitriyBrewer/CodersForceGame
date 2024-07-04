@@ -1,39 +1,32 @@
-import { DrawConfig, SpriteConfig } from '@/entities/types/types'
+import { SpriteConfig } from '@/entities/types/types'
 
 class SpriteImage {
-  public image: HTMLImageElement
+  private _image: HTMLImageElement
 
-  public x: number
+  private _spriteConfig: SpriteConfig
 
-  public y: number
-
-  public width: number
-
-  public height: number
-
-  constructor(image: HTMLImageElement, config: SpriteConfig) {
-    const { x, y, width, height } = config
-
-    this.image = image
-    this.x = x
-    this.y = y
-    this.width = width
-    this.height = height
+  constructor(image: HTMLImageElement, spriteConfig: SpriteConfig) {
+    this._image = image
+    this._spriteConfig = spriteConfig
   }
 
-  draw(ctx: CanvasRenderingContext2D, drawConfig: DrawConfig) {
-    const { xPosition, yPosition, scale } = drawConfig
+  get spriteConfig() {
+    return this._spriteConfig
+  }
 
+  draw(ctx: CanvasRenderingContext2D, options: { position: { xPosition: number; yPosition: number }; scale: number }) {
+    const { xPosition, yPosition } = options.position
+    const { width, height } = this.spriteConfig
     ctx.drawImage(
-      this.image,
-      this.x,
-      this.y,
-      this.width,
-      this.height,
+      this._image,
+      this.spriteConfig.position.xPosition,
+      this.spriteConfig.position.yPosition,
+      width,
+      height,
       xPosition,
       yPosition,
-      this.width * scale,
-      this.height * scale
+      width * options.scale,
+      height * options.scale
     )
   }
 }

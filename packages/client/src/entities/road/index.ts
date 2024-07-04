@@ -5,57 +5,121 @@ import SpriteImage from '../sprite-image'
 class Road {
   static LANE_CENTER = [220, 344, 476, 600]
 
-  public ctx: CanvasRenderingContext2D
+  private readonly _ctx: CanvasRenderingContext2D
 
-  public inputStates: InputStates
+  private _inputStates: InputStates
 
-  public speed: Speed
+  private _speed: Speed
 
-  public acceleration: Acceleration
+  private _acceleration: Acceleration
 
-  public totalSeconds: number
+  private _totalSeconds: number
 
-  public sprite!: SpriteImage
+  private _sprite!: SpriteImage
+
+  private _nextRoadSpeed: number
 
   constructor(ctx: CanvasRenderingContext2D, inputStates: InputStates) {
-    this.ctx = ctx
-    this.inputStates = inputStates
-    this.speed = {
+    this._ctx = ctx
+    this._inputStates = inputStates
+    this._speed = {
       xSpeed: 0,
       ySpeed: 0
     }
-    this.acceleration = {
+    this._acceleration = {
       xAcceleration: 0,
       yAcceleration: 0
     }
-    this.totalSeconds = 0
+    this._totalSeconds = 0
+    this._nextRoadSpeed = 0
   }
 
   setImage(image: HTMLImageElement, spriteConfig: SpriteConfig) {
-    this.sprite = new SpriteImage(image, spriteConfig)
+    this._sprite = new SpriteImage(image, spriteConfig)
+  }
+
+  setSpeed(speed: Speed) {
+    this._speed = speed
+  }
+
+  setAcceleration(acceleration: Acceleration) {
+    this._acceleration = acceleration
+  }
+
+  get speed() {
+    return this._speed
+  }
+
+  set speed(value: Speed) {
+    this._speed = value
+  }
+
+  get acceleration() {
+    return this._acceleration
+  }
+
+  set acceleration(value: Acceleration) {
+    this._acceleration = value
+  }
+
+  get nextRoadSpeed() {
+    return this._nextRoadSpeed
+  }
+
+  set nextRoadSpeed(value: number) {
+    this._nextRoadSpeed = value
+  }
+
+  get ctx() {
+    return this._ctx
+  }
+
+  get inputStates() {
+    return this._inputStates
+  }
+
+  set inputStates(value: InputStates) {
+    this._inputStates = value
+  }
+
+  get totalSeconds() {
+    return this._totalSeconds
+  }
+
+  set totalSeconds(value: number) {
+    this._totalSeconds = value
+  }
+
+  get sprite() {
+    return this._sprite
+  }
+
+  set sprite(value: SpriteImage) {
+    this._sprite = value
   }
 
   update(deltaTime: number) {
-    const { width: canvasWidth } = this.ctx.canvas
-    const { height: spriteHeight, width: spriteWidth } = this.sprite
-    this.totalSeconds += deltaTime
+    const { width: canvasWidth } = this._ctx.canvas
+    const { height: spriteHeight, width: spriteWidth } = this._sprite.spriteConfig
 
-    this.speed.ySpeed += this.acceleration.yAcceleration * deltaTime
+    this._totalSeconds += deltaTime
+    this._speed.ySpeed += this._acceleration.yAcceleration * deltaTime
 
     const numImages = Math.ceil(canvasWidth / spriteWidth) + 1
-    const yPosition = (this.totalSeconds * this.speed.ySpeed) % spriteHeight
+    const yPosition = (this._totalSeconds * this._speed.ySpeed) % spriteHeight
 
-    this.ctx.save()
-    this.ctx.translate(0, yPosition)
+    this._ctx.save()
+    this._ctx.translate(0, yPosition)
     for (let i = 0; i < numImages; i++) {
-      const drawConfig = {
-        xPosition: canvasWidth / 2 - spriteWidth / 2,
-        yPosition: -i * spriteHeight,
+      this._sprite.draw(this._ctx, {
+        position: {
+          xPosition: canvasWidth / 2 - spriteWidth / 2,
+          yPosition: -i * spriteHeight
+        },
         scale: 1
-      }
-      this.sprite.draw(this.ctx, drawConfig)
+      })
     }
-    this.ctx.restore()
+    this._ctx.restore()
   }
 }
 
