@@ -6,6 +6,8 @@ import { clearError } from '@/entities/error'
 
 export const GlobalErrorWrapper: FC<PropsWithChildren> = ({ children }) => {
   const dispatch = useDispatch()
+  // TODO: add globalerrorwrapper можнож здесь избавиться от any ?
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { isError, message } = useSelector((state: any) => state.error)
 
   const handleClose = () => {
