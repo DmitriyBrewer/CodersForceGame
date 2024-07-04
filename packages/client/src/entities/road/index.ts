@@ -17,6 +17,8 @@ class Road {
 
   private _sprite!: SpriteImage
 
+  private _nextRoadSpeed: number
+
   constructor(ctx: CanvasRenderingContext2D, inputStates: InputStates) {
     this._ctx = ctx
     this._inputStates = inputStates
@@ -29,6 +31,7 @@ class Road {
       yAcceleration: 0
     }
     this._totalSeconds = 0
+    this._nextRoadSpeed = 0
   }
 
   setImage(image: HTMLImageElement, spriteConfig: SpriteConfig) {
@@ -47,8 +50,52 @@ class Road {
     return this._speed
   }
 
+  set speed(value: Speed) {
+    this._speed = value
+  }
+
   get acceleration() {
     return this._acceleration
+  }
+
+  set acceleration(value: Acceleration) {
+    this._acceleration = value
+  }
+
+  get nextRoadSpeed() {
+    return this._nextRoadSpeed
+  }
+
+  set nextRoadSpeed(value: number) {
+    this._nextRoadSpeed = value
+  }
+
+  get ctx() {
+    return this._ctx
+  }
+
+  get inputStates() {
+    return this._inputStates
+  }
+
+  set inputStates(value: InputStates) {
+    this._inputStates = value
+  }
+
+  get totalSeconds() {
+    return this._totalSeconds
+  }
+
+  set totalSeconds(value: number) {
+    this._totalSeconds = value
+  }
+
+  get sprite() {
+    return this._sprite
+  }
+
+  set sprite(value: SpriteImage) {
+    this._sprite = value
   }
 
   update(deltaTime: number) {

@@ -13,8 +13,9 @@ describe('<BaseDialogTitle />', () => {
 
   it('Renders correctly with default props', () => {
     render(<BaseDialogTitle />)
-    const button = screen.getByRole('button')
+    const heading = screen.getByRole('heading')
 
-    expect(button).toMatchSnapshot()
+    expect(heading).toBeInTheDocument()
+    expect(heading).toMatchSnapshot()
   })
 })

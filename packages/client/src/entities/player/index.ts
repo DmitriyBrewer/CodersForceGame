@@ -17,7 +17,7 @@ class Player implements Entity {
 
   private _position: Position
 
-  private readonly _scale: number
+  private _scale: number
 
   private _state: string
 
@@ -52,6 +52,46 @@ class Player implements Entity {
 
   get position(): Position {
     return this._position
+  }
+
+  get inputStates() {
+    return this._inputStates
+  }
+
+  set inputStates(value: InputStates) {
+    this._inputStates = value
+  }
+
+  get state() {
+    return this._state
+  }
+
+  set state(value: string) {
+    this._state = value
+  }
+
+  get explosion() {
+    return this._explosion
+  }
+
+  set explosion(value: SpriteAnimation) {
+    this._explosion = value
+  }
+
+  get sprite() {
+    return this._sprite
+  }
+
+  set sprite(value: SpriteImage) {
+    this._sprite = value
+  }
+
+  get scale() {
+    return this._scale
+  }
+
+  set scale(value: number) {
+    this._scale = value
   }
 
   setState(state: string): void {
