@@ -7,6 +7,7 @@ import { SimpleResponse } from '@/shared/api/types'
 import { REDIRECT_URI } from '@/shared/api/constant'
 
 import { LoginPayload, LoginResponse } from '@/feature/session/o-auth/types'
+import { authApiSlice } from '@/feature/session/api/authApi'
 
 export const oAuthApiSlice = createApi({
   reducerPath: 'oAuthApi',
@@ -19,7 +20,14 @@ export const oAuthApiSlice = createApi({
         method: 'POST',
         body: payload
       }),
-      invalidatesTags: ['User']
+      async onQueryStarted(payload, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled
+          dispatch(authApiSlice.util.invalidateTags(['User']))
+        } catch (e) {
+          console.error(e)
+        }
+      }
     }),
     getClientId: builder.mutation<LoginResponse, void>({
       query: () => `/oauth/yandex/service-id?redirect_uri=${encodeURIComponent(REDIRECT_URI)}`

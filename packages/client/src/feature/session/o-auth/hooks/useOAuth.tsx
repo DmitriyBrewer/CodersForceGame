@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { useLocation } from 'react-router-dom'
 
@@ -17,6 +17,7 @@ export const useOAuth = () => {
   const location = useLocation()
   const dispatch = useDispatch()
   const { isAuth } = useAuth()
+  const isInitialMount = useRef(true)
 
   const handleOAuth = async () => {
     try {
@@ -32,6 +33,10 @@ export const useOAuth = () => {
   }
 
   useEffect(() => {
+    if (!isInitialMount.current) {
+      return
+    }
+
     const params = new URLSearchParams(location.search)
     const authCode = params.get('code')
 
@@ -50,6 +55,7 @@ export const useOAuth = () => {
     if (authCode && !isAuth) {
       loginHandle(authCode)
     }
+    isInitialMount.current = false
   }, [isAuth, getUser, login, location, dispatch])
 
   return { handleOAuth }
