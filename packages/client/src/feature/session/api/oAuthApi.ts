@@ -11,18 +11,20 @@ import { LoginPayload, LoginResponse } from '@/feature/session/o-auth/types'
 export const oAuthApiSlice = createApi({
   reducerPath: 'oAuthApi',
   baseQuery,
+  tagTypes: ['User'],
   endpoints: builder => ({
     login: builder.mutation<SimpleResponse, LoginPayload>({
       query: payload => ({
         url: '/oauth/yandex',
         method: 'POST',
         body: payload
-      })
+      }),
+      invalidatesTags: ['User']
     }),
-    getClientId: builder.query<LoginResponse, void>({
+    getClientId: builder.mutation<LoginResponse, void>({
       query: () => `/oauth/yandex/service-id?redirect_uri=${encodeURIComponent(REDIRECT_URI)}`
     })
   })
 })
 
-export const { useLazyGetClientIdQuery, useGetClientIdQuery, useLoginMutation } = oAuthApiSlice
+export const { useGetClientIdMutation, useLoginMutation } = oAuthApiSlice

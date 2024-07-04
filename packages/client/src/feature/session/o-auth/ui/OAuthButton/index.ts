@@ -1,3 +1,3 @@
-import OAuthButton from '@/feature/session/o-auth/ui/OAuthButton/OAuthButton'
+import OAuthButton from './OAuthButton'
 
 export default OAuthButton

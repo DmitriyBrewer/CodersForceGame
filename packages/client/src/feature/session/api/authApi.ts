@@ -10,6 +10,7 @@ import { LoginPayload, LoginResponse } from '../login/types'
 export const authApiSlice = createApi({
   reducerPath: 'authApi',
   baseQuery,
+  tagTypes: ['User'],
   endpoints: builder => ({
     register: builder.mutation<RegisterResponse, RegisterPayload>({
       query: credentials => ({
@@ -26,7 +27,8 @@ export const authApiSlice = createApi({
       })
     }),
     getUser: builder.query<User, void>({
-      query: () => '/auth/user'
+      query: () => '/auth/user',
+      providesTags: ['User']
     })
   })
 })

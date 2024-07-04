@@ -1,3 +1,3 @@
-import BaseLayout from '@/layouts/base-layout/ui/BaseLayout/BaseLayout'
+import BaseLayout from './BaseLayout'
 
 export default BaseLayout

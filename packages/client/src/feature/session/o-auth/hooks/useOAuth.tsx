@@ -6,12 +6,12 @@ import { useDispatch } from 'react-redux'
 
 import { REDIRECT_URI } from '@/shared/api/constant'
 
-import { useLazyGetClientIdQuery, useLoginMutation } from '@/feature/session/api/oAuthApi'
+import { useGetClientIdMutation, useLoginMutation } from '@/feature/session/api/oAuthApi'
 import { useLazyGetUserQuery } from '@/feature/session/api/authApi'
 import { useAuth } from '@/app/router/hooks/useAuth'
 
 export const useOAuth = () => {
-  const [getClientId] = useLazyGetClientIdQuery()
+  const [getClientId] = useGetClientIdMutation()
   const [login] = useLoginMutation()
   const [getUser] = useLazyGetUserQuery()
   const location = useLocation()
@@ -41,10 +41,7 @@ export const useOAuth = () => {
           code,
           redirect_uri: REDIRECT_URI
         }
-        const { data } = await login(payload)
-        if (data === 'OK') {
-          getUser()
-        }
+        await login(payload)
       } catch (err) {
         console.error(err)
       }
