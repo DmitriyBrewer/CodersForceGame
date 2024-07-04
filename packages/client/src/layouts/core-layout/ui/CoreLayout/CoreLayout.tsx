@@ -10,6 +10,7 @@ import ThemeModeProvider from '@/shared/context/theme-provider'
 import GlobalErrorWrapper from '@/shared/context/global-error-wrapper'
 
 const CoreLayout: FC<PropsWithChildren> = ({ children }) => {
+  // TODO: feature/cfg-88 удалить запрос, если не нужен будет, сейчас для демонстрации работы с ssr
   useEffect(() => {
     const fetchServerData = async () => {
       const url = `http://localhost:${__SERVER_PORT__}/api`
