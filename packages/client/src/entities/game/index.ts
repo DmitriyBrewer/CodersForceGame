@@ -24,6 +24,7 @@ const GAME_STATE = {
   RUNNING: 1,
   GAME_OVER: 2
 }
+const FPS_UPDATE_INTERVAL = 100
 
 class Game {
   private readonly _inputStates: InputStates
@@ -47,6 +48,14 @@ class Game {
   private _roadLimits: Entity[] = []
 
   private _nextRoadSpeed = 0
+
+  private _lastFrameTime = 0
+
+  private _fps = 0
+
+  private _lastFpsUpdateTime = 0
+
+  private _frameCount = 0
 
   constructor() {
     this._inputStates = {}
@@ -164,6 +173,7 @@ class Game {
     this._currentLevelTime -= deltaTime
 
     this.displayScore()
+    this.displayFPS()
     this.checkGameOver()
 
     this._vehicles.forEach((vehicle, index) => {
@@ -175,6 +185,8 @@ class Game {
 
   mainLoop(time: number) {
     const dt = Timer.getDelta(time)
+
+    this.calculateFPS(performance.now())
 
     switch (this.currentGameState) {
       case GAME_STATE.RUNNING:
@@ -189,6 +201,31 @@ class Game {
     }
 
     requestAnimationFrame(this.mainLoop.bind(this))
+  }
+
+  calculateFPS(time: number) {
+    this._frameCount++
+
+    if (time - this._lastFpsUpdateTime > FPS_UPDATE_INTERVAL) {
+      const delta = (time - this._lastFpsUpdateTime) / 1000
+      this._fps = this._frameCount / delta
+      this._lastFpsUpdateTime = time
+      this._frameCount = 0
+    }
+  }
+
+  displayFPS() {
+    if (this._ctx) {
+      this._ctx.save()
+      this._ctx.font = 'bold 18px Arial'
+      this._ctx.fillStyle = 'White'
+      this._ctx.strokeStyle = 'Black'
+      this._ctx.lineWidth = 1
+      const fpsText = `FPS: ${Math.round(this._fps)}`
+      this._ctx.fillText(fpsText, this._canvas!.width - 100, 30)
+      this._ctx.strokeText(fpsText, this._canvas!.width - 100, 30)
+      this._ctx.restore()
+    }
   }
 
   goToNextLevel() {
