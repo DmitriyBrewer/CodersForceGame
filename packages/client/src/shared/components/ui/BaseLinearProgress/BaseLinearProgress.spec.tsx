@@ -4,17 +4,16 @@ import '@testing-library/jest-dom'
 import BaseLinearProgress from './BaseLinearProgress'
 
 describe('<BaseLinearProgress />', () => {
-  const handleClick = jest.fn()
-
   it('Snapshot is correct', () => {
-    const { asFragment } = render(<BaseLinearProgress onClick={handleClick} />)
+    const { asFragment } = render(<BaseLinearProgress />)
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('Renders correctly with default props', () => {
     render(<BaseLinearProgress />)
-    const button = screen.getByRole('button')
+    const progressbar = screen.getByRole('progressbar')
 
-    expect(button).toMatchSnapshot()
+    expect(progressbar).toBeInTheDocument()
+    expect(progressbar).toMatchSnapshot()
   })
 })

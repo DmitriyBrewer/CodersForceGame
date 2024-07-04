@@ -13,8 +13,9 @@ describe('<BaseInput />', () => {
 
   it('Renders correctly with default props', () => {
     render(<BaseInput />)
-    const button = screen.getByRole('button')
+    const textbox = screen.getByRole('textbox')
 
-    expect(button).toMatchSnapshot()
+    expect(textbox).toBeInTheDocument()
+    expect(textbox).toMatchSnapshot()
   })
 })

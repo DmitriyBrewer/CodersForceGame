@@ -13,8 +13,10 @@ describe('<BaseLoader />', () => {
 
   it('Renders correctly with default props', () => {
     render(<BaseLoader />)
-    const button = screen.getByRole('button')
 
-    expect(button).toMatchSnapshot()
+    const progressbar = screen.getByRole('progressbar')
+
+    expect(progressbar).toBeInTheDocument()
+    expect(progressbar).toMatchSnapshot()
   })
 })

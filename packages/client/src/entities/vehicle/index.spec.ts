@@ -4,7 +4,6 @@ import Vehicle from '.'
 import SpriteImage from '../sprite-image'
 import SpriteAnimation from '../sprite-animation'
 
-// Мокируем методы SpriteImage и SpriteAnimation
 jest.mock('../sprite-animation')
 
 describe('Class Vehicle', () => {
