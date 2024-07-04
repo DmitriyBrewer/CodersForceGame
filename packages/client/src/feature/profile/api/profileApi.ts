@@ -1,35 +1,12 @@
-import { createApi, fetchBaseQuery, FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/dist/query/react'
+import { createApi, fetchBaseQuery, FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/query/react'
 
 import { BaseQueryFn, FetchArgs } from '@reduxjs/toolkit/query'
-
-import fetchInstance from '@/shared/api/fetchInstance'
 
 import { User } from '@/entities/user/types'
 
 import { ApiResponse } from '@/shared/api/types'
 
 import { PasswordPayload } from '@/feature/profile/types'
-
-// TODO: remove profileApi
-const profileApi = {
-  async updateAvatar(body: FormData) {
-    const response = await fetchInstance('/user/profile/avatar', { method: 'PUT', body })
-    return response
-  },
-  async updatePassword(body: PasswordPayload) {
-    const headers = new Headers({ 'content-type': 'application/json' })
-    const response = await fetchInstance(
-      '/user/password',
-      {
-        method: 'PUT',
-        body: JSON.stringify(body),
-        headers
-      },
-      false
-    )
-    return response
-  }
-}
 
 const customFetchBaseQuery = fetchBaseQuery({
   baseUrl: 'https://ya-praktikum.tech/api/v2',
@@ -75,4 +52,3 @@ export const profileApiSlice = createApi({
 })
 
 export const { useUpdateAvatarMutation, useUpdatePasswordMutation } = profileApiSlice
-export default profileApi

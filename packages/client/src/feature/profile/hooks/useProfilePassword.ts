@@ -10,10 +10,11 @@ import { validateField } from '@/shared/components/core/FormData/model/validateF
 import { setError } from '@/entities/user/model'
 
 import { PasswordPayload } from '@/feature/profile/types'
-import profileApi from '@/feature/profile/api/profileApi'
+import { useUpdatePasswordMutation } from '@/feature/profile/api/profileApi'
 
 export const useProfilePassword = () => {
   const dispatch = useDispatch()
+  const [updatePassword] = useUpdatePasswordMutation()
 
   const [formData, setFormData] = useState<PasswordPayload>({
     oldPassword: '',
@@ -39,10 +40,14 @@ export const useProfilePassword = () => {
   // TODO: feature/cfg-25 add global snackbar after change
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-
     setLoading(true)
     try {
-      await profileApi.updatePassword(formData)
+      const { data } = await updatePassword(formData)
+      if (data === 'OK') {
+        //   TODO: add snackbar
+      } else {
+        //   TODO: add snackbar
+      }
       setOpen(false)
     } catch (err) {
       const typedError = err as ApiError

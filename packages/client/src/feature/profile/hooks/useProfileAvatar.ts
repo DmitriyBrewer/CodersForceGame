@@ -1,11 +1,13 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 
-import profileApi from '@/feature/profile/api/profileApi'
+import { useUpdateAvatarMutation } from '@/feature/profile/api/profileApi'
 
 const useProfileAvatar = () => {
   const [avatar, setAvatar] = useState<File>()
   const [isError, setError] = useState(false)
   const [isLoading, setLoading] = useState(false)
+
+  const [updateAvatar] = useUpdateAvatarMutation()
 
   const fileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { files, form } = e.target
@@ -29,7 +31,8 @@ const useProfileAvatar = () => {
       const formData = new FormData()
       formData.append('avatar', avatar)
       try {
-        await profileApi.updateAvatar(formData)
+        const res = await updateAvatar(formData)
+        console.log('=>(useProfileAvatar.ts:35) res', res)
         // TODO: feature/cfg-25 update user in state
       } catch (err) {
         setError(true)
@@ -39,7 +42,7 @@ const useProfileAvatar = () => {
     }
 
     submit()
-  }, [avatar])
+  }, [updateAvatar, avatar])
 
   return { fileChange, isLoading, isError }
 }
