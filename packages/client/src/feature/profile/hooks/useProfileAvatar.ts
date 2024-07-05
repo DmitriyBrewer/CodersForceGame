@@ -1,5 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 
+import { setUser } from '@/entities/user/model'
+
 import { useUpdateAvatarMutation } from '@/feature/profile/api/profileApi'
 
 const useProfileAvatar = () => {
@@ -31,10 +33,15 @@ const useProfileAvatar = () => {
       const formData = new FormData()
       formData.append('avatar', avatar)
       try {
-        const res = await updateAvatar(formData)
-        console.log('=>(useProfileAvatar.ts:35) res', res)
+        const { data } = await updateAvatar(formData)
+        console.log('=>(useProfileAvatar.ts:37) data', data)
+
+        if (data) {
+          setUser(data)
+        }
         // TODO: feature/cfg-25 update user in state
       } catch (err) {
+        console.log('=>(useProfileAvatar.ts:52) err', err)
         setError(true)
       } finally {
         setLoading(false)

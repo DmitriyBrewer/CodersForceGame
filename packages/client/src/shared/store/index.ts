@@ -28,7 +28,7 @@ export const preloadState: RTKStoreState = {
 const store = configureStore({
   reducer: rootReducer,
   preloadedState: preloadState,
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(authApiSlice.middleware)
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(authApiSlice.middleware, profileApiSlice.middleware)
 })
 
 export type AppState = ReturnType<typeof rootReducer>
