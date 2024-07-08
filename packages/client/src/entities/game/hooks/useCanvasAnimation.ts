@@ -1,6 +1,12 @@
 import { useRef, useEffect, Dispatch, SetStateAction } from 'react'
 
+import { useSelector } from 'react-redux'
+
 import Game from '@/entities/game'
+
+import { getUserName } from '@/entities/user/model/selector'
+
+import { useLeaderboard } from '@/feature/leaderbord/hooks/useLeaderboard'
 
 const useCanvasAnimation = (
   pause: boolean,
@@ -13,12 +19,14 @@ const useCanvasAnimation = (
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const gameInstance = useRef<Game | null>(null)
 
+  const { submitUserScore } = useLeaderboard()
+  const userName = useSelector(getUserName)
+
   useEffect(() => {
-    // TODO:feature/cfg-85 доделать паузу старт и стоп анимаций + рестарт
     const startAnimation = () => {
       if (!animationStopped.current) {
         if (canvasRef.current && !gameInstance.current) {
-          gameInstance.current = new Game()
+          gameInstance.current = new Game(submitUserScore, userName)
           gameInstance.current.start(canvasRef.current)
         }
       }
@@ -50,7 +58,7 @@ const useCanvasAnimation = (
     // TODO:feature/cfg-65 тут сделал ignore по месту, по другому не получается, а в целом отключать правило consistent-return нет смысла
     // eslint-disable-next-line consistent-return,@typescript-eslint/no-empty-function
     return () => {}
-  }, [pause, restart, stop, setEndGame])
+  }, [pause, restart, stop, setEndGame, submitUserScore, userName])
 
   return canvasRef
 }

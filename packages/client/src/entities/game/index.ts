@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { ImageDictionary, InputStates } from '@/entities/types/types'
 import InputHandler from '@/entities/game/utils/InputHandler'
 import Collision, { Entity } from '@/entities/game/utils/Сollision'
@@ -14,6 +15,7 @@ import carImage from '../images/car.png'
 import policeImage from '../images/police.png'
 import ambulanceImage from '../images/ambulance.png'
 import explosionImage from '../images/explosion.png'
+import { ScoreData } from '@/feature/leaderbord/hooks/useLeaderboard'
 
 export const TIME_BETWEEN_LEVELS = 5000
 export const INITIAL_SPEED = {
@@ -57,11 +59,17 @@ class Game {
 
   private _frameCount = 0
 
-  constructor() {
+  private submitScore: (scoreData: ScoreData) => Promise<void>
+
+  private name: string
+
+  constructor(submitScore: (scoreData: ScoreData) => Promise<void>, name = 'megaImya') {
     this._inputStates = {}
     this._currentGameState = GAME_STATE.RUNNING
     this._currentLevel = 1
     this._currentLevelTime = TIME_BETWEEN_LEVELS
+    this.submitScore = submitScore
+    this.name = name
   }
 
   get currentGameState() {
@@ -345,10 +353,21 @@ class Game {
   }
 
   checkGameOver() {
-    if (this._player.checkCollision(...this._vehicles, ...this._roadLimits)) {
+    if (
+      this._player.checkCollision(...this._vehicles, ...this._roadLimits) &&
+      this._player.state !== Player.EXPLODING
+    ) {
       this._player.setState(Player.EXPLODING)
       setTimeout(() => {
         this._currentGameState = GAME_STATE.GAME_OVER
+        this?.submitScore({
+          data: {
+            name: this.name,
+            codersforce: this._currentLevel
+          },
+          ratingFieldName: 'codersforce',
+          teamName: ''
+        })
       }, 1000)
     }
   }

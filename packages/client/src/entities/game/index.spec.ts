@@ -23,9 +23,10 @@ describe('Game Class', () => {
   const FRAME_TIME = 16
   const INITIAL_ROAD_SPEED = INITIAL_SPEED.ROAD
   const NEXT_ROAD_SPEED = 0.05
+  const submitScoreMock = jest.fn().mockResolvedValue(Promise.resolve())
 
   beforeEach(() => {
-    game = new Game()
+    game = new Game(submitScoreMock, 'TestPlayer')
     mockCanvas = document.createElement('canvas')
     mockCtx = mockCanvas.getContext('2d') as CanvasRenderingContext2D
     game.canvas = mockCanvas
