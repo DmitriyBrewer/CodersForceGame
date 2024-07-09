@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { ImageDictionary, InputStates } from '@/entities/types/types'
 import InputHandler from '@/entities/game/utils/InputHandler'
 import Collision, { Entity } from '@/entities/game/utils/Сollision'
