@@ -22,24 +22,25 @@ export const useGame = () => {
         }
       }
     },
-    [isFullscreen, setFullscreen]
+    [isFullscreen]
   )
 
-  const handleClickOpenEndGame = () => {
+  const handleClickOpenEndGame = useCallback(() => {
     setOpenMenuGame(true)
-  }
-  const handleCloseEndGame = () => {
-    setOpenMenuGame(false)
-  }
+  }, [])
 
-  const handleStopGame = () => {
+  const handleCloseEndGame = useCallback(() => {
+    setOpenMenuGame(false)
+  }, [])
+
+  const handleStopGame = useCallback(() => {
     setGameStarted(false)
     setButtonDisabled(false)
     setEndGame(true)
     toggleFullscreen(false)
-  }
+  }, [toggleFullscreen])
 
-  const handleStartGame = () => {
+  const handleStartGame = useCallback(() => {
     setButtonDisabled(true)
     setEndGame(false)
     setProgress(0)
@@ -54,32 +55,38 @@ export const useGame = () => {
           return newProgress >= 100 ? 100 : newProgress
         })
       }
-    }, 50)
-  }
+    }, 100)
 
-  const onRetryGame = () => {
+    return () => clearInterval(timer)
+  }, [progress])
+
+  const onRetryGame = useCallback(() => {
     handleCloseEndGame()
     handleStopGame()
     handleStartGame()
     setRestart(true)
-  }
+  }, [handleCloseEndGame, handleStopGame, handleStartGame])
 
-  const onReturnToMenu = () => {
+  const onReturnToMenu = useCallback(() => {
     handleCloseEndGame()
     handleStopGame()
-  }
+  }, [handleCloseEndGame, handleStopGame])
+
+  const togglePause = useCallback(() => {
+    setOpenMenuGame(prevState => !prevState)
+  }, [])
 
   useEffect(() => {
     if (progress >= 100) {
       setGameStarted(true)
     }
-  }, [progress, setGameStarted])
+  }, [progress])
 
   useEffect(() => {
     if (isGameStarted) {
       toggleFullscreen(true)
     }
-  }, [toggleFullscreen, isGameStarted])
+  }, [isGameStarted, toggleFullscreen])
 
   useEffect(() => {
     if (endGame) {
@@ -92,7 +99,8 @@ export const useGame = () => {
     onReturnToMenu,
     openMenuGame,
     handleCloseEndGame,
-    handleClickOpenEndGame
+    handleClickOpenEndGame,
+    togglePause
   }
 
   return {

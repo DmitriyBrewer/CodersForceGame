@@ -15,7 +15,7 @@ const useCanvasAnimation = (
 
   useEffect(() => {
     const stopAnimation = () => {
-      if (requestIdRef.current) {
+      if (requestIdRef.current !== null) {
         cancelAnimationFrame(requestIdRef.current)
         requestIdRef.current = null
       }
@@ -23,36 +23,39 @@ const useCanvasAnimation = (
     }
 
     const startAnimation = () => {
-      if (canvasRef.current && !gameInstance.current) {
-        gameInstance.current = new Game(() => {
-          setEndGame(true)
-          stopAnimation()
-        })
-        gameInstance.current.start(canvasRef.current)
-      }
-      const animate = () => {
-        if (!animationStopped.current && !pause) {
-          gameInstance.current?.mainLoop(performance.now())
-          requestIdRef.current = requestAnimationFrame(animate)
+      if (canvasRef.current) {
+        if (!gameInstance.current) {
+          gameInstance.current = new Game(() => {
+            setEndGame(true)
+            stopAnimation()
+          })
+          gameInstance.current.start(canvasRef.current)
         }
+        const animate = (time: DOMHighResTimeStamp) => {
+          if (!animationStopped.current) {
+            gameInstance.current?.mainLoop(time)
+            requestIdRef.current = requestAnimationFrame(animate)
+          }
+        }
+        animationStopped.current = false
+        requestIdRef.current = requestAnimationFrame(animate)
       }
-      requestIdRef.current = requestAnimationFrame(animate)
     }
 
     if (stop) {
       stopAnimation()
     } else if (restart) {
       stopAnimation()
-      animationStopped.current = false
       setEndGame(false)
       startAnimation()
-    } else if (!pause) {
-      animationStopped.current = false
-      if (!requestIdRef.current) {
-        startAnimation()
-      }
     } else if (pause) {
-      stopAnimation()
+      gameInstance.current?.pause()
+      animationStopped.current = true
+    } else if (!requestIdRef.current) {
+      startAnimation()
+    } else {
+      gameInstance.current?.resume()
+      animationStopped.current = false
     }
 
     return () => {

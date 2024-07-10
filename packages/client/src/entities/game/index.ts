@@ -22,12 +22,13 @@ export const INITIAL_SPEED = {
 }
 export const GAME_STATE = {
   RUNNING: 1,
-  GAME_OVER: 2
+  GAME_OVER: 2,
+  PAUSED: 3
 }
 const FPS_UPDATE_INTERVAL = 100
 
 class Game {
-  private _inputStates: InputStates
+  private readonly _inputStates: InputStates
 
   private _currentGameState: number
 
@@ -272,21 +273,33 @@ class Game {
   }
 
   mainLoop(time: number) {
-    const deltaTime = Timer.getDelta(time)
-
     this.calculateFPS(performance.now())
 
-    switch (this.currentGameState) {
-      case GAME_STATE.RUNNING:
-        this.running(deltaTime)
-        this.goToNextLevel()
-        requestAnimationFrame(this.mainLoop.bind(this))
-        break
-      case GAME_STATE.GAME_OVER:
-        this._endGameCallback()
-        break
-      default:
-        break
+    if (this._currentGameState === GAME_STATE.GAME_OVER) {
+      this._endGameCallback()
+      return
+    }
+
+    const deltaTime = Timer.getDelta(time)
+
+    if (this._currentGameState === GAME_STATE.RUNNING) {
+      this.running(deltaTime)
+      this.goToNextLevel()
+    }
+
+    requestAnimationFrame(this.mainLoop.bind(this))
+  }
+
+  pause() {
+    if (this._currentGameState === GAME_STATE.RUNNING) {
+      this._currentGameState = GAME_STATE.PAUSED
+    }
+  }
+
+  resume() {
+    if (this._currentGameState === GAME_STATE.PAUSED) {
+      this._currentGameState = GAME_STATE.RUNNING
+      requestAnimationFrame(this.mainLoop.bind(this))
     }
   }
 
