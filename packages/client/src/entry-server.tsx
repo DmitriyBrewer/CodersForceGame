@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 
 import { StrictMode } from 'react'
 
-import store from './shared/store'
+import { store } from './shared/store'
 import CoreLayout from '@/layouts/core-layout/ui'
 import AppRoutes from '@/app/app-routes'
 
@@ -12,7 +12,6 @@ export function render(url: string) {
   return ReactDOMServer.renderToString(
     <StrictMode>
       <Provider store={store}>
-        {/* TODO: feature/cfg-88 в feature/cfg-89 сделать роутер для сервера, что-то вроде  <AppRouterServer requestUrl={url} /> + Уставновить BaseLayout  */}
         <CoreLayout>
           <StaticRouter location={url}>
             <AppRoutes />
