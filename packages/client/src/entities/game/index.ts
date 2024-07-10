@@ -174,6 +174,7 @@ class Game {
     this._canvas = canvasElement
     this._ctx = this._canvas.getContext('2d')
     if (!this._ctx) throw new Error('Не удалось получить контекст холста')
+    this.calculateFPS(performance.now())
 
     this._ctx.font = '22px Arial'
 
@@ -234,6 +235,7 @@ class Game {
     this._currentLevel = 1
     this._currentGameState = GAME_STATE.RUNNING
     this._nextRoadSpeed = INITIAL_SPEED.ROAD
+    this.calculateFPS(performance.now())
 
     this._vehicles.forEach((vehicle, index) => vehicle.moveToStartPosition(400 + index * 400))
     this._vehicles.forEach(vehicle => {
@@ -294,19 +296,23 @@ class Game {
       this.goToNextLevel()
     }
 
-    requestAnimationFrame(this.mainLoop.bind(this))
+    if (this._currentGameState !== GAME_STATE.GAME_OVER) {
+      requestAnimationFrame(this.mainLoop.bind(this))
+    }
   }
 
   pause() {
+    this.calculateFPS(performance.now())
     if (this._currentGameState === GAME_STATE.RUNNING) {
       this._currentGameState = GAME_STATE.PAUSED
     }
   }
 
   resume() {
+    this.calculateFPS(performance.now())
     if (this._currentGameState === GAME_STATE.PAUSED) {
       this._currentGameState = GAME_STATE.RUNNING
-      requestAnimationFrame(this.mainLoop.bind(this))
+      this.mainLoop(performance.now())
     }
   }
 

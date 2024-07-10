@@ -55,7 +55,7 @@ export const useGame = () => {
           return newProgress >= 100 ? 100 : newProgress
         })
       }
-    }, 100)
+    }, 120)
 
     return () => clearInterval(timer)
   }, [progress])
@@ -70,6 +70,7 @@ export const useGame = () => {
   const onReturnToMenu = useCallback(() => {
     handleCloseEndGame()
     handleStopGame()
+    setRestart(true)
   }, [handleCloseEndGame, handleStopGame])
 
   const togglePause = useCallback(() => {

@@ -2,9 +2,9 @@ import { useRef, useEffect, Dispatch, SetStateAction } from 'react'
 
 import { useSelector } from 'react-redux'
 
-import Game from '@/entities/game'
-
 import { getUserName } from '@/entities/user/model/selector'
+
+import Game, { GAME_STATE } from '@/entities/game'
 
 import { useLeaderboard } from '@/feature/leaderbord/hooks/useLeaderboard'
 
@@ -15,7 +15,6 @@ const useCanvasAnimation = (
   setEndGame: Dispatch<SetStateAction<boolean>>
 ) => {
   const requestIdRef = useRef<number | null>(null)
-  const animationStopped = useRef<boolean>(false)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const gameInstance = useRef<Game | null>(null)
 
@@ -28,7 +27,6 @@ const useCanvasAnimation = (
         cancelAnimationFrame(requestIdRef.current)
         requestIdRef.current = null
       }
-      animationStopped.current = true
     }
 
     const startAnimation = () => {
@@ -45,12 +43,11 @@ const useCanvasAnimation = (
           gameInstance.current.start(canvasRef.current)
         }
         const animate = (time: DOMHighResTimeStamp) => {
-          if (!animationStopped.current) {
-            gameInstance.current?.mainLoop(time)
+          if (gameInstance.current?.currentGameState !== GAME_STATE.PAUSED) {
+            gameInstance?.current?.mainLoop(time)
             requestIdRef.current = requestAnimationFrame(animate)
           }
         }
-        animationStopped.current = false
         requestIdRef.current = requestAnimationFrame(animate)
       }
     }
@@ -63,12 +60,9 @@ const useCanvasAnimation = (
       startAnimation()
     } else if (pause) {
       gameInstance.current?.pause()
-      animationStopped.current = true
-    } else if (!requestIdRef.current) {
-      startAnimation()
     } else {
       gameInstance.current?.resume()
-      animationStopped.current = false
+      startAnimation()
     }
 
     return () => {
