@@ -1,6 +1,12 @@
 import { useRef, useEffect, Dispatch, SetStateAction } from 'react'
 
+import { useSelector } from 'react-redux'
+
 import Game from '@/entities/game'
+
+import { getUserName } from '@/entities/user/model/selector'
+
+import { useLeaderboard } from '@/feature/leaderbord/hooks/useLeaderboard'
 
 const useCanvasAnimation = (
   pause: boolean,
@@ -12,6 +18,9 @@ const useCanvasAnimation = (
   const animationStopped = useRef<boolean>(false)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const gameInstance = useRef<Game | null>(null)
+
+  const { submitUserScore } = useLeaderboard()
+  const userName = useSelector(getUserName)
 
   useEffect(() => {
     const stopAnimation = () => {
@@ -25,10 +34,14 @@ const useCanvasAnimation = (
     const startAnimation = () => {
       if (canvasRef.current) {
         if (!gameInstance.current) {
-          gameInstance.current = new Game(() => {
-            setEndGame(true)
-            stopAnimation()
-          })
+          gameInstance.current = new Game(
+            () => {
+              setEndGame(true)
+              stopAnimation()
+            },
+            submitUserScore,
+            userName
+          )
           gameInstance.current.start(canvasRef.current)
         }
         const animate = (time: DOMHighResTimeStamp) => {
@@ -61,7 +74,7 @@ const useCanvasAnimation = (
     return () => {
       stopAnimation()
     }
-  }, [pause, restart, stop, setEndGame])
+  }, [pause, restart, stop, setEndGame, submitUserScore, userName])
 
   return canvasRef
 }
