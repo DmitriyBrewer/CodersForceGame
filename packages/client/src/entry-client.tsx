@@ -3,7 +3,7 @@ import { hydrateRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
-import { store } from '@/shared/store'
+import store from '@/shared/store'
 
 import registerServiceWorker from '@/app/service-worker/registerServiceWorker'
 import '@/app/styles/global.module.scss'
