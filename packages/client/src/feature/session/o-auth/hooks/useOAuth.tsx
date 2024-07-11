@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux'
 
 import { REDIRECT_URI } from '@/shared/api/constant'
 
+import { setError } from '@/entities/error'
+
 import { useGetClientIdMutation, useLoginMutation } from '@/feature/session/api/oAuthApi'
 import { useLazyGetUserQuery } from '@/feature/session/api/authApi'
 import { useAuth } from '@/app/router/hooks/useAuth'
@@ -28,6 +30,7 @@ export const useOAuth = () => {
       const { service_id: clientId } = data
       window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${clientId}&redirect_uri=${REDIRECT_URI}`
     } catch (err) {
+      dispatch(setError('Ошибка авторизации через яндекс!'))
       console.error(err)
     }
   }
@@ -48,6 +51,7 @@ export const useOAuth = () => {
         }
         await login(payload)
       } catch (err) {
+        dispatch(setError('Ошибка авторизации через яндекс!'))
         console.error(err)
       }
     }
