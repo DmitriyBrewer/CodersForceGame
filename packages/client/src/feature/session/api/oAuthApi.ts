@@ -18,7 +18,7 @@ export const oAuthApiSlice = createApi({
   endpoints: builder => ({
     login: builder.mutation<SimpleResponse, LoginPayload>({
       query: payload => ({
-        url: '//oauth/yandex',
+        url: '/oauth/yandex',
         method: 'POST',
         body: payload
       }),
