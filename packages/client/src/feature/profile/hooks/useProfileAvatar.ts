@@ -1,5 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 
+import { useDispatch } from 'react-redux'
+
 import { setUser } from '@/entities/user/model'
 
 import { useUpdateAvatarMutation } from '@/feature/profile/api/profileApi'
@@ -8,6 +10,7 @@ const useProfileAvatar = () => {
   const [avatar, setAvatar] = useState<File>()
   const [isError, setError] = useState(false)
   const [isLoading, setLoading] = useState(false)
+  const dispatch = useDispatch()
 
   const [updateAvatar] = useUpdateAvatarMutation()
 
@@ -34,14 +37,10 @@ const useProfileAvatar = () => {
       formData.append('avatar', avatar)
       try {
         const { data } = await updateAvatar(formData)
-        console.log('=>(useProfileAvatar.ts:37) data', data)
-
         if (data) {
-          setUser(data)
+          dispatch(setUser(data))
         }
-        // TODO: feature/cfg-25 update user in state
       } catch (err) {
-        console.log('=>(useProfileAvatar.ts:52) err', err)
         setError(true)
       } finally {
         setLoading(false)
@@ -49,7 +48,7 @@ const useProfileAvatar = () => {
     }
 
     submit()
-  }, [updateAvatar, avatar])
+  }, [dispatch, updateAvatar, avatar])
 
   return { fileChange, isLoading, isError }
 }
