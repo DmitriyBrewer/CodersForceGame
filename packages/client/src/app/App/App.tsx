@@ -1,12 +1,13 @@
 import { CssBaseline } from '@mui/material'
-
 import { Provider } from 'react-redux'
 
 import store from '@/shared/store'
+import ErrorBoundary from '@/shared/context/error-boundary'
+import ThemeModeProvider from '@/shared/context/theme-provider'
 
-import AppRouter from '../router/AppRouter'
-import ThemeModeProvider from '../../shared/context/ThemeProvider'
-import ErrorBoundary from '../../shared/context/error-boundary/ErrorBoundary'
+import GlobalErrorWrapper from '@/shared/context/global-error-wrapper'
+
+import AppRouter from '../router'
 
 const App = () => {
   return (
@@ -14,7 +15,9 @@ const App = () => {
       <ErrorBoundary>
         <ThemeModeProvider>
           <CssBaseline />
-          <AppRouter />
+          <GlobalErrorWrapper>
+            <AppRouter />
+          </GlobalErrorWrapper>
         </ThemeModeProvider>
       </ErrorBoundary>
     </Provider>

@@ -1,19 +1,17 @@
 import { FC } from 'react'
 
-import GameEntities from '@/entities/game/ui/GameEntities'
-
 import BaseBox from '@/shared/components/ui/BaseBox'
-
 import { styleMui } from '@/shared/styleMui'
 
-import StartGame from '../StartGame/StartGame'
+import GameEntities from '@/entities/game/ui/GameEntities'
 
+import StartGame from '../StartGame/StartGame'
 import styles from './GameEngineFeature.module.scss'
-import GameMenu from '../GameMenu'
 import { useGame } from '../../hooks/useGame'
+import GameMenu from '../GameMenu'
 
 const GameEngineFeature: FC = () => {
-  const { progress, isGameStarted, isButtonDisabled, handleStartGame, menuGameProps, restart, endGame, setEndGame } =
+  const { menuGameProps, progress, isGameStarted, isButtonDisabled, handleStartGame, restart, endGame, setEndGame } =
     useGame()
 
   if (!isGameStarted) {

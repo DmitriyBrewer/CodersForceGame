@@ -6,6 +6,8 @@ import BaseLink from '@/shared/components/ui/BaseLink'
 
 import { styleMui } from '@/shared/styleMui'
 
+import { paths } from '@/shared/config/routing'
+
 import styles from './ErrorPageWidget.module.scss'
 
 type Props = {
@@ -25,7 +27,7 @@ const ErrorPageWidget: FC<Props> = ({ errorCode, errorText }) => {
       <BaseTypography variant="h6" color="primary.dark">
         {errorText}
       </BaseTypography>
-      <BaseLink to="/" sx={styleMui.errorPageWidget.link}>
+      <BaseLink to={paths.home} sx={styleMui.errorPageWidget.link}>
         На главную
       </BaseLink>
     </BaseBox>

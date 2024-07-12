@@ -4,8 +4,11 @@ import { UserState } from '@/entities/user/model'
 import { TopicState } from '@/entities/topic/model'
 import { MessageState } from '@/entities/message/model'
 
+import { ErrorState } from '@/entities/error'
+
 import { authApiSlice } from '@/feature/session/api/authApi'
 import { profileApiSlice } from '@/feature/profile/api/profileApi'
+import { navbarApiSlice } from '@/feature/base-layout/api/navbarApi'
 
 type StoreState = {
   user: UserState
@@ -13,6 +16,8 @@ type StoreState = {
   messages: MessageState
   authApi: ReturnType<typeof authApiSlice.reducer>
   profileApi: ReturnType<typeof profileApiSlice.reducer>
+  navbarApi: ReturnType<typeof navbarApiSlice.reducer>
+  error: ErrorState
 }
 
 export type RTKStoreState = StoreState

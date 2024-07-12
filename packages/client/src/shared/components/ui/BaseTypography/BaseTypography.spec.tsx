@@ -13,8 +13,9 @@ describe('<BaseTypography />', () => {
 
   it('Renders correctly with default props', () => {
     render(<BaseTypography />)
-    const button = screen.getByRole('button')
+    const paragraph = screen.getByText('', { selector: 'p' })
 
-    expect(button).toMatchSnapshot()
+    expect(paragraph).toBeInTheDocument()
+    expect(paragraph).toMatchSnapshot()
   })
 })

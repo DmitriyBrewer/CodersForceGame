@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { User } from '../types'
 import { authApiSlice } from '@/feature/session/api/authApi'
+import { navbarApiSlice } from '@/feature/base-layout/api/navbarApi'
 
 export interface UserState {
   userData?: User
@@ -31,7 +32,7 @@ const userSlice = createSlice({
   },
 
   extraReducers: builder => {
-    builder.addMatcher(authApiSlice.endpoints.logout.matchFulfilled, state => {
+    builder.addMatcher(navbarApiSlice.endpoints.logout.matchFulfilled, state => {
       state.userData = undefined
       state.isAuth = false
       state.isLoading = false
@@ -40,11 +41,11 @@ const userSlice = createSlice({
       state.userData = payload
       state.isAuth = true
       state.isLoading = false
+      state.errorMessage = undefined
     })
-    builder.addMatcher(authApiSlice.endpoints.getUser.matchRejected, (state, { error }) => {
+    builder.addMatcher(authApiSlice.endpoints.getUser.matchRejected, state => {
       state.userData = undefined
       state.isAuth = false
-      state.errorMessage = error?.message ?? 'Ошибка получения пользователя'
       state.isLoading = false
     })
   }

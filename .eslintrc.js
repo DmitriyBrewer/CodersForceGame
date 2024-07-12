@@ -26,6 +26,9 @@ module.exports = {
     }
   },
   rules: {
+    'class-methods-use-this': 'off',
+    'no-plusplus': 'off',
+    'no-return-assign': 'off',
     'react/require-default-props': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     'react/jsx-filename-extension': [
@@ -41,12 +44,7 @@ module.exports = {
     'import/no-unresolved': 'off',
     'react/function-component-definition': 'off',
     'react/jsx-props-no-spreading': 'off',
-    'no-underscore-dangle': [
-      'error',
-      {
-        allow: ['__SERVER_PORT__']
-      }
-    ],
+    'no-underscore-dangle': 'off',
     'import/order': [
       'error',
       {
@@ -82,7 +80,6 @@ module.exports = {
       }
     ],
     'prettier/prettier': 'error',
-    // TODO: feature/feature/cfg-70 разрешаю использовать state.nameParam = value напряму без return {...state, namePara: value}
     'no-param-reassign': 'off',
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'no-unused-vars': 'off',

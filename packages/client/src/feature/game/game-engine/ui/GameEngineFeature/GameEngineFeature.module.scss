@@ -1,8 +1,13 @@
 .root {
   position: fixed;
-  z-index: 100;
+  z-index: 1000;
   top: 0;
   left: 0;
+
+  display: flex;
+  column-gap: var(--g120);
+  align-items: center;
+  justify-content: center;
 
   width: 100%;
   height: var(--h100vh);

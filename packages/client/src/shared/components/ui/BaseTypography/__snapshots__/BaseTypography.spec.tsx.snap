@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BaseTypography /> Renders correctly with default props 1`] = `
+<p
+  class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+/>
+`;
+
+exports[`<BaseTypography /> Snapshot is correct 1`] = `
+<DocumentFragment>
+  <p
+    class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+  />
+</DocumentFragment>
+`;

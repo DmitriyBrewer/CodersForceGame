@@ -1,3 +1,3 @@
-import BaseSnackbar from '@/shared/components/ui/BaseSnackbar/BaseSnackbar'
+import BaseSnackbar from './BaseSnackbar'
 
 export default BaseSnackbar

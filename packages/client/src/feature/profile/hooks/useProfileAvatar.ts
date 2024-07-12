@@ -1,16 +1,16 @@
 import { ChangeEvent, useEffect, useState } from 'react'
-
 import { useDispatch } from 'react-redux'
+
+import { setError, clearError } from '@/entities/error'
 
 import { setUser } from '@/entities/user/model'
 
 import { useUpdateAvatarMutation } from '@/feature/profile/api/profileApi'
 
 const useProfileAvatar = () => {
-  const [avatar, setAvatar] = useState<File>()
-  const [isError, setError] = useState(false)
-  const [isLoading, setLoading] = useState(false)
   const dispatch = useDispatch()
+  const [avatar, setAvatar] = useState<File>()
+  const [isLoading, setLoading] = useState(false)
 
   const [updateAvatar] = useUpdateAvatarMutation()
 
@@ -23,7 +23,6 @@ const useProfileAvatar = () => {
     setAvatar(files[0])
   }
 
-  // TODO: feature/cfg-25 add snackbar after change
   useEffect(() => {
     async function submit() {
       if (!avatar) {
@@ -31,7 +30,7 @@ const useProfileAvatar = () => {
       }
 
       setLoading(true)
-      setError(false)
+      dispatch(clearError())
 
       const formData = new FormData()
       formData.append('avatar', avatar)
@@ -41,7 +40,7 @@ const useProfileAvatar = () => {
           dispatch(setUser(data))
         }
       } catch (err) {
-        setError(true)
+        dispatch(setError('Ошибка изменения аватара!'))
       } finally {
         setLoading(false)
       }
@@ -50,7 +49,7 @@ const useProfileAvatar = () => {
     submit()
   }, [dispatch, updateAvatar, avatar])
 
-  return { fileChange, isLoading, isError }
+  return { fileChange, isLoading }
 }
 
 export default useProfileAvatar

@@ -18,7 +18,7 @@ const baseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, o
 ) => {
   const result = await customFetchBaseQuery(args, api, extraOptions)
 
-  // так как API авторизации яндекса отвечает не JSON-ом, чтобы RTK Query не валился с ошибкой
+  // TODO: так как API авторизации яндекса отвечает не JSON-ом, чтобы RTK Query не валился с ошибкой
   // @ts-ignore: в типе FetchBaseQueryError нет originalStatus
   if (result.error && result.error.originalStatus === 200 && result.error.data === 'OK') {
     return { data: 'OK' }
@@ -47,15 +47,8 @@ export const authApiSlice = createApi({
     }),
     getUser: builder.query<User, void>({
       query: () => '/user'
-    }),
-    logout: builder.mutation<void, void>({
-      query: () => ({
-        url: '/logout',
-        method: 'POST'
-      })
     })
   })
 })
 
-export const { useRegisterMutation, useLoginMutation, useGetUserQuery, useLogoutMutation, useLazyGetUserQuery } =
-  authApiSlice
+export const { useRegisterMutation, useLoginMutation, useGetUserQuery, useLazyGetUserQuery } = authApiSlice

@@ -7,7 +7,7 @@ import { ApiError } from 'src/shared/api/types'
 import { FormDataError } from '@/shared/types'
 import { validateField } from '@/shared/components/core/FormData/model/validateField'
 
-import { setError } from '@/entities/user/model'
+import { setError, clearError } from '@/entities/error'
 
 import { PasswordPayload } from '@/feature/profile/types'
 import { useUpdatePasswordMutation } from '@/feature/profile/api/profileApi'
@@ -40,13 +40,15 @@ export const useProfilePassword = () => {
   // TODO: feature/cfg-25 add global snackbar after change
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+
     setLoading(true)
+    dispatch(clearError())
     try {
       const { data } = await updatePassword(formData)
       if (data === 'OK') {
         //   TODO: add snackbar
       } else {
-        //   TODO: add snackbar
+        dispatch(setError('Ошибка изменения пароля!'))
       }
       setOpen(false)
     } catch (err) {
