@@ -1,15 +1,17 @@
-import ReactDOMServer from 'react-dom/server'
+import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom/server'
 import { Provider } from 'react-redux'
 
 import { StrictMode } from 'react'
 
+import { RenderResult } from '@/shared/types'
+
 import store from './shared/store'
 import CoreLayout from '@/layouts/core-layout/ui'
 import AppRoutes from '@/app/app-routes'
 
-export function render(url: string) {
-  return ReactDOMServer.renderToString(
+export async function render(url: string): Promise<RenderResult> {
+  const appHtml = renderToString(
     <StrictMode>
       <Provider store={store}>
         <CoreLayout>
@@ -20,4 +22,8 @@ export function render(url: string) {
       </Provider>
     </StrictMode>
   )
+
+  const preloadedState = store.getState()
+
+  return { appHtml, preloadedState }
 }

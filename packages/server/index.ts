@@ -1,8 +1,10 @@
 import dotenv from 'dotenv'
 import cors from 'cors'
 import { ViteDevServer, createServer as createViteServer } from 'vite'
-
 import express from 'express'
+import serialize from 'serialize-javascript'
+
+import type { RenderResult } from 'client/src/shared/types'
 
 import * as fs from 'fs'
 import * as path from 'path'
@@ -50,11 +52,10 @@ async function startServer() {
         template = fs.readFileSync(path.resolve(distPath, 'index.html'), 'utf-8')
       } else {
         template = fs.readFileSync(path.resolve(srcPath, 'index.html'), 'utf-8')
-
         template = await vite?.transformIndexHtml(url, template)
       }
 
-      let render: (requestUrl: string) => Promise<string>
+      let render: (requestUrl: string) => Promise<RenderResult>
 
       if (!isDev()) {
         render = (await import(ssrClientPath)).render
@@ -62,9 +63,13 @@ async function startServer() {
         render = (await vite?.ssrLoadModule(path.resolve(srcPath, 'src/entry-server.tsx')))?.render
       }
 
-      const appHtml = await render(url)
-
-      const html = template?.replace('<!--ssr-outlet-->', appHtml)
+      const { appHtml, preloadedState } = await render(url)
+      const html = template?.replace('<!--ssr-outlet-->', appHtml).replace(
+        `<!--ssr-initial-state-->`,
+        `<script>window.APP_INITIAL_STATE = ${serialize(preloadedState, {
+          isJSON: true
+        })}</script>`
+      )
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {
