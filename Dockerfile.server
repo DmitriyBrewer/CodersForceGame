@@ -1,4 +1,4 @@
-ARG NODE_VERSION=16
+ARG NODE_VERSION=18
 ARG SERVER_PORT=3001
 
 FROM node:$NODE_VERSION-buster as base
@@ -7,21 +7,38 @@ WORKDIR /app
 
 FROM base as builder
 
+# Установка CA сертификатов
+# RUN apt-get update && apt-get install -y ca-certificates
+
+# Игнорирование SSL ошибок (опционально, для локальной разработки)
+# RUN yarn config set "strict-ssl" false
+
+# Использование альтернативного зеркала для Yarn registry (опционально)
+# RUN yarn config set registry https://registry.yarnpkg.com
+
+# COPY package.json yarn.lock ./
+# RUN yarn config set strict-ssl false
+# RUN yarn install --frozen-lockfile --verbose
+
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN yarn config set strict-ssl false
+# RUN yarn install --frozen-lockfile --verbose --registry http://registry.npmjs.org/
+
+# COPY . .
+# RUN yarn lerna bootstrap
+# RUN rm -rf /app/packages/server/dist/ && yarn build --scope=server
 
 COPY . .
-
 RUN yarn lerna bootstrap
 RUN rm -rf /app/packages/server/dist/ && yarn build --scope=server
-
 
 FROM node:$NODE_VERSION-buster-slim as production
 WORKDIR /app
 
 COPY --from=builder /app/packages/server/dist/ /app/
 COPY --from=builder /app/packages/server/package.json /app/package.json
-RUN yarn install --production=true
+# RUN yarn install --production=true
+# RUN npm run install 
 
 EXPOSE $SERVER_PORT
 CMD [ "node", "/app/index.js" ]

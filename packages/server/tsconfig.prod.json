@@ -1,5 +1,5 @@
 {
   "extends": "./tsconfig",
-  "exclude": ["/*.test.ts","/*.test.tsx", "/*.mock.ts", "/__test__","/*.spec.ts","/*.spec.tsx","**/spec"],
-  "skipLibCheck": true
+  "exclude": ["**/*.test.ts", "**/*.mock.ts", "**/__test__"],
+  
 }
