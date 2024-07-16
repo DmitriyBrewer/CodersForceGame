@@ -23,7 +23,7 @@ FROM base as builder
 COPY package.json yarn.lock ./
 RUN yarn config set strict-ssl false
 # RUN yarn install --frozen-lockfile --verbose --registry http://registry.npmjs.org/
-
+RUN yarn install --frozen-lockfile --verbose
 # COPY . .
 # RUN yarn lerna bootstrap
 # RUN rm -rf /app/packages/server/dist/ && yarn build --scope=server
