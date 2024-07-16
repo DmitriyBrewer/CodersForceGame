@@ -33,6 +33,9 @@ const topicSlice = createSlice({
     },
     setError: (state: TopicState, action: PayloadAction<string>) => {
       state.errorMessage = action.payload
+    },
+    addTopic: (state: TopicState, action: PayloadAction<Topic>) => {
+      state.topicsData?.push(action.payload)
     }
   }
 })

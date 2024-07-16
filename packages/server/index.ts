@@ -7,6 +7,9 @@ import express from 'express'
 import * as fs from 'fs'
 import * as path from 'path'
 
+import topicsRouter from './routes/topics'
+import commentsRouter from './routes/comments'
+
 dotenv.config()
 
 const isDev = () => process.env.NODE_ENV === 'development'
@@ -30,6 +33,9 @@ async function startServer() {
 
     app.use(vite.middlewares)
   }
+
+  app.use('/api/topics', topicsRouter)
+  app.use('/api/comments', commentsRouter)
 
   // TODO: feature/cfg-88 удалить, если будет не нужен
   app.get('/api', (_, res) => {
