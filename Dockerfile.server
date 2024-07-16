@@ -9,20 +9,8 @@ FROM base as builder
 
 RUN yarn config set "strict-ssl" false
 
-# Использование альтернативного зеркала для Yarn registry (опционально)
-# RUN yarn config set registry https://registry.yarnpkg.com
-
-# COPY package.json yarn.lock ./
-# RUN yarn config set strict-ssl false
-# RUN yarn install --frozen-lockfile --verbose
-
 COPY package.json yarn.lock ./
-RUN yarn config set strict-ssl false
-# RUN yarn install --frozen-lockfile --verbose --registry http://registry.npmjs.org/
 RUN yarn install --frozen-lockfile --verbose
-# COPY . .
-# RUN yarn lerna bootstrap
-# RUN rm -rf /app/packages/server/dist/ && yarn build --scope=server
 
 COPY . .
 RUN yarn lerna bootstrap
@@ -34,8 +22,6 @@ WORKDIR /app
 COPY --from=builder /app/packages/server/dist/ /app/
 COPY --from=builder /app/packages/server/package.json /app/package.json
 RUN yarn install --registry=https://registry.npmjs.org
-# RUN yarn install --production=true
-# RUN npm run install 
 
 EXPOSE $SERVER_PORT
 CMD [ "node", "/app/index.js" ]

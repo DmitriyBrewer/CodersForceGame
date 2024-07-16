@@ -7,9 +7,10 @@ WORKDIR /app
 
 FROM base as builder
 
+RUN yarn config set "strict-ssl" false
+
 COPY package.json yarn.lock ./
-RUN yarn config set strict-ssl false
-# RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile
 
 COPY . .
 
