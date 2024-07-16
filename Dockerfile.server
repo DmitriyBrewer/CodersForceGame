@@ -7,11 +7,7 @@ WORKDIR /app
 
 FROM base as builder
 
-# Установка CA сертификатов
-# RUN apt-get update && apt-get install -y ca-certificates
-
-# Игнорирование SSL ошибок (опционально, для локальной разработки)
-# RUN yarn config set "strict-ssl" false
+RUN yarn config set "strict-ssl" false
 
 # Использование альтернативного зеркала для Yarn registry (опционально)
 # RUN yarn config set registry https://registry.yarnpkg.com
@@ -37,6 +33,7 @@ WORKDIR /app
 
 COPY --from=builder /app/packages/server/dist/ /app/
 COPY --from=builder /app/packages/server/package.json /app/package.json
+RUN yarn install --registry=https://registry.npmjs.org
 # RUN yarn install --production=true
 # RUN npm run install 
 
