@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { Topic } from '../types'
+import forumApi from '@/feature/social/forum/api/forumApi'
 
 export interface TopicState {
   topicsData?: Topic[]
@@ -8,17 +9,9 @@ export interface TopicState {
   errorMessage?: string
 }
 
-// TODO feature/cfg-21 заменить на ответ апи
-
-const INITIAL_TOPICS = [
-  { id: 1, title: 'Первый топик', autor: 'Автор1', lastMessageDate: '2024-06-03' },
-  { id: 2, title: 'Второй топик', autor: 'Автор2', lastMessageDate: '2024-06-04' },
-  { id: 3, title: 'Третий топик', autor: 'Автор3', lastMessageDate: '2024-06-05' }
-]
-
 export const initialState: TopicState = {
   isLoading: false,
-  topicsData: INITIAL_TOPICS
+  topicsData: []
 }
 
 const topicSlice = createSlice({
@@ -33,7 +26,25 @@ const topicSlice = createSlice({
     },
     setError: (state: TopicState, action: PayloadAction<string>) => {
       state.errorMessage = action.payload
+    },
+    addTopic: (state: TopicState, action: PayloadAction<Topic>) => {
+      state.topicsData?.push(action.payload)
     }
+  },
+  extraReducers: builder => {
+    builder
+      .addMatcher(forumApi.endpoints.getTopics.matchPending, state => {
+        state.isLoading = true
+        state.errorMessage = undefined
+      })
+      .addMatcher(forumApi.endpoints.getTopics.matchFulfilled, (state, action) => {
+        state.isLoading = false
+        state.topicsData = action.payload.topics
+      })
+      .addMatcher(forumApi.endpoints.getTopics.matchRejected, (state, action) => {
+        state.isLoading = false
+        state.errorMessage = action.error.message || 'Failed to fetch topics'
+      })
   }
 })
 

@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 import cors from 'cors'
 import { ViteDevServer, createServer as createViteServer } from 'vite'
+
 import express from 'express'
 import serialize from 'serialize-javascript'
 
@@ -8,6 +9,9 @@ import type { RenderResult } from 'client/src/shared/types'
 
 import * as fs from 'fs'
 import * as path from 'path'
+
+import topicsRouter from './routes/topics'
+import commentsRouter from './routes/comments'
 
 dotenv.config()
 
@@ -32,6 +36,9 @@ async function startServer() {
 
     app.use(vite.middlewares)
   }
+
+  app.use('/api/topics', topicsRouter)
+  app.use('/api/comments', commentsRouter)
 
   // TODO: feature/cfg-88 удалить, если будет не нужен
   app.get('/api', (_, res) => {
