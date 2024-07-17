@@ -3,6 +3,7 @@ const errorDark = 'error.dark'
 const bgDefault = 'background.default'
 const primary = 'primary.main'
 const primaryContrastText = 'primary.contrastText'
+const primaryText = 'text.primary'
 
 export const styleMui = {
   errorPageWidget: {
@@ -30,5 +31,6 @@ export const styleMui = {
 
   navbar: { position: 'relative', zIndex: '999' },
   footer: { bgcolor: primary },
-  footerText: { color: primaryContrastText }
+  footerText: { color: primaryContrastText },
+  themeSwitcherButton: { bgcolor: bgDefault, color: primaryText }
 }
