@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { User } from '../types'
 import { authApiSlice } from '@/feature/session/api/authApi'
@@ -15,6 +15,10 @@ export const initialState: UserState = {
   isAuth: false,
   isLoading: true
 }
+
+export const fetchUserThunk = createAsyncThunk('user/fetchUserThunk', async (_: void) => {
+  return authApiSlice.endpoints?.getUser
+})
 
 const userSlice = createSlice({
   name: 'user',

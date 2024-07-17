@@ -11,12 +11,14 @@ import { LeaderboardState } from '@/entities/leaderboard/model'
 import { authApiSlice } from '@/feature/session/api/authApi'
 import { navbarApiSlice } from '@/feature/base-layout/api/navbarApi'
 import leaderboardApi from '@/feature/leaderbord/leaderboardApi'
+import { oAuthApiSlice } from '@/feature/session/api/oAuthApi'
 
 type StoreState = {
   user: UserState
   topics: TopicState
   messages: MessageState
   authApi: ReturnType<typeof authApiSlice.reducer>
+  oAuthApi: ReturnType<typeof oAuthApiSlice.reducer>
   navbarApi: ReturnType<typeof navbarApiSlice.reducer>
   error: ErrorState
   leaderboardApi: ReturnType<typeof leaderboardApi.reducer>

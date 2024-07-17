@@ -9,16 +9,17 @@ export const useGame = () => {
   const [isFullscreen, setFullscreen] = useState(false)
   const [isButtonDisabled, setButtonDisabled] = useState(false)
   const [progress, setProgress] = useState(0)
-
   const toggleFullscreen = useCallback(
     (payload: boolean) => {
-      if (!isFullscreen && document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen()
-        setFullscreen(payload)
-      } else if (document.fullscreenElement) {
-        if (document.exitFullscreen) {
-          document.exitFullscreen()
+      if (typeof document !== 'undefined') {
+        if (!isFullscreen && document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen()
           setFullscreen(payload)
+        } else if (document.fullscreenElement) {
+          if (document.exitFullscreen) {
+            document.exitFullscreen()
+            setFullscreen(payload)
+          }
         }
       }
     },

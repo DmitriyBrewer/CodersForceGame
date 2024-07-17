@@ -1,6 +1,8 @@
 import { TypographyProps, TextFieldProps } from '@mui/material'
 import { ChangeEvent } from 'react'
 
+import { AppState } from '@/shared/store'
+
 export type BaseTypographyProps = TypographyProps
 type BaseTextFieldProps = TextFieldProps
 
@@ -32,4 +34,8 @@ type ErrorProps = {
 
 export type ErrorState = {
   error: ErrorProps
+}
+export type RenderResult = {
+  appHtml: string
+  preloadedState: AppState
 }
