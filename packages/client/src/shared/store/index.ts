@@ -1,5 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
+import { useDispatch } from 'react-redux'
+
 import user, { initialState as initialStateUser } from '@/entities/user/model'
 import topic, { initialState as initialStateTopic } from '@/entities/topic/model'
 import message, { initialState as initialStateMessage } from '@/entities/message/model'
@@ -19,6 +21,14 @@ export const rootReducer: ReducerState = combineReducers({
   error: errorSlice.reducer
 })
 
+export type AppState = ReturnType<typeof rootReducer>
+
+declare global {
+  interface Window {
+    APP_INITIAL_STATE: AppState
+  }
+}
+
 export const preloadState: RTKStoreState = {
   user: initialStateUser,
   topics: initialStateTopic,
@@ -34,6 +44,7 @@ const store = configureStore({
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(authApiSlice.middleware, navbarApiSlice.middleware)
 })
 
-export type AppState = ReturnType<typeof rootReducer>
+export type AppDispatch = typeof store.dispatch
+export const useAppDispatch = () => useDispatch<AppDispatch>()
 
 export default store

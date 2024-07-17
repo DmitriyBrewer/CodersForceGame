@@ -1,8 +1,10 @@
 import dotenv from 'dotenv'
 import cors from 'cors'
 import { ViteDevServer, createServer as createViteServer } from 'vite'
-
 import express from 'express'
+import serialize from 'serialize-javascript'
+
+import type { RenderResult } from 'client/src/shared/types'
 
 import * as fs from 'fs'
 import * as path from 'path'
@@ -44,38 +46,35 @@ async function startServer() {
     const url = req.originalUrl
 
     try {
-      let template: string
+      let template: string | undefined
 
       if (!isDev()) {
         template = fs.readFileSync(path.resolve(distPath, 'index.html'), 'utf-8')
       } else {
         template = fs.readFileSync(path.resolve(srcPath, 'index.html'), 'utf-8')
-
-        // TODO: feature/cfg-88 тут оставим из-за особенностей vite, позже удалить сообщение
-        //  eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        template = await vite!.transformIndexHtml(url, template)
+        template = await vite?.transformIndexHtml(url, template)
       }
 
-      let render: (requestUrl: string) => Promise<string>
+      let render: (requestUrl: string) => Promise<RenderResult>
 
       if (!isDev()) {
         render = (await import(ssrClientPath)).render
       } else {
-        // TODO: feature/cfg-88 тут оставим из-за особенностей vite, позже удалить сообщение
-        //  eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'src/entry-server.tsx'))).render
+        render = (await vite?.ssrLoadModule(path.resolve(srcPath, 'src/entry-server.tsx')))?.render
       }
 
-      const appHtml = await render(url)
-
-      const html = template.replace('<!--ssr-outlet-->', appHtml)
+      const { appHtml, preloadedState } = await render(url)
+      const html = template?.replace('<!--ssr-outlet-->', appHtml).replace(
+        `<!--ssr-initial-state-->`,
+        `<script>window.APP_INITIAL_STATE = ${serialize(preloadedState, {
+          isJSON: true
+        })}</script>`
+      )
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {
       if (isDev()) {
-        // TODO: feature/cfg-88 тут оставим из-за особенностей vite, позже удалить сообщение
-        //  eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        vite!.ssrFixStacktrace(e as Error)
+        vite?.ssrFixStacktrace(e as Error)
       }
       next(e)
     }
