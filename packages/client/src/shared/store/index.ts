@@ -11,12 +11,14 @@ import errorSlice, { initialState as initialStateError } from '@/entities/error'
 import { ReducerState, RTKStoreState } from './types'
 import { authApiSlice } from '@/feature/session/api/authApi'
 import { navbarApiSlice } from '@/feature/base-layout/api/navbarApi'
+import { oAuthApiSlice } from '@/feature/session/api/oAuthApi'
 
 export const rootReducer: ReducerState = combineReducers({
   user: user.reducer,
   topics: topic.reducer,
   messages: message.reducer,
   authApi: authApiSlice.reducer,
+  oAuthApi: oAuthApiSlice.reducer,
   navbarApi: navbarApiSlice.reducer,
   error: errorSlice.reducer
 })
@@ -34,6 +36,7 @@ export const preloadState: RTKStoreState = {
   topics: initialStateTopic,
   messages: initialStateMessage,
   authApi: authApiSlice.reducer(undefined, { type: 'unknown' }),
+  oAuthApi: oAuthApiSlice.reducer(undefined, { type: 'unknown' }),
   navbarApi: navbarApiSlice.reducer(undefined, { type: 'unknown' }),
   error: initialStateError
 }
@@ -41,7 +44,8 @@ export const preloadState: RTKStoreState = {
 const store = configureStore({
   reducer: rootReducer,
   preloadedState: preloadState,
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(authApiSlice.middleware, navbarApiSlice.middleware)
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(authApiSlice.middleware, navbarApiSlice.middleware, oAuthApiSlice.middleware)
 })
 
 export type AppDispatch = typeof store.dispatch
