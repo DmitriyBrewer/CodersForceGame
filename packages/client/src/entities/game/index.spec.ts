@@ -26,7 +26,8 @@ describe('Game Class', () => {
   const submitScoreMock = jest.fn().mockResolvedValue(Promise.resolve())
 
   beforeEach(() => {
-    game = new Game(submitScoreMock, 'TestPlayer')
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    game = new Game(() => {}, submitScoreMock, 'TestPlayer')
     mockCanvas = document.createElement('canvas')
     mockCtx = mockCanvas.getContext('2d') as CanvasRenderingContext2D
     game.canvas = mockCanvas
@@ -267,7 +268,7 @@ describe('Game Class', () => {
     game.currentGameState = GAME_STATE.GAME_OVER
     game.nextRoadSpeed = 10
 
-    game.startNewGame()
+    game.resetEntities()
 
     expect(game.currentLevelTime).toBe(TIME_BETWEEN_LEVELS)
     expect(game.currentLevel).toBe(1)

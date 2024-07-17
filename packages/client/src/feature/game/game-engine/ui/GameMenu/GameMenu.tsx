@@ -1,11 +1,8 @@
 import { FC } from 'react'
-
 import { DialogContent } from '@mui/material'
 
 import BaseButton from '@/shared/components/ui/BaseButton'
-
 import BaseBox from '@/shared/components/ui/BaseBox'
-
 import BaseDialog from '@/shared/components/ui/BaseDialog'
 import BaseDialogTitle from '@/shared/components/ui/BaseDialogTitle'
 
@@ -19,25 +16,24 @@ interface Props {
   onReturnToMenu: () => void
   openMenuGame: boolean
   handleCloseEndGame: () => void
-  handleClickOpenEndGame: () => void
+  togglePause: () => void
   endGame: boolean
 }
 
 const GameMenu: FC<Props> = ({
-  handleClickOpenEndGame,
   handleCloseEndGame,
   onRetryGame,
   onReturnToMenu,
   openMenuGame,
-  endGame
+  endGame,
+  togglePause
 }) => {
   const menuTitle = endGame ? 'Игра закончена' : 'Пауза'
-  const menuEndGame = endGame ? 'Перейти в главное меню' : 'Закончить игру'
 
   return (
     <BaseBox className={styles.end}>
-      <BaseButton size="large" variant="contained" color="info" onClick={handleClickOpenEndGame}>
-        Меню
+      <BaseButton size="large" variant="contained" color="info" onClick={togglePause}>
+        Пауза
       </BaseButton>
 
       <BaseDialog onClose={handleCloseEndGame} open={openMenuGame}>
@@ -46,11 +42,15 @@ const GameMenu: FC<Props> = ({
         </BaseBox>
 
         <DialogContent className={styles.end__content}>
-          <GameRestartButton onRetryGame={onRetryGame} />
+          {!endGame && (
+            <BaseButton size="large" variant="contained" color="info" onClick={togglePause}>
+              Продолжить
+            </BaseButton>
+          )}
 
-          <GameLeaderboardButton>Таблица лидеров</GameLeaderboardButton>
-
-          <EndGameButton onReturnToMenu={onReturnToMenu}>{menuEndGame}</EndGameButton>
+          {endGame && <GameRestartButton onRetryGame={onRetryGame} />}
+          {endGame && <GameLeaderboardButton>Таблица лидеров</GameLeaderboardButton>}
+          {endGame && <EndGameButton onReturnToMenu={onReturnToMenu}>Перейти в главное меню</EndGameButton>}
         </DialogContent>
       </BaseDialog>
     </BaseBox>
