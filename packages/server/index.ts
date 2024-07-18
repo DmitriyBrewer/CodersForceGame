@@ -9,9 +9,8 @@ import * as path from 'path'
 
 dotenv.config()
 
-// TODO:feature/cfg-95 позже вернуть process.env.NODE_ENV
-// const isDev = () => process.env.NODE_ENV === 'development'
-const isDev = () => false
+const isDev = () => process.env.NODE_ENV === 'development'
+
 async function startServer() {
   const app = express()
   app.use(cors())
