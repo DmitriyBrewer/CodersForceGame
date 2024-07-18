@@ -1,6 +1,8 @@
 import { FC } from 'react'
 
-import BaseLoader from '@/shared/components/ui/BaseLoader'
+import { useSelector } from 'react-redux'
+
+import { getUser } from '@/entities/user/model/selector'
 
 import ProfileForm from '@/feature/profile/ui/ProfileForm'
 import ProfileFields from '@/feature/profile/ui/ProfileFields'
@@ -8,13 +10,13 @@ import { useProfile } from '@/feature/profile/hooks/useProfile'
 import ProfileHeader from '@/feature/profile/ui/ProfileHeader'
 
 const ProfileFeature: FC = () => {
-  const { loading, fields, userData } = useProfile()
-  return loading ? (
-    <BaseLoader />
-  ) : (
+  const user = useSelector(getUser)
+  const { fields } = useProfile()
+
+  return (
     <ProfileForm>
       <ProfileHeader />
-      <ProfileFields fields={fields} userData={userData} />
+      <ProfileFields fields={fields} userData={user} />
     </ProfileForm>
   )
 }

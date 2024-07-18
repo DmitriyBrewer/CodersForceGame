@@ -1,17 +1,20 @@
 import { FC } from 'react'
 
+import { useSelector } from 'react-redux'
+
 import ThemeSwitcherButton from '@/shared/components/core/ThemeSwitcherButton'
+
+import { getUser } from '@/entities/user/model/selector'
 
 import ProfileAvatar from '@/feature/profile/ui/ProfileAvatarGroup'
 import ProfilePassword from '@/feature/profile/ui/ProfilePassword'
-import { useProfile } from '@/feature/profile/hooks/useProfile'
 import styles from './ProfileHeader.module.scss'
 
 const ProfileHeader: FC = () => {
-  const { userData } = useProfile()
+  const user = useSelector(getUser)
   return (
     <div className={styles.root}>
-      <ProfileAvatar src={userData?.avatar ?? ''} />
+      <ProfileAvatar src={user?.avatar ?? ''} />
       <ProfilePassword />
       <ThemeSwitcherButton />
     </div>

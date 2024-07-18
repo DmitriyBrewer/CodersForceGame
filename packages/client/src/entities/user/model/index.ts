@@ -29,6 +29,9 @@ const userSlice = createSlice({
     },
     setError: (state: UserState, action: PayloadAction<string>) => {
       state.errorMessage = action.payload
+    },
+    setUser(state: UserState, action: PayloadAction<User>) {
+      state.userData = action.payload
     }
   },
   extraReducers: builder => {
@@ -51,6 +54,5 @@ const userSlice = createSlice({
   }
 })
 
-export const { setLoading, setError } = userSlice.actions
-
+export const { setLoading, setError, setUser } = userSlice.actions
 export default userSlice
