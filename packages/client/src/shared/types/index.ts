@@ -27,6 +27,14 @@ export type InputFieldProps = {
 
 export type InputProps = FormDataField & InputFieldProps & BaseTextFieldProps
 
+type ErrorProps = {
+  isError: boolean
+  message: string
+}
+
+export type ErrorState = {
+  error: ErrorProps
+}
 export type RenderResult = {
   appHtml: string
   preloadedState: AppState
