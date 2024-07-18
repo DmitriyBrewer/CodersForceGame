@@ -4,11 +4,10 @@ import { useSelector } from 'react-redux'
 
 import { getUser } from '@/entities/user/model/selector'
 
-import ProfileAvatar from '@/feature/profile/ui/ProfileAvatarGroup'
-import ProfilePassword from '@/feature/profile/ui/ProfilePassword'
 import ProfileForm from '@/feature/profile/ui/ProfileForm'
 import ProfileFields from '@/feature/profile/ui/ProfileFields'
 import { useProfile } from '@/feature/profile/hooks/useProfile'
+import ProfileHeader from '@/feature/profile/ui/ProfileHeader'
 
 const ProfileFeature: FC = () => {
   const user = useSelector(getUser)
@@ -16,9 +15,8 @@ const ProfileFeature: FC = () => {
 
   return (
     <ProfileForm>
-      <ProfileAvatar src={user?.avatar ?? ''} />
-      <ProfileFields fields={fields} userData={user} />
-      <ProfilePassword />
+      <ProfileHeader />
+      <ProfileFields fields={fields} userData={userData} />
     </ProfileForm>
   )
 }

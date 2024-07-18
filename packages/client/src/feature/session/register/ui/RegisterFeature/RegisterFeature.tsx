@@ -12,6 +12,8 @@ import FormData from '@/shared/components/core/FormData/FormData'
 
 import Header from '@/shared/components/core/Header'
 
+import OAuthButton from '@/feature/session/o-auth/ui'
+
 import { useRegister } from '@/feature/session/register/hooks/useRegister'
 
 const RegisterFeature: FC = () => {
@@ -30,6 +32,7 @@ const RegisterFeature: FC = () => {
       <PasswordInput label="Повторите пароль" name="password_repeat" {...inputProps} />
 
       <SubmitButton disabled={isError}>Регистрация</SubmitButton>
+      <OAuthButton />
     </FormData>
   )
 }

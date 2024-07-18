@@ -2,7 +2,7 @@ const CACHE_NAME = 'my-cache-v1'
 
 globalThis.addEventListener('install', event => {
   event.waitUntil(
-    fetch('/manifest.json')
+    fetch(require.resolve('client/dist/manifest.json'))
       .then(response => response.json())
       .then(manifest => {
         const urlsToCache = Object.values(manifest).map(entry => entry.file)

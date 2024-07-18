@@ -1,6 +1,8 @@
 import { TypographyProps, TextFieldProps } from '@mui/material'
 import { ChangeEvent } from 'react'
 
+import { AppState } from '@/shared/store'
+
 export type BaseTypographyProps = TypographyProps
 type BaseTextFieldProps = TextFieldProps
 
@@ -24,3 +26,16 @@ export type InputFieldProps = {
 }
 
 export type InputProps = FormDataField & InputFieldProps & BaseTextFieldProps
+
+type ErrorProps = {
+  isError: boolean
+  message: string
+}
+
+export type ErrorState = {
+  error: ErrorProps
+}
+export type RenderResult = {
+  appHtml: string
+  preloadedState: AppState
+}
