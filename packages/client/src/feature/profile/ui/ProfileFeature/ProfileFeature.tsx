@@ -16,7 +16,7 @@ const ProfileFeature: FC = () => {
   return (
     <ProfileForm>
       <ProfileHeader />
-      <ProfileFields fields={fields} userData={userData} />
+      <ProfileFields fields={fields} userData={user} />
     </ProfileForm>
   )
 }
