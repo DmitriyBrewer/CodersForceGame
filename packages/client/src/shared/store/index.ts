@@ -8,9 +8,12 @@ import message, { initialState as initialStateMessage } from '@/entities/message
 
 import errorSlice, { initialState as initialStateError } from '@/entities/error'
 
+import leaderboardSlice, { initialState as initialStateLeaderboard } from '@/entities/leaderboard/model'
+
 import { ReducerState, RTKStoreState } from './types'
 import { authApiSlice } from '@/feature/session/api/authApi'
 import { navbarApiSlice } from '@/feature/base-layout/api/navbarApi'
+import leaderboardApi from '@/feature/leaderbord/leaderboardApi'
 import { oAuthApiSlice } from '@/feature/session/api/oAuthApi'
 
 export const rootReducer: ReducerState = combineReducers({
@@ -20,7 +23,9 @@ export const rootReducer: ReducerState = combineReducers({
   authApi: authApiSlice.reducer,
   oAuthApi: oAuthApiSlice.reducer,
   navbarApi: navbarApiSlice.reducer,
-  error: errorSlice.reducer
+  error: errorSlice.reducer,
+  leaderboardApi: leaderboardApi.reducer,
+  leaderboard: leaderboardSlice.reducer
 })
 
 export type AppState = ReturnType<typeof rootReducer>
@@ -38,14 +43,21 @@ export const preloadState: RTKStoreState = {
   authApi: authApiSlice.reducer(undefined, { type: 'unknown' }),
   oAuthApi: oAuthApiSlice.reducer(undefined, { type: 'unknown' }),
   navbarApi: navbarApiSlice.reducer(undefined, { type: 'unknown' }),
-  error: initialStateError
+  error: initialStateError,
+  leaderboardApi: leaderboardApi.reducer(undefined, { type: 'unknown' }),
+  leaderboard: initialStateLeaderboard
 }
 
 const store = configureStore({
   reducer: rootReducer,
   preloadedState: preloadState,
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(authApiSlice.middleware, navbarApiSlice.middleware, oAuthApiSlice.middleware)
+    getDefaultMiddleware().concat(
+      authApiSlice.middleware,
+      navbarApiSlice.middleware,
+      leaderboardApi.middleware,
+      oAuthApiSlice.middleware
+    )
 })
 
 export type AppDispatch = typeof store.dispatch

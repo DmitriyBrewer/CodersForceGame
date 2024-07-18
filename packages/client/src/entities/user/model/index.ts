@@ -31,7 +31,6 @@ const userSlice = createSlice({
       state.errorMessage = action.payload
     }
   },
-
   extraReducers: builder => {
     builder.addMatcher(navbarApiSlice.endpoints.logout.matchFulfilled, state => {
       state.userData = undefined
@@ -53,4 +52,5 @@ const userSlice = createSlice({
 })
 
 export const { setLoading, setError } = userSlice.actions
+
 export default userSlice

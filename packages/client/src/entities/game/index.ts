@@ -14,6 +14,7 @@ import carImage from '../../assets/images/car.png'
 import policeImage from '../../assets/images/police.png'
 import ambulanceImage from '../../assets/images/ambulance.png'
 import explosionImage from '../../assets/images/explosion.png'
+import { ScoreData } from '@/feature/leaderbord/hooks/useLeaderboard'
 
 export const TIME_BETWEEN_LEVELS = 5000
 export const INITIAL_SPEED = {
@@ -22,12 +23,13 @@ export const INITIAL_SPEED = {
 }
 export const GAME_STATE = {
   RUNNING: 1,
-  GAME_OVER: 2
+  GAME_OVER: 2,
+  PAUSED: 3
 }
 const FPS_UPDATE_INTERVAL = 100
 
 class Game {
-  private _inputStates: InputStates
+  private readonly _inputStates: InputStates
 
   private _currentGameState: number
 
@@ -57,11 +59,20 @@ class Game {
 
   private _frameCount = 0
 
-  constructor() {
+  private readonly _endGameCallback: () => void
+
+  private submitScore: (scoreData: ScoreData) => Promise<void>
+
+  private name: string
+
+  constructor(endGameCallback: () => void, submitScore: (scoreData: ScoreData) => Promise<void>, name = 'megaImya') {
     this._inputStates = {}
     this._currentGameState = GAME_STATE.RUNNING
     this._currentLevel = 1
     this._currentLevelTime = TIME_BETWEEN_LEVELS
+    this._endGameCallback = endGameCallback
+    this.submitScore = submitScore
+    this.name = name
   }
 
   get currentGameState() {
@@ -163,6 +174,7 @@ class Game {
     this._canvas = canvasElement
     this._ctx = this._canvas.getContext('2d')
     if (!this._ctx) throw new Error('Не удалось получить контекст холста')
+    this.calculateFPS(performance.now())
 
     this._ctx.font = '22px Arial'
 
@@ -219,7 +231,12 @@ class Game {
   }
 
   resetEntities() {
-    this._player.moveToStartPosition()
+    this._currentLevelTime = TIME_BETWEEN_LEVELS
+    this._currentLevel = 1
+    this._currentGameState = GAME_STATE.RUNNING
+    this._nextRoadSpeed = INITIAL_SPEED.ROAD
+    this.calculateFPS(performance.now())
+
     this._vehicles.forEach((vehicle, index) => vehicle.moveToStartPosition(400 + index * 400))
     this._vehicles.forEach(vehicle => {
       vehicle.setSpeed({ xSpeed: 0, ySpeed: INITIAL_SPEED.VEHICLE })
@@ -228,6 +245,7 @@ class Game {
     this._road.setSpeed({ xSpeed: 0, ySpeed: INITIAL_SPEED.ROAD })
     this._road.setAcceleration({ xAcceleration: 0, yAcceleration: 0 })
 
+    this._player.moveToStartPosition()
     this._player.setState(Player.RUNNING)
   }
 
@@ -264,23 +282,38 @@ class Game {
   }
 
   mainLoop(time: number) {
-    const dt = Timer.getDelta(time)
-
     this.calculateFPS(performance.now())
 
-    switch (this.currentGameState) {
-      case GAME_STATE.RUNNING:
-        this.running(dt)
-        this.goToNextLevel()
-        break
-      case GAME_STATE.GAME_OVER:
-        this.startNewGame()
-        break
-      default:
-        break
+    if (this._currentGameState === GAME_STATE.GAME_OVER) {
+      this._endGameCallback()
+      return
     }
 
-    requestAnimationFrame(this.mainLoop.bind(this))
+    const deltaTime = Timer.getDelta(time)
+
+    if (this._currentGameState === GAME_STATE.RUNNING) {
+      this.running(deltaTime)
+      this.goToNextLevel()
+    }
+
+    if (this._currentGameState !== GAME_STATE.GAME_OVER) {
+      requestAnimationFrame(this.mainLoop.bind(this))
+    }
+  }
+
+  pause() {
+    this.calculateFPS(performance.now())
+    if (this._currentGameState === GAME_STATE.RUNNING) {
+      this._currentGameState = GAME_STATE.PAUSED
+    }
+  }
+
+  resume() {
+    this.calculateFPS(performance.now())
+    if (this._currentGameState === GAME_STATE.PAUSED) {
+      this._currentGameState = GAME_STATE.RUNNING
+      this.mainLoop(performance.now())
+    }
   }
 
   calculateFPS(time: number) {
@@ -345,20 +378,23 @@ class Game {
   }
 
   checkGameOver() {
-    if (this._player.checkCollision(...this._vehicles, ...this._roadLimits)) {
+    if (
+      this._player.checkCollision(...this._vehicles, ...this._roadLimits) &&
+      this._player.state !== Player.EXPLODING
+    ) {
       this._player.setState(Player.EXPLODING)
       setTimeout(() => {
         this._currentGameState = GAME_STATE.GAME_OVER
-      }, 1000)
+        this?.submitScore({
+          data: {
+            name: this.name,
+            codersforce: this._currentLevel
+          },
+          ratingFieldName: 'codersforce',
+          teamName: ''
+        })
+      }, 600)
     }
-  }
-
-  startNewGame() {
-    this._currentLevelTime = TIME_BETWEEN_LEVELS
-    this._currentLevel = 1
-    this._currentGameState = GAME_STATE.RUNNING
-    this._nextRoadSpeed = INITIAL_SPEED.ROAD
-    this.resetEntities()
   }
 }
 
