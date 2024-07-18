@@ -9,7 +9,8 @@ import * as path from 'path'
 
 dotenv.config()
 
-const isDev = () => process.env.NODE_ENV === 'development'
+const isDev = () => process.env.VITE_NODE_ENV === 'development'
+console.log(process.env.VITE_NODE_ENV)
 
 async function startServer() {
   const app = express()
@@ -20,10 +21,6 @@ async function startServer() {
   let distPath = ''
   let srcPath = ''
   let ssrClientPath = ''
-
-  console.log(distPath)
-  console.log(srcPath)
-  console.log(ssrClientPath)
 
   if (isDev()) {
     distPath = path.dirname(require.resolve('client/dist/index.html'))
