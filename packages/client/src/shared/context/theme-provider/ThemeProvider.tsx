@@ -3,6 +3,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { ReactNode, createContext, useMemo, useState, useEffect } from 'react'
 import { PaletteMode, useMediaQuery } from '@mui/material'
 
+import isBrowser from '@/shared/utils/isBrowser'
+
 import { getDesignTokens } from '@/themes'
 
 interface ThemeContextType {
@@ -18,9 +20,11 @@ const ThemeModeProvider = ({ children }: { children: ReactNode }) => {
 
   const initialMode = (): PaletteMode => {
     // TODO: feature/cfg-97 read mode from backend
-    const savedMode = localStorage.getItem('theme') || ''
-    if (modeList.includes(savedMode as PaletteMode)) {
-      return savedMode as PaletteMode
+    if (isBrowser()) {
+      const savedMode = localStorage.getItem('theme') || ''
+      if (modeList.includes(savedMode as PaletteMode)) {
+        return savedMode as PaletteMode
+      }
     }
     return prefersDarkMode ? 'dark' : 'light'
   }
@@ -29,7 +33,9 @@ const ThemeModeProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     // TODO: feature/cfg-97 update mode on backend
-    localStorage.setItem('theme', mode)
+    if (isBrowser()) {
+      localStorage.setItem('theme', mode)
+    }
   }, [mode])
 
   const colorMode = useMemo(
