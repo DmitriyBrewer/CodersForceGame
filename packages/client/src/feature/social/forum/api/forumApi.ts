@@ -6,13 +6,13 @@ import { Comment } from '@/entities/comment/types'
 interface Topic {
   id: number
   title: string
-  autor: string
+  author: string
   lastMessageDate: string
 }
 
 interface NewTopic {
   title: string
-  autor: string
+  author: string
   content: string
 }
 

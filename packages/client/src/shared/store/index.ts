@@ -8,9 +8,13 @@ import comment, { initialState as initialStateComment } from '@/entities/comment
 
 import errorSlice, { initialState as initialStateError } from '@/entities/error'
 
+import leaderboardSlice, { initialState as initialStateLeaderboard } from '@/entities/leaderboard/model'
+
 import { ReducerState, RTKStoreState } from './types'
 import { authApiSlice } from '@/feature/session/api/authApi'
 import { navbarApiSlice } from '@/feature/base-layout/api/navbarApi'
+import { profileApiSlice } from '@/feature/profile/api/profileApi'
+import leaderboardApi from '@/feature/leaderbord/leaderboardApi'
 import { oAuthApiSlice } from '@/feature/session/api/oAuthApi'
 import forumApi from '@/feature/social/forum/api/forumApi'
 
@@ -19,10 +23,13 @@ export const rootReducer: ReducerState = combineReducers({
   topics: topic.reducer,
   comments: comment.reducer,
   authApi: authApiSlice.reducer,
+  profileApi: profileApiSlice.reducer,
   oAuthApi: oAuthApiSlice.reducer,
   navbarApi: navbarApiSlice.reducer,
   error: errorSlice.reducer,
-  forumApi: forumApi.reducer
+  forumApi: forumApi.reducer,
+  leaderboardApi: leaderboardApi.reducer,
+  leaderboard: leaderboardSlice.reducer
 })
 
 export type AppState = ReturnType<typeof rootReducer>
@@ -38,10 +45,13 @@ export const preloadState: RTKStoreState = {
   topics: initialStateTopic,
   comments: initialStateComment,
   authApi: authApiSlice.reducer(undefined, { type: 'unknown' }),
+  profileApi: profileApiSlice.reducer(undefined, { type: 'unknown' }),
   oAuthApi: oAuthApiSlice.reducer(undefined, { type: 'unknown' }),
   navbarApi: navbarApiSlice.reducer(undefined, { type: 'unknown' }),
   error: initialStateError,
-  forumApi: forumApi.reducer(undefined, { type: 'unknown' })
+  forumApi: forumApi.reducer(undefined, { type: 'unknown' }),
+  leaderboardApi: leaderboardApi.reducer(undefined, { type: 'unknown' }),
+  leaderboard: initialStateLeaderboard
 }
 
 const store = configureStore({
@@ -52,7 +62,11 @@ const store = configureStore({
       authApiSlice.middleware,
       navbarApiSlice.middleware,
       oAuthApiSlice.middleware,
-      forumApi.middleware
+      forumApi.middleware,
+      profileApiSlice.middleware,
+      navbarApiSlice.middleware,
+      leaderboardApi.middleware,
+      oAuthApiSlice.middleware
     )
 })
 

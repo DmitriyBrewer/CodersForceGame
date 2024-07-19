@@ -14,7 +14,7 @@ const ProfileAvatarForm: FC<Props> = ({ fileChange, isLoading }) => {
   return (
     <form id="profile-avatar-form" onSubmit={submitHandle}>
       <ProfileAvatarButton disabled={isLoading}>
-        Изменить
+        Изменить аватар
         <ProfileFileInput onChange={fileChange} />
       </ProfileAvatarButton>
     </form>

@@ -3,14 +3,34 @@ import { FC } from 'react'
 import BasicTable from '@/shared/components/ui/BaseTable'
 import BaseTypography from '@/shared/components/ui/BaseTypography'
 import BaseContainer from '@/shared/components/ui/BaseContainer'
+import BaseLoader from '@/shared/components/ui/BaseLoader'
 
-// TODO: feature/cfg-24 получить данные с сервера
+import { useGetLeaderboardQuery } from '@/feature/leaderbord/leaderboardApi'
+
 const LeaderBoardWidget: FC = () => {
-  const data = [
-    { rank: 1, name: 'Frozen yoghurt', points: 303, email: 'some@mail.ru' },
-    { rank: 2, name: 'Cupcake', points: 248, email: 'some2@mail.ru' },
-    { rank: 3, name: 'Gingerbread', points: 101, email: 'some3@mail.ru' }
-  ]
+  const {
+    data: leaderboardData,
+    isLoading,
+    isError
+  } = useGetLeaderboardQuery({
+    ratingFieldName: 'codersforce',
+    cursor: 0,
+    limit: 10
+  })
+
+  if (isLoading) {
+    return <BaseLoader />
+  }
+
+  if (isError || !leaderboardData || !Array.isArray(leaderboardData)) {
+    return <BaseContainer>Ошибка при загрузке данных</BaseContainer>
+  }
+
+  const data = leaderboardData.map((leader, index) => ({
+    rank: index + 1,
+    name: leader.data?.name || 'Unknown',
+    points: leader.data?.codersforce || 0
+  }))
 
   const headers = [
     { text: 'Место', value: 'rank' },

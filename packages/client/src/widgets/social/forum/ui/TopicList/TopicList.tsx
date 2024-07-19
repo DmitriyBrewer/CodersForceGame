@@ -34,7 +34,7 @@ const TopicList: FC = () => {
         <BaseListItemButton key={topicItem.id} onClick={() => handleClick(topicItem.id)}>
           <BaseListItemText
             primary={topicItem.title}
-            secondary={`Автор ${topicItem.autor} | Дата: ${topicItem.lastMessageDate}`}
+            secondary={`Автор ${topicItem.author} | Дата: ${topicItem.lastMessageDate}`}
           />
         </BaseListItemButton>
       ))}

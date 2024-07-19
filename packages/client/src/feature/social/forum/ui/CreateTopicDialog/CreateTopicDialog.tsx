@@ -26,7 +26,7 @@ const CreateTopicDialog: FC<{ open: boolean; onClose: () => void }> = ({ open, o
 
   const handleCreate = async () => {
     try {
-      await createTopic({ title, autor: userName || 'Current User', content: description }).unwrap()
+      await createTopic({ title, author: userName || 'Current User', content: description }).unwrap()
       onClose()
     } catch (error) {
       console.error('Failed to create topic: ', error)
