@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
 
+import { Helmet } from 'react-helmet'
+
 import ProfileWidget from '@/widgets/profile/ui'
 import { useAppDispatch } from '@/shared/store'
 import { fetchUserThunk } from '@/entities/user/model'
@@ -11,7 +13,14 @@ const ProfilePage = () => {
     dispatch(fetchUserThunk())
   }, [dispatch])
 
-  return <ProfileWidget />
+  return (
+    <>
+      <Helmet>
+        <title>Профиль</title>
+      </Helmet>
+      <ProfileWidget />
+    </>
+  )
 }
 
 export default ProfilePage
