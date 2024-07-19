@@ -17,9 +17,18 @@ dotenv.config()
 
 const isDev = () => process.env.NODE_ENV === 'development'
 
+const corsOptions = {
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: '*',
+  credentials: true,
+  optionsSuccessStatus: 200
+}
+
 async function startServer() {
   const app = express()
-  app.use(cors())
+  app.use(express.json())
+  app.use(cors(corsOptions))
   const port = Number(process.env.SERVER_PORT) || 3001
 
   let vite: ViteDevServer | undefined
@@ -37,13 +46,13 @@ async function startServer() {
     app.use(vite.middlewares)
   }
 
-  app.use('/api/topics', topicsRouter)
-  app.use('/api/comments', commentsRouter)
-
   // TODO: feature/cfg-88 удалить, если будет не нужен
   app.get('/api', (_, res) => {
     res.json('👋 Howdy from the server :)')
   })
+
+  app.use('/api/topics', topicsRouter)
+  app.use('/api/comments', commentsRouter)
 
   if (!isDev()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')))

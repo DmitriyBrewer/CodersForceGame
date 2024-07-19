@@ -5,27 +5,27 @@ import BaseButton from '@/shared/components/ui/BaseButton'
 import BaseListItemButton from '@/shared/components/ui/BaseListItemButton'
 import BaseListItemText from '@/shared/components/ui/BaseListItemText'
 import BaseBox from '@/shared/components/ui/BaseBox'
-import { Message } from '@/entities/message/types'
-import { getMessages } from '@/entities/message/model/selector'
+import { Comment } from '@/entities/comment/types'
+import { getComments } from '@/entities/comment/model/selector'
 
 import BasePaperPolymorphic from '@/shared/components/ui/BasePaperPolymorphic'
 
-import styles from './MessageList.module.scss'
+import styles from './CommentList.module.scss'
 
 interface Props {
   setReplyToId: (id?: number) => void
 }
 
-const MessageList: FC<Props> = props => {
-  const messagesData = useSelector(getMessages)
+const CommentList: FC<Props> = props => {
+  const messagesData = useSelector(getComments)
   const { setReplyToId } = props
 
-  const getPrimaryText = (messageItem: Message) => {
+  const getPrimaryText = (messageItem: Comment) => {
     if (messageItem.replyToId) {
-      const originalMessage = messagesData?.find(m => m.id === messageItem.replyToId)?.message
-      return `Ответ на: ${originalMessage}\n${messageItem.message}`
+      const originalMessage = messagesData?.find(m => m.id === messageItem.replyToId)?.comment
+      return `Ответ на: ${originalMessage}\n${messageItem.comment}`
     }
-    return messageItem.message
+    return messageItem.comment
   }
 
   const handleReply = (id: number) => {
@@ -38,8 +38,8 @@ const MessageList: FC<Props> = props => {
         {messagesData?.map(messageItem => (
           <BaseListItemButton key={messageItem.id}>
             <BaseListItemText
-              primary={getPrimaryText(messageItem)}
-              secondary={`Автор ${messageItem.autor} | Дата: ${messageItem.date}`}
+              primary={<div style={{ whiteSpace: 'pre-line' }}>{getPrimaryText(messageItem)}</div>}
+              secondary={`Автор ${messageItem.author} | Дата: ${messageItem.date}`}
             />
             <BaseButton color="secondary" className={styles.reply} onClick={() => handleReply(messageItem.id)}>
               Ответить
@@ -51,4 +51,4 @@ const MessageList: FC<Props> = props => {
   )
 }
 
-export default MessageList
+export default CommentList

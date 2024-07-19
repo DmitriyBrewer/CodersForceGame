@@ -5,24 +5,57 @@ const router = express.Router()
 interface Topic {
   id: number
   title: string
-  autor: string
+  author: string
   lastMessageDate: string
+  content: string
 }
 
-interface Comment {
+export interface Comment {
   id: number
-  content: string
+  comment: string
+  author: string
+  date: string
   topicId: number
+  replyToId?: number
 }
+
+/// TODO: заменить на реальную бд feature/cfg-96
 const INITIAL_TOPICS = [
-  { id: 1, title: 'Первый топик', autor: 'Автор1', lastMessageDate: '2024-06-03' },
-  { id: 2, title: 'Второй топик', autor: 'Автор2', lastMessageDate: '2024-06-04' },
-  { id: 3, title: 'Третий топик', autor: 'Автор3', lastMessageDate: '2024-06-05' }
+  { id: 1, title: 'Первый топик', author: 'Автор1', lastMessageDate: '2024-06-03', content: 'test1' },
+  { id: 2, title: 'Второй топик', author: 'Автор2', lastMessageDate: '2024-06-04', content: 'test2' },
+  { id: 3, title: 'Третий топик', author: 'Автор3', lastMessageDate: '2024-06-05', content: 'test3' }
 ]
 
-export const data = {
+const INITIAL_COMMENTS = {
+  1: [
+    { id: 1, comment: '1Первое сообщение', author: 'Автор1', date: '2024-06-03', topicId: 1 },
+    { id: 2, comment: '1Второе сообщение', author: 'Автор2', date: '2024-06-04', topicId: 1 },
+    { id: 3, comment: '1Третье сообщение', author: 'Автор3', date: '2024-06-05', topicId: 1 }
+  ],
+  2: [
+    { id: 1, comment: '2Первое сообщение', author: 'Автор1', date: '2024-06-03', topicId: 2 },
+    { id: 2, comment: '2Второе сообщение', author: 'Автор2', date: '2024-06-04', topicId: 2 },
+    { id: 3, comment: '2Третье сообщение', author: 'Автор3', date: '2024-06-05', topicId: 2 }
+  ]
+}
+
+function formatDate(isoDate: string) {
+  const date = new Date(isoDate)
+  const day = String(date.getDate()).padStart(2, '0')
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const year = date.getFullYear()
+
+  return `${year}-${month}-${day}`
+}
+
+interface Data {
+  topics: Topic[]
+  comments: Record<number, Comment[]>
+}
+
+export const data: Data = {
   topics: INITIAL_TOPICS,
-  comments: {} as { [key: number]: Comment[] }
+  comments: INITIAL_COMMENTS
 }
 
 router.get('/', (_req: Request, res: Response) => {
@@ -40,8 +73,15 @@ router.get('/:id', (req: Request, res: Response) => {
 })
 
 router.post('/', (req: Request, res: Response) => {
-  const { title, autor, lastMessageDate } = req.body
-  const newTopic: Topic = { id: Date.now(), title, autor, lastMessageDate }
+  console.log(req.body)
+  const { title, author, content } = req.body
+  const newTopic: Topic = {
+    id: data.topics.at(-1)!.id + 1,
+    title,
+    author,
+    lastMessageDate: formatDate(new Date().toISOString()),
+    content
+  }
   data.topics.push(newTopic)
   res.status(201).json(newTopic)
 })
@@ -49,7 +89,10 @@ router.post('/', (req: Request, res: Response) => {
 router.delete('/:id', (req: Request, res: Response) => {
   const { id } = req.params
   data.topics = data.topics.filter(topic => topic.id !== parseInt(id, 10))
-  delete data.comments[parseInt(id, 10)]
+
+  const { comments } = data
+
+  delete comments[Number(id)]
   res.status(204).send()
 })
 

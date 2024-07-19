@@ -6,7 +6,7 @@ export const paths = {
   game: '/game',
   leaderboard: '/leaderboard',
   forum: '/forum',
-  forumTopic: '/forumTopic',
+  forumTopic: '/forum/:topicId',
   page404: '*',
   page500: '/500'
 }

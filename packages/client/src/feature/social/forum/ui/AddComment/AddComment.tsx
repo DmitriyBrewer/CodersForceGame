@@ -5,26 +5,26 @@ import BaseTypography from '@/shared/components/ui/BaseTypography'
 import BaseTextField from '@/shared/components/ui/BaseTextField'
 import BaseButton from '@/shared/components/ui/BaseButton'
 
-import useMessage from '../../hooks/useMessage'
+import useMessage from '../../hooks/useComment'
 
-import styles from './AddMessage.module.scss'
+import styles from './AddComment.module.scss'
 
 interface Props {
   setReplyToId: (id?: number) => void
   replyToId: number | undefined
 }
 
-const AddMessage: FC<Props> = ({ setReplyToId, replyToId }) => {
-  const { newMessage, messagesData, handleAddMessage, handleChange } = useMessage({ replyToId, setReplyToId })
+const AddComment: FC<Props> = ({ setReplyToId, replyToId }) => {
+  const { newComment, commentsData, handleAddMessage, handleChange } = useMessage({ replyToId, setReplyToId })
 
-  const replyiedMessage = messagesData.find(m => m.id === replyToId)?.message
+  const replyiedMessage = commentsData.find(m => m.id === replyToId)?.comment
 
   return (
     <BaseBox component="form" onSubmit={handleAddMessage}>
       <BaseBox className={styles.root}>
         {replyToId && (
           <BaseBox className={styles.reply}>
-            <BaseTypography variant="body2" color="textSecondary" gutterBottom>
+            <BaseTypography className={styles.replyTo} variant="body2" color="textSecondary" gutterBottom>
               Ответ на: {replyiedMessage}
             </BaseTypography>
           </BaseBox>
@@ -37,7 +37,7 @@ const AddMessage: FC<Props> = ({ setReplyToId, replyToId }) => {
           rows={4}
           margin="normal"
           onChange={handleChange}
-          value={newMessage}
+          value={newComment}
           required
         />
         <BaseButton type="submit" color="primary" variant="contained">
@@ -48,4 +48,4 @@ const AddMessage: FC<Props> = ({ setReplyToId, replyToId }) => {
   )
 }
 
-export default AddMessage
+export default AddComment

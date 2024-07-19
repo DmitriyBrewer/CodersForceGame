@@ -39,11 +39,15 @@ const topicSlice = createSlice({
       })
       .addMatcher(forumApi.endpoints.getTopics.matchFulfilled, (state, action) => {
         state.isLoading = false
-        state.topicsData = action.payload.topics
+        state.topicsData = action.payload
+      })
+      .addMatcher(forumApi.endpoints.createTopic.matchFulfilled, (state, action) => {
+        state.isLoading = false
+        state.topicsData?.push(action.payload)
       })
       .addMatcher(forumApi.endpoints.getTopics.matchRejected, (state, action) => {
         state.isLoading = false
-        state.errorMessage = action.error.message || 'Failed to fetch topics'
+        state.errorMessage = action.error.message || 'Ошибка при создании топика'
       })
   }
 })

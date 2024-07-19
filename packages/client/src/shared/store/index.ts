@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 
 import user, { initialState as initialStateUser } from '@/entities/user/model'
 import topic, { initialState as initialStateTopic } from '@/entities/topic/model'
-import message, { initialState as initialStateMessage } from '@/entities/message/model'
+import comment, { initialState as initialStateComment } from '@/entities/comment/model'
 
 import errorSlice, { initialState as initialStateError } from '@/entities/error'
 
@@ -12,15 +12,17 @@ import { ReducerState, RTKStoreState } from './types'
 import { authApiSlice } from '@/feature/session/api/authApi'
 import { navbarApiSlice } from '@/feature/base-layout/api/navbarApi'
 import { oAuthApiSlice } from '@/feature/session/api/oAuthApi'
+import forumApi from '@/feature/social/forum/api/forumApi'
 
 export const rootReducer: ReducerState = combineReducers({
   user: user.reducer,
   topics: topic.reducer,
-  messages: message.reducer,
+  comments: comment.reducer,
   authApi: authApiSlice.reducer,
   oAuthApi: oAuthApiSlice.reducer,
   navbarApi: navbarApiSlice.reducer,
-  error: errorSlice.reducer
+  error: errorSlice.reducer,
+  forumApi: forumApi.reducer
 })
 
 export type AppState = ReturnType<typeof rootReducer>
@@ -34,18 +36,24 @@ declare global {
 export const preloadState: RTKStoreState = {
   user: initialStateUser,
   topics: initialStateTopic,
-  messages: initialStateMessage,
+  comments: initialStateComment,
   authApi: authApiSlice.reducer(undefined, { type: 'unknown' }),
   oAuthApi: oAuthApiSlice.reducer(undefined, { type: 'unknown' }),
   navbarApi: navbarApiSlice.reducer(undefined, { type: 'unknown' }),
-  error: initialStateError
+  error: initialStateError,
+  forumApi: forumApi.reducer(undefined, { type: 'unknown' })
 }
 
 const store = configureStore({
   reducer: rootReducer,
   preloadedState: preloadState,
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(authApiSlice.middleware, navbarApiSlice.middleware, oAuthApiSlice.middleware)
+    getDefaultMiddleware().concat(
+      authApiSlice.middleware,
+      navbarApiSlice.middleware,
+      oAuthApiSlice.middleware,
+      forumApi.middleware
+    )
 })
 
 export type AppDispatch = typeof store.dispatch

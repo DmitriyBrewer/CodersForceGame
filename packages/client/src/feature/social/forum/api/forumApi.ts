@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery, FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/query/react'
 import { BaseQueryFn, FetchArgs } from '@reduxjs/toolkit/query'
 
+import { Comment } from '@/entities/comment/types'
+
 interface Topic {
   id: number
   title: string
@@ -14,32 +16,18 @@ interface NewTopic {
   content: string
 }
 
-interface Comment {
-  id: number
-  topicId: number
-  content: string
-  author: string
-  date: string
-}
-
-interface GetTopicsResponse {
-  topics: Topic[]
-}
-
-interface GetTopicDetailsResponse {
-  topic: Topic
-  comments: Comment[]
-}
+type GetTopicsResponse = Topic[]
 
 interface AddCommentRequest {
   topicId: number
-  content: string
+  comment: string
   author: string
+  date: string
+  replyToId?: number
 }
 
 const customFetchBaseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:3001/api',
-  credentials: 'include'
+  baseUrl: 'http://localhost:3001/api'
 })
 
 const baseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, object, FetchBaseQueryMeta> = async (
@@ -61,12 +49,7 @@ export const forumApi = createApi({
         method: 'GET'
       })
     }),
-    getTopicDetails: builder.query<GetTopicDetailsResponse, number>({
-      query: topicId => ({
-        url: `topics/${topicId}`,
-        method: 'GET'
-      })
-    }),
+
     createTopic: builder.mutation<Topic, NewTopic>({
       query: newTopic => ({
         url: 'topics',
@@ -75,15 +58,28 @@ export const forumApi = createApi({
       })
     }),
     addComment: builder.mutation<Comment, AddCommentRequest>({
-      query: ({ topicId, content, author }) => ({
+      query: ({ topicId, comment, author, date, replyToId }) => ({
         url: `comments/${topicId}`,
         method: 'POST',
-        body: { content, author }
+        body: { comment, author, date, replyToId }
+      })
+    }),
+    getComments: builder.query<Comment[], number>({
+      query: topicId => ({
+        url: `comments/${topicId}`,
+        method: 'GET'
       })
     })
   })
 })
 
-export const { useGetTopicsQuery, useGetTopicDetailsQuery, useCreateTopicMutation, useAddCommentMutation } = forumApi
+export const {
+  useGetTopicsQuery,
+  useCreateTopicMutation,
+  useAddCommentMutation,
+  useLazyGetTopicsQuery,
+  useGetCommentsQuery,
+  useLazyGetCommentsQuery
+} = forumApi
 
 export default forumApi

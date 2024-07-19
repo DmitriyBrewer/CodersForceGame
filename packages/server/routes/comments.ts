@@ -1,23 +1,16 @@
 import express, { Request, Response } from 'express'
 
-import { data } from './topics'
+import { Comment, data } from './topics'
 
 const router = express.Router()
 
-interface Comment {
-  id: number
-  content: string
-  topicId: number
-}
+/// TODO: заменить на реальную бд feature/cfg-96
 
 router.get('/:topicId', (req: Request, res: Response) => {
   const { topicId } = req.params
   const topic = data.topics.find(t => t.id === parseInt(topicId, 10))
   if (topic) {
-    res.json({
-      topic,
-      comments: data.comments[parseInt(topicId, 10)] || []
-    })
+    res.json(data.comments[parseInt(topicId, 10)] || [])
   } else {
     res.status(404).json({ error: 'Topic not found' })
   }
@@ -25,11 +18,20 @@ router.get('/:topicId', (req: Request, res: Response) => {
 
 router.post('/:topicId', (req: Request, res: Response) => {
   const { topicId } = req.params
-  const { content } = req.body
-  const newComment: Comment = { id: Date.now(), content, topicId: parseInt(topicId, 10) }
-  if (!data.comments[parseInt(topicId, 10)]) {
-    data.comments[parseInt(topicId, 10)] = []
+  const { comment, author, date, replyToId } = req.body
+  const normalizedTopicId = parseInt(topicId, 10)
+  if (!data.comments[normalizedTopicId]) {
+    data.comments[normalizedTopicId] = []
   }
+  const newComment: Comment = {
+    id: data.comments[normalizedTopicId].length + 1,
+    comment,
+    author,
+    date,
+    topicId: parseInt(topicId, 10),
+    replyToId
+  }
+
   data.comments[parseInt(topicId, 10)].push(newComment)
   res.status(201).json(newComment)
 })
