@@ -1,4 +1,4 @@
-import AddMessage from './ui/AddMessage/AddMessage'
+import AddComment from './ui/AddComment/AddComment'
 import CreateTopicDialog from './ui/CreateTopicDialog'
 
-export { AddMessage, CreateTopicDialog }
+export { AddComment, CreateTopicDialog }

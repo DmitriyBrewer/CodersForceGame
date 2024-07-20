@@ -1,21 +1,34 @@
 import dotenv from 'dotenv'
 import cors from 'cors'
 import { ViteDevServer, createServer as createViteServer } from 'vite'
+
 import express from 'express'
 import serialize from 'serialize-javascript'
 
 import * as fs from 'fs'
 import * as path from 'path'
 
+import topicsRouter from './routes/topics'
+import commentsRouter from './routes/comments'
+
 dotenv.config()
 
 const isDev = () => process.env.VITE_NODE_ENV === 'development'
 console.log(process.env.VITE_NODE_ENV)
 
+const corsOptions = {
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: '*',
+  credentials: true,
+  optionsSuccessStatus: 200
+}
+
 async function startServer() {
   const app = express()
-  app.use(cors())
-  const port = Number(process.env.VITE_SERVER_PORT) || 3001
+  app.use(express.json())
+  app.use(cors(corsOptions))
+  const port = Number(process.env.SERVER_PORT) || 3001
 
   let vite: ViteDevServer | undefined
   let distPath = ''
@@ -46,6 +59,9 @@ async function startServer() {
   app.get('/api', (_, res) => {
     res.json('👋 Howdy from the server :)')
   })
+
+  app.use('/api/topics', topicsRouter)
+  app.use('/api/comments', commentsRouter)
 
   if (!isDev()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')))

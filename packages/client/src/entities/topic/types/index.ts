@@ -1,6 +1,6 @@
 export type Topic = {
   id: number
   title: string
-  autor: string
+  author: string
   lastMessageDate: string
 }
