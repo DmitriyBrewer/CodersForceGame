@@ -11,16 +11,12 @@ interface Props {
 
 const PrivateRoute = (props: Props) => {
   const { component: Component } = props
-  const { isAuth } = useAuth()
+  const { isAuth, isLoading } = useAuth()
 
   // TODO: скрыл тк ошибка ssr, бесконечный loader, ошибка была на feature/cfg-89
-  // if (isLoading) {
-  //   return (
-  //     <RouteBox>
-  //       <BaseLoader color="secondary" />
-  //     </RouteBox>
-  //   )
-  // }
+  if (isLoading) {
+    return <Component />
+  }
 
   return isAuth ? <Component /> : <Navigate to={paths.login} />
 }

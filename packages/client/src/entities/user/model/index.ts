@@ -46,6 +46,7 @@ const userSlice = createSlice({
       state.isLoading = false
       state.errorMessage = undefined
     })
+
     builder.addMatcher(authApiSlice.endpoints.getUser.matchRejected, state => {
       state.userData = undefined
       state.isAuth = false
