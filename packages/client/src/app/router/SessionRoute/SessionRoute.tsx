@@ -1,25 +1,13 @@
 import { FC } from 'react'
 
-import BaseLoader from '@/shared/components/ui/BaseLoader'
-
-import { useSessionRouter } from '../hooks/useSessionRouter'
-import RouteBox from '../RouteBox'
-
 interface Props {
   component: FC
 }
 
 const SessionRoute = (props: Props) => {
   const { component: Component } = props
-  const { isLoading } = useSessionRouter()
 
-  if (isLoading) {
-    return (
-      <RouteBox>
-        <BaseLoader />
-      </RouteBox>
-    )
-  }
+  // TODO: скрыл тк ошибка ssr, бесконечный loader, ошибка была на feature/cfg-89
   return <Component />
 }
 

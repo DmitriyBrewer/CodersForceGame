@@ -1,25 +1,20 @@
 import { FC } from 'react'
 
-import BaseLoader from '@/shared/components/ui/BaseLoader'
-
-import { usePublicAuth } from '../hooks/usePublicAuth'
-import RouteBox from '../RouteBox'
-
 interface Props {
   component: FC
 }
 
 const PublicRoute = (props: Props) => {
   const { component: Component } = props
-  const { isLoading } = usePublicAuth()
-
-  if (isLoading) {
-    return (
-      <RouteBox>
-        <BaseLoader />
-      </RouteBox>
-    )
-  }
+  // const { isLoading } = usePublicAuth()
+  // TODO: скрыл тк ошибка ssr, бесконечный loader, ошибка была на feature/cfg-89
+  // if (isLoading) {
+  //   return (
+  //     <RouteBox>
+  //       <BaseLoader color="info" />
+  //     </RouteBox>
+  //   )
+  // }
   return <Component />
 }
 
