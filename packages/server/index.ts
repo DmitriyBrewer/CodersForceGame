@@ -14,7 +14,6 @@ import commentsRouter from './routes/comments'
 dotenv.config()
 
 const isDev = () => process.env.VITE_NODE_ENV === 'development'
-console.log(process.env.VITE_NODE_ENV)
 
 const corsOptions = {
   origin: '*',
