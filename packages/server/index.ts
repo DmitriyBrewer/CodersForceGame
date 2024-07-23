@@ -27,7 +27,7 @@ async function startServer() {
   const app = express()
   app.use(express.json())
   app.use(cors(corsOptions))
-  const port = Number(process.env.SERVER_PORT) || 3001
+  const port = Number(process.env.SERVER_PORT) || 9000
 
   let vite: ViteDevServer | undefined
   let distPath = ''

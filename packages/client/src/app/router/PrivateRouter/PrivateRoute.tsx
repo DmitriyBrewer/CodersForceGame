@@ -1,12 +1,9 @@
 import { FC } from 'react'
 import { Navigate } from 'react-router-dom'
 
-import BaseLoader from '@/shared/components/ui/BaseLoader'
-
 import { paths } from '@/shared/config/routing'
 
 import { useAuth } from '../hooks/useAuth'
-import RouteBox from '../RouteBox'
 
 interface Props {
   component: FC
@@ -16,12 +13,9 @@ const PrivateRoute = (props: Props) => {
   const { component: Component } = props
   const { isAuth, isLoading } = useAuth()
 
+  // TODO: скрыл тк ошибка ssr, бесконечный loader, ошибка была на feature/cfg-89
   if (isLoading) {
-    return (
-      <RouteBox>
-        <BaseLoader />
-      </RouteBox>
-    )
+    return <Component />
   }
 
   return isAuth ? <Component /> : <Navigate to={paths.login} />

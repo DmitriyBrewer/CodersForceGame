@@ -27,7 +27,7 @@ interface AddCommentRequest {
 }
 
 const customFetchBaseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:3001/api'
+  baseUrl: 'http://localhost:9000/api'
 })
 
 const baseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, object, FetchBaseQueryMeta> = async (
