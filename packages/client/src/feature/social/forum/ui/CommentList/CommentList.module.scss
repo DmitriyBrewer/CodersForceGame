@@ -10,3 +10,22 @@
 .reply {
   margin-left: auto;
 }
+
+.commentItem {
+  margin-bottom: var(--m8);
+}
+
+.actions {
+  display: flex;
+  gap: var(--g8);
+}
+
+.react {
+  margin-right: var(--m8);
+}
+
+.reactions {
+  display: flex;
+  gap: var(--m4);
+  margin-left: var(--m12);
+}

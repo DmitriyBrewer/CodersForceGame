@@ -26,6 +26,7 @@ module.exports = {
     }
   },
   rules: {
+    'react/no-array-index-key': 'off',
     'class-methods-use-this': 'off',
     'no-plusplus': 'off',
     'no-return-assign': 'off',
