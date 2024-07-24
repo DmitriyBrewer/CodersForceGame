@@ -21,7 +21,7 @@ type GetTopicsResponse = Topic[]
 interface AddCommentRequest {
   topicId: number
   comment: string
-  author: string
+  author?: string
   date: string
   replyToId?: number
 }

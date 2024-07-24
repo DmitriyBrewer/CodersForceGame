@@ -18,7 +18,7 @@ interface Props {
 const useComment = ({ replyToId, setReplyToId }: Props) => {
   const [newComment, setNewComment] = useState<string>('')
   const commentsData = useSelector(getComments)
-  const author = useSelector(getUser)!.first_name
+  const author = useSelector(getUser)?.first_name
 
   const [addComment] = useAddCommentMutation()
 

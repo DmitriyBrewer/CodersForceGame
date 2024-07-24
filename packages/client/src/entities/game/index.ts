@@ -328,15 +328,15 @@ class Game {
   }
 
   displayFPS() {
-    if (this._ctx) {
+    if (this._ctx && this._canvas) {
       this._ctx.save()
       this._ctx.font = 'bold 18px Arial'
       this._ctx.fillStyle = 'White'
       this._ctx.strokeStyle = 'Black'
       this._ctx.lineWidth = 1
       const fpsText = `FPS: ${Math.round(this._fps)}`
-      this._ctx.fillText(fpsText, this._canvas!.width - 100, 30)
-      this._ctx.strokeText(fpsText, this._canvas!.width - 100, 30)
+      this._ctx.fillText(fpsText, this._canvas.width - 100, 30)
+      this._ctx.strokeText(fpsText, this._canvas.width - 100, 30)
       this._ctx.restore()
     }
   }
