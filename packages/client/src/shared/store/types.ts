@@ -8,12 +8,14 @@ import { ErrorState } from '@/entities/error'
 
 import { LeaderboardState } from '@/entities/leaderboard/model'
 
-import { authApiSlice } from '@/feature/session/api/authApi'
-import { profileApiSlice } from '@/feature/profile/api/profileApi'
-import { navbarApiSlice } from '@/feature/base-layout/api/navbarApi'
-import leaderboardApi from '@/feature/leaderbord/leaderboardApi'
-import { oAuthApiSlice } from '@/feature/session/api/oAuthApi'
-import forumApi from '@/feature/social/forum/api/forumApi'
+import forumApi from '@/shared/forum/api/forumApi'
+
+import { authApiSlice } from '@/entities/session/api/authApi'
+import { profileApiSlice } from '@/entities/profile/api/profileApi'
+import { navbarApiSlice } from '@/entities/navbar/api/navbarApi'
+
+import { oAuthApiSlice } from '@/entities/session/api/oAuthApi'
+import leaderboardApi from '@/entities/leaderboard/api/leaderboardApi'
 
 type StoreState = {
   user: UserState

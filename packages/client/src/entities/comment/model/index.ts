@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { Comment } from '../types'
-import forumApi from '@/feature/social/forum/api/forumApi'
+import forumApi from '@/shared/forum/api/forumApi'
+
+import { Comment } from '../../../shared/forum/types'
 
 export interface commentState {
   commentsData: Comment[]

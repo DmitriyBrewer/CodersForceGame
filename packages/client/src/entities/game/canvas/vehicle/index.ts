@@ -1,6 +1,6 @@
 import { Acceleration, AnimationConfig, Position, Speed, SpriteConfig } from '@/entities/types/types'
 import { Entity } from '@/entities/game/utils/Сollision'
-import SpriteAnimation from '@/entities/sprite-animation'
+import SpriteAnimation from '@/entities/game/canvas/sprite-animation'
 
 import SpriteImage from '../sprite-image'
 import Road from '../road'

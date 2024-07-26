@@ -3,7 +3,7 @@ import { InputStates, SpriteConfig } from '@/entities/types/types'
 import Player from '.'
 import SpriteImage from '../sprite-image'
 import SpriteAnimation from '../sprite-animation'
-import Collision from '../game/utils/Сollision'
+import Collision from '../../utils/Сollision'
 
 jest.mock('../sprite-animation')
 

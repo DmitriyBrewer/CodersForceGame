@@ -8,8 +8,9 @@ import { REDIRECT_URI } from '@/shared/api/constant'
 
 import { setError } from '@/entities/error'
 
+import { authApiSlice } from '@/entities/session/api/authApi'
+
 import { LoginPayload, LoginResponse } from '@/feature/session/o-auth/types'
-import { authApiSlice } from '@/feature/session/api/authApi'
 
 export const oAuthApiSlice = createApi({
   reducerPath: 'oAuthApi',

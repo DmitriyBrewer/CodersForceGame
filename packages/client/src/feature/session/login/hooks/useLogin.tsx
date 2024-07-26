@@ -7,7 +7,7 @@ import { clearError, setError } from '@/entities/error'
 import { setLoading } from '@/entities/user/model'
 import { paths } from '@/shared/config/routing'
 
-import { useLazyGetUserQuery, useLoginMutation } from '../../api/authApi'
+import { useLazyGetUserQuery, useLoginMutation } from '../../../../entities/session/api/authApi'
 import { LoginApiError, LoginError, LoginPayload } from '../types'
 
 export const useLogin = () => {

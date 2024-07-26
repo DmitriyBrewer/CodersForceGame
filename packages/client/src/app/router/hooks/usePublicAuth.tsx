@@ -1,4 +1,4 @@
-import { useGetUserQuery } from '@/feature/session/api/authApi'
+import { useGetUserQuery } from '@/entities/session/api/authApi'
 
 export const usePublicAuth = () => {
   const { data, error, isLoading } = useGetUserQuery()

@@ -5,7 +5,7 @@ import { setError, clearError } from '@/entities/error'
 
 import { setUser } from '@/entities/user/model'
 
-import { useUpdateAvatarMutation } from '@/feature/profile/api/profileApi'
+import { useUpdateAvatarMutation } from '@/entities/profile/api/profileApi'
 
 const useProfileAvatar = () => {
   const dispatch = useDispatch()
