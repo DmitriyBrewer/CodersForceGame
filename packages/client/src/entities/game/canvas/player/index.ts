@@ -2,7 +2,7 @@ import { InputStates, Position, Speed, SpriteConfig } from '@/entities/types/typ
 
 import SpriteImage from '../sprite-image'
 import SpriteAnimation from '../sprite-animation'
-import Collision, { Entity } from '../game/utils/Сollision'
+import Collision, { Entity } from '../../utils/Сollision'
 
 class Player implements Entity {
   static maxSpeed = 0.5

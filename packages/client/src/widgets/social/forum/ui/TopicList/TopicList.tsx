@@ -10,7 +10,7 @@ import { getTopics } from '@/entities/topic/model/selector'
 
 import BasePaperPolymorphic from '@/shared/components/ui/BasePaperPolymorphic'
 
-import { useLazyGetTopicsQuery } from '@/feature/social/forum/api/forumApi'
+import { useLazyGetTopicsQuery } from '@/shared/forum/api/forumApi'
 
 import styles from './TopicList.module.scss'
 

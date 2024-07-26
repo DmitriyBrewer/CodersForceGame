@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { useSubmitScoreMutation } from '../leaderboardApi'
+import { useSubmitScoreMutation } from '../../../entities/leaderboard/api/leaderboardApi'
 
 export type ScoreData = {
   data: Record<string, string | number>

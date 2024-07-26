@@ -6,7 +6,7 @@ import { getUserName } from '@/entities/user/model/selector'
 
 import Game, { GAME_STATE } from '@/entities/game'
 
-import { useLeaderboard } from '@/feature/leaderbord/hooks/useLeaderboard'
+import { useLeaderboard } from '@/shared/leaderboard/hooks/useLeaderboard'
 
 const useCanvasAnimation = (
   pause: boolean,

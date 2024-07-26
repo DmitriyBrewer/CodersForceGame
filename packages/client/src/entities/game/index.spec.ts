@@ -1,18 +1,18 @@
 import Collision from '@/entities/game/utils/Сollision'
 
-import Player from '../player'
-import Road from '../road'
-import Vehicle from '../vehicle'
+import Player from './canvas/player'
+import Road from './canvas/road'
+import Vehicle from './canvas/vehicle'
 import Game, { GAME_STATE, INITIAL_SPEED, TIME_BETWEEN_LEVELS } from './index'
 import Load from './utils/Load'
 import Timer from './utils/Timer'
 
 jest.mock('./utils/Load')
 jest.mock('./utils/Timer')
-jest.mock('../road')
-jest.mock('../player')
-jest.mock('../vehicle')
-jest.mock('@/entities/game/utils/Сollision')
+jest.mock('./canvas/road')
+jest.mock('./canvas/player')
+jest.mock('./canvas/vehicle')
+jest.mock('./utils/Сollision')
 
 describe('Game Class', () => {
   let game: Game

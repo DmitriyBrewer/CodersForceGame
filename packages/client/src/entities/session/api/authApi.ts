@@ -4,8 +4,8 @@ import { User } from '@/entities/user/types'
 
 import { baseQuery } from '@/shared/api/baseQuery'
 
-import { RegisterResponse, RegisterPayload } from '../register/types'
-import { LoginPayload, LoginResponse } from '../login/types'
+import { RegisterResponse, RegisterPayload } from '../../../feature/session/register/types'
+import { LoginPayload, LoginResponse } from '../../../feature/session/login/types'
 
 export const authApiSlice = createApi({
   reducerPath: 'authApi',

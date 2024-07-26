@@ -1,30 +1,8 @@
 import { createApi, fetchBaseQuery, FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/query/react'
 import { BaseQueryFn, FetchArgs } from '@reduxjs/toolkit/query'
 
-import { Comment } from '@/entities/comment/types'
-
-interface Topic {
-  id: number
-  title: string
-  author: string
-  lastMessageDate: string
-}
-
-interface NewTopic {
-  title: string
-  author: string
-  content: string
-}
-
-type GetTopicsResponse = Topic[]
-
-interface AddCommentRequest {
-  topicId: number
-  comment: string
-  author?: string
-  date: string
-  replyToId?: number
-}
+import { AddCommentRequest, Comment, GetTopicsResponse, NewTopic } from '@/shared/forum/types'
+import { Topic } from '@/entities/topic/types'
 
 const customFetchBaseQuery = fetchBaseQuery({
   baseUrl: 'http://localhost:9000/api'

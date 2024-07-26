@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import forumApi from '@/shared/forum/api/forumApi'
+
 import { Topic } from '../types'
-import forumApi from '@/feature/social/forum/api/forumApi'
 
 export interface TopicState {
   topicsData?: Topic[]

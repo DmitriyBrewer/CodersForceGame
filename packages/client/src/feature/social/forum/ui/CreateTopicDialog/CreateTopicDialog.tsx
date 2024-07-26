@@ -14,7 +14,7 @@ import BaseBox from '@/shared/components/ui/BaseBox'
 import { getUserName } from '@/entities/user/model/selector'
 
 import styles from './CreateTopicDialog.module.scss'
-import { useCreateTopicMutation } from '../../api/forumApi'
+import { useCreateTopicMutation } from '../../../../../shared/forum/api/forumApi'
 
 const CreateTopicDialog: FC<{ open: boolean; onClose: () => void }> = ({ open, onClose }) => {
   const [title, setTitle] = useState('')
