@@ -37,7 +37,6 @@ export const useProfilePassword = () => {
     setErrors({ ...errors, [name]: validateField(name, value, formData.oldPassword) })
   }
 
-  // TODO: feature/cfg-25 add global snackbar after change
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 

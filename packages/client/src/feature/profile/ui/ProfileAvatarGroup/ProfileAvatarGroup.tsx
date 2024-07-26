@@ -13,7 +13,6 @@ type Props = {
 const ProfileAvatarGroup: FC<Props> = ({ src }) => {
   const { fileChange, isLoading } = useProfileAvatar()
 
-  // TODO: feature/cfg-25 get src from store
   return (
     <BaseBox display="flex">
       <ProfileAvatar src={src} />

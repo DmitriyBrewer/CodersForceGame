@@ -54,11 +54,6 @@ async function startServer() {
     app.use(vite.middlewares)
   }
 
-  // TODO: feature/cfg-88 удалить, если будет не нужен
-  app.get('/api', (_, res) => {
-    res.json('👋 Howdy from the server :)')
-  })
-
   app.use('/api/topics', topicsRouter)
   app.use('/api/comments', commentsRouter)
 
@@ -77,37 +72,36 @@ async function startServer() {
       } else {
         template = fs.readFileSync(path.resolve(srcPath, 'index.html'), 'utf-8')
 
-        // TODO: feature/cfg-88 тут оставим из-за особенностей vite, позже удалить сообщение
-        //  eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        template = await vite!.transformIndexHtml(url, template)
+        if (vite) {
+          template = await vite.transformIndexHtml(url, template)
+        } else {
+          throw new Error('Vite is not initialized')
+        }
       }
 
-      // TODO: feature/cfg-95 удаляю RenderResult из-за него падает
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let render: (requestUrl: string) => Promise<any>
 
       if (!isDev()) {
         render = (await import(ssrClientPath)).render
-      } else {
-        // TODO: feature/cfg-88 тут оставим из-за особенностей vite, позже удалить сообщение
-        //  eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'src/entry-server.tsx'))).render
+      } else if (vite) {
+        render = (await vite.ssrLoadModule(path.resolve(srcPath, 'src/entry-server.tsx'))).render
+
+        const { appHtml, preloadedState } = await render(url)
+        const html = template?.replace('<!--ssr-outlet-->', appHtml).replace(
+          `<!--ssr-initial-state-->`,
+          `<script>window.APP_INITIAL_STATE = ${serialize(preloadedState, {
+            isJSON: true
+          })}</script>`
+        )
+
+        res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
       }
-
-      const { appHtml, preloadedState } = await render(url)
-      const html = template?.replace('<!--ssr-outlet-->', appHtml).replace(
-        `<!--ssr-initial-state-->`,
-        `<script>window.APP_INITIAL_STATE = ${serialize(preloadedState, {
-          isJSON: true
-        })}</script>`
-      )
-
-      res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {
       if (isDev()) {
-        // TODO: feature/cfg-88 тут оставим из-за особенностей vite, позже удалить сообщение
-        //  eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        vite!.ssrFixStacktrace(e as Error)
+        if (vite) {
+          vite.ssrFixStacktrace(e as Error)
+        }
       }
       next(e)
     }

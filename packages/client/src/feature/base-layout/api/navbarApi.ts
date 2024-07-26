@@ -13,9 +13,7 @@ const baseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, o
 ) => {
   const result = await customFetchBaseQuery(args, api, extraOptions)
 
-  // TODO: так как API авторизации яндекса отвечает не JSON-ом, чтобы RTK Query не валился с ошибкой
-  // @ts-ignore: в типе FetchBaseQueryError нет originalStatus
-  if (result.error && result.error.originalStatus === 200 && result.error.data === 'OK') {
+  if (result.error && result.error.status === 200 && result.error.data === 'OK') {
     return { data: 'OK' }
   }
 
