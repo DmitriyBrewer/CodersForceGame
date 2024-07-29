@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import { useSelector } from 'react-redux'
-import DOMPurify from 'dompurify' // Импортируем DOMPurify
+import DOMPurify from 'dompurify'
 
 import BaseDialog from '@/shared/components/ui/BaseDialog'
 import BaseDialogTitle from '@/shared/components/ui/BaseDialogTitle'

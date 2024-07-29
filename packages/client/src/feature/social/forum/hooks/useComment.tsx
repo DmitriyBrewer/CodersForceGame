@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import DOMPurify from 'dompurify' // Импортируем DOMPurify
+import DOMPurify from 'dompurify'
 
 import { getComments } from '@/entities/comment/model/selector'
 import formatDate from '@/shared/utils/formatISODate'
