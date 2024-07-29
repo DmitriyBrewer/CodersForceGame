@@ -9,8 +9,9 @@ import { validateField } from '@/shared/components/core/FormData/model/validateF
 
 import { setError, clearError } from '@/entities/error'
 
+import { useUpdatePasswordMutation } from '@/entities/profile/api/profileApi'
+
 import { PasswordPayload } from '@/feature/profile/types'
-import { useUpdatePasswordMutation } from '@/feature/profile/api/profileApi'
 
 export const useProfilePassword = () => {
   const dispatch = useDispatch()
@@ -37,7 +38,6 @@ export const useProfilePassword = () => {
     setErrors({ ...errors, [name]: validateField(name, value, formData.oldPassword) })
   }
 
-  // TODO: feature/cfg-25 add global snackbar after change
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 

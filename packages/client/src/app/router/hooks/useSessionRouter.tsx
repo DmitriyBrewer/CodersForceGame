@@ -7,7 +7,7 @@ import { getAuth, getLoading } from '@/entities/user/model/selector'
 
 import { paths } from '@/shared/config/routing'
 
-import { useLazyGetUserQuery } from '@/feature/session/api/authApi'
+import { useLazyGetUserQuery } from '@/entities/session/api/authApi'
 
 export const useSessionRouter = () => {
   const isAuth = useSelector(getAuth)

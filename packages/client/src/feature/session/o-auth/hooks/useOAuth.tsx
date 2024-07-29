@@ -8,8 +8,9 @@ import { REDIRECT_URI } from '@/shared/api/constant'
 
 import { setError } from '@/entities/error'
 
-import { useGetClientIdMutation, useLoginMutation } from '@/feature/session/api/oAuthApi'
-import { useLazyGetUserQuery } from '@/feature/session/api/authApi'
+import { useGetClientIdMutation, useLoginMutation } from '@/entities/session/api/oAuthApi'
+import { useLazyGetUserQuery } from '@/entities/session/api/authApi'
+
 import { useAuth } from '@/app/router/hooks/useAuth'
 
 export const useOAuth = () => {

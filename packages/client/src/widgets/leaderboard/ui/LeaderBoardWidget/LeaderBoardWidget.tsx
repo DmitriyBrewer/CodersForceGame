@@ -4,8 +4,7 @@ import BasicTable from '@/shared/components/ui/BaseTable'
 import BaseTypography from '@/shared/components/ui/BaseTypography'
 import BaseContainer from '@/shared/components/ui/BaseContainer'
 import BaseLoader from '@/shared/components/ui/BaseLoader'
-
-import { useGetLeaderboardQuery } from '@/feature/leaderbord/leaderboardApi'
+import { useGetLeaderboardQuery } from '@/entities/leaderboard/api/leaderboardApi'
 
 const LeaderBoardWidget: FC = () => {
   const {

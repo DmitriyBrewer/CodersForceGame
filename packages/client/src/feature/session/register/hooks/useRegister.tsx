@@ -13,7 +13,7 @@ import { paths } from '@/shared/config/routing'
 import { clearError, setError } from '@/entities/error'
 
 import { RegisterApiError, RegisterError, RegisterPayload } from '../types'
-import { useLazyGetUserQuery, useRegisterMutation } from '../../api/authApi'
+import { useLazyGetUserQuery, useRegisterMutation } from '../../../../entities/session/api/authApi'
 
 export const useRegister = () => {
   const [formData, setFormData] = useState<RegisterPayload>({

@@ -8,7 +8,7 @@ import formatDate from '@/shared/utils/formatISODate'
 
 import { getUser } from '@/entities/user/model/selector'
 
-import { useAddCommentMutation } from '../api/forumApi'
+import { useAddCommentMutation } from '../../../../shared/forum/api/forumApi'
 
 interface Props {
   replyToId?: number

@@ -7,8 +7,8 @@ import store from '@/shared/store'
 
 import registerServiceWorker from '@/app/service-worker/registerServiceWorker'
 import '@/app/styles/global.module.scss'
-import CoreLayout from './layouts/core-layout/ui'
 import AppRoutes from '@/app/app-routes/AppRoutes'
+import CoreLayout from './layouts/core-layout'
 
 registerServiceWorker()
 

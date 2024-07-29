@@ -3,9 +3,11 @@ import InputHandler from '@/entities/game/utils/InputHandler'
 import Collision, { Entity } from '@/entities/game/utils/Сollision'
 import Timer from '@/entities/game/utils/Timer'
 import Load from '@/entities/game/utils/Load'
-import Player from '@/entities/player'
-import Vehicle from '@/entities/vehicle'
-import Road from '@/entities/road'
+import Player from '@/entities/game/canvas/player'
+import Vehicle from '@/entities/game/canvas/vehicle'
+import Road from '@/entities/game/canvas/road'
+
+import { ScoreData } from '@/shared/leaderboard/hooks/useLeaderboard'
 
 import roadImage from '../../assets/images/road.png'
 import playerImage from '../../assets/images/player.png'
@@ -14,7 +16,6 @@ import carImage from '../../assets/images/car.png'
 import policeImage from '../../assets/images/police.png'
 import ambulanceImage from '../../assets/images/ambulance.png'
 import explosionImage from '../../assets/images/explosion.png'
-import { ScoreData } from '@/feature/leaderbord/hooks/useLeaderboard'
 
 export const TIME_BETWEEN_LEVELS = 5000
 export const INITIAL_SPEED = {
