@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import DOMPurify from 'dompurify'
 
 import { validateField } from '@/shared/components/core/FormData/model/validateField'
 import { clearError, setError } from '@/entities/error'
@@ -30,8 +31,11 @@ export const useLogin = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
-    setErrors({ ...errors, [name]: validateField(name, value, formData.password) })
+
+    const sanitizedValue = DOMPurify.sanitize(value)
+
+    setFormData({ ...formData, [name]: sanitizedValue })
+    setErrors({ ...errors, [name]: validateField(name, sanitizedValue, formData.password) })
   }
 
   const handleSubmit = async (e: FormEvent) => {
