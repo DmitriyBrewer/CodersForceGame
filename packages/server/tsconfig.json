@@ -26,5 +26,9 @@
       "*": ["types/*"]
     },
     "outDir": "dist"
-  }
+  },
+  "include": ["src"],
+  "references": [
+    { "path": "../client" }
+  ]
 }

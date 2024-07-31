@@ -5,6 +5,8 @@ import { ViteDevServer, createServer as createViteServer } from 'vite'
 import express from 'express'
 import serialize from 'serialize-javascript'
 
+import type { RenderResult } from 'client/src/shared/types/'
+
 import * as fs from 'fs'
 import * as path from 'path'
 
@@ -79,8 +81,7 @@ async function startServer() {
         }
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let render: (requestUrl: string) => Promise<any>
+      let render: (requestUrl: string) => Promise<RenderResult>
 
       if (!isDev()) {
         render = (await import(ssrClientPath)).render
