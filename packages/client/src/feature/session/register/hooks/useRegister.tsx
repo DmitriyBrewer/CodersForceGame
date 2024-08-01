@@ -1,15 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
-
 import { useNavigate } from 'react-router-dom'
-
 import { useDispatch } from 'react-redux'
+import DOMPurify from 'dompurify'
 
 import { setLoading } from '@/entities/user/model'
-
 import { validateField } from '@/shared/components/core/FormData/model/validateField'
-
 import { paths } from '@/shared/config/routing'
-
 import { clearError, setError } from '@/entities/error'
 
 import { RegisterApiError, RegisterError, RegisterPayload } from '../types'
@@ -46,8 +42,11 @@ export const useRegister = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
-    setErrors({ ...errors, [name]: validateField(name, value, formData.password) })
+
+    const sanitizedValue = DOMPurify.sanitize(value)
+
+    setFormData({ ...formData, [name]: sanitizedValue })
+    setErrors({ ...errors, [name]: validateField(name, sanitizedValue, formData.password) })
   }
 
   const handleSubmit = async (e: FormEvent) => {

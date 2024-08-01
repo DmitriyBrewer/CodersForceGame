@@ -25,9 +25,24 @@ const corsOptions = {
 
 async function startServer() {
   const app = express()
+
+  app.use((_, res, next) => {
+    res.setHeader(
+      'Content-Security-Policy',
+      `${process.env.VITE_CSP_DEFAULT} ` +
+        `${process.env.VITE_CSP_SCRIPTS} ` +
+        `${process.env.VITE_CSP_STYLES} ` +
+        `${process.env.VITE_CSP_FONTS} ` +
+        `${process.env.VITE_CSP_IMAGES} ` +
+        `${process.env.VITE_CSP_CONNECT}`
+    )
+    next()
+  })
+
   app.use(express.json())
   app.use(cors(corsOptions))
-  const port = Number(process.env.SERVER_PORT) || 9000
+
+  const port = Number(process.env.VITE_SERVER_PORT) || 9000
 
   let vite: ViteDevServer | undefined
   let distPath = ''
