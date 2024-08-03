@@ -11,6 +11,11 @@ import * as path from 'path'
 import topicsRouter from './routes/topics'
 import commentsRouter from './routes/comments'
 
+type RenderResult = {
+  appHtml: string
+  preloadedState: unknown
+}
+
 dotenv.config()
 
 const isDev = () => process.env.VITE_NODE_ENV === 'development'
@@ -94,8 +99,7 @@ async function startServer() {
         }
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let render: (requestUrl: string) => Promise<any>
+      let render: (requestUrl: string) => Promise<RenderResult>
 
       if (!isDev()) {
         render = (await import(ssrClientPath)).render
