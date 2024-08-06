@@ -1,7 +1,6 @@
 import { FC } from 'react'
 
 import PasswordInput from '@/shared/components/core/PasswordInput'
-
 import TextInput from '@/shared/components/core/TextInput'
 import PhoneInput from '@/shared/components/core/PhoneInput'
 import SubmitButton from '@/shared/components/core/SubmitButton'

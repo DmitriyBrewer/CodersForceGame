@@ -19,7 +19,6 @@ export interface Comment {
   replyToId?: number
 }
 
-/// TODO: заменить на реальную бд feature/cfg-96
 const INITIAL_TOPICS = [
   { id: 1, title: 'Первый топик', author: 'Автор1', lastMessageDate: '2024-06-03', content: 'test1' },
   { id: 2, title: 'Второй топик', author: 'Автор2', lastMessageDate: '2024-06-04', content: 'test2' },
@@ -75,8 +74,11 @@ router.get('/:id', (req: Request, res: Response) => {
 router.post('/', (req: Request, res: Response) => {
   console.log(req.body)
   const { title, author, content } = req.body
+  const lastTopic = data.topics.at(-1)
+  const newId = lastTopic ? lastTopic.id + 1 : 1
+
   const newTopic: Topic = {
-    id: data.topics.at(-1)!.id + 1,
+    id: newId,
     title,
     author,
     lastMessageDate: formatDate(new Date().toISOString()),

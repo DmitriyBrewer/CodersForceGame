@@ -1,14 +1,13 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useSelector } from 'react-redux'
-
 import { useParams } from 'react-router-dom'
+import DOMPurify from 'dompurify'
 
 import { getComments } from '@/entities/comment/model/selector'
 import formatDate from '@/shared/utils/formatISODate'
-
 import { getUser } from '@/entities/user/model/selector'
 
-import { useAddCommentMutation } from '../api/forumApi'
+import { useAddCommentMutation } from '../../../../shared/forum/api/forumApi'
 
 interface Props {
   replyToId?: number
@@ -18,19 +17,21 @@ interface Props {
 const useComment = ({ replyToId, setReplyToId }: Props) => {
   const [newComment, setNewComment] = useState<string>('')
   const commentsData = useSelector(getComments)
-  const author = useSelector(getUser)!.first_name
+  const author = useSelector(getUser)?.first_name
 
   const [addComment] = useAddCommentMutation()
-
   const { topicId } = useParams()
 
   const handleAddMessage = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    const sanitizedComment = DOMPurify.sanitize(newComment)
+
     addComment({
       topicId: Number(topicId),
       author,
       date: formatDate(new Date().toISOString()),
-      comment: newComment,
+      comment: sanitizedComment,
       replyToId: replyToId || undefined
     })
 

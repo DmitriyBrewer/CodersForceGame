@@ -11,6 +11,11 @@ import * as path from 'path'
 import topicsRouter from './routes/topics'
 import commentsRouter from './routes/comments'
 
+type RenderResult = {
+  appHtml: string
+  preloadedState: unknown
+}
+
 dotenv.config()
 
 const isDev = () => process.env.VITE_NODE_ENV === 'development'
@@ -25,9 +30,24 @@ const corsOptions = {
 
 async function startServer() {
   const app = express()
+
+  app.use((_, res, next) => {
+    res.setHeader(
+      'Content-Security-Policy',
+      `${process.env.VITE_CSP_DEFAULT} ` +
+        `${process.env.VITE_CSP_SCRIPTS} ` +
+        `${process.env.VITE_CSP_STYLES} ` +
+        `${process.env.VITE_CSP_FONTS} ` +
+        `${process.env.VITE_CSP_IMAGES} ` +
+        `${process.env.VITE_CSP_CONNECT}`
+    )
+    next()
+  })
+
   app.use(express.json())
   app.use(cors(corsOptions))
-  const port = Number(process.env.SERVER_PORT) || 9000
+
+  const port = Number(process.env.VITE_SERVER_PORT) || 9000
 
   let vite: ViteDevServer | undefined
   let distPath = ''
@@ -54,11 +74,6 @@ async function startServer() {
     app.use(vite.middlewares)
   }
 
-  // TODO: feature/cfg-88 удалить, если будет не нужен
-  app.get('/api', (_, res) => {
-    res.json('👋 Howdy from the server :)')
-  })
-
   app.use('/api/topics', topicsRouter)
   app.use('/api/comments', commentsRouter)
 
@@ -77,37 +92,35 @@ async function startServer() {
       } else {
         template = fs.readFileSync(path.resolve(srcPath, 'index.html'), 'utf-8')
 
-        // TODO: feature/cfg-88 тут оставим из-за особенностей vite, позже удалить сообщение
-        //  eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        template = await vite!.transformIndexHtml(url, template)
+        if (vite) {
+          template = await vite.transformIndexHtml(url, template)
+        } else {
+          throw new Error('Vite is not initialized')
+        }
       }
 
-      // TODO: feature/cfg-95 удаляю RenderResult из-за него падает
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let render: (requestUrl: string) => Promise<any>
+      let render: (requestUrl: string) => Promise<RenderResult>
 
       if (!isDev()) {
         render = (await import(ssrClientPath)).render
-      } else {
-        // TODO: feature/cfg-88 тут оставим из-за особенностей vite, позже удалить сообщение
-        //  eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'src/entry-server.tsx'))).render
+      } else if (vite) {
+        render = (await vite.ssrLoadModule(path.resolve(srcPath, 'src/entry-server.tsx'))).render
+
+        const { appHtml, preloadedState } = await render(url)
+        const html = template?.replace('<!--ssr-outlet-->', appHtml).replace(
+          `<!--ssr-initial-state-->`,
+          `<script>window.APP_INITIAL_STATE = ${serialize(preloadedState, {
+            isJSON: true
+          })}</script>`
+        )
+
+        res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
       }
-
-      const { appHtml, preloadedState } = await render(url)
-      const html = template?.replace('<!--ssr-outlet-->', appHtml).replace(
-        `<!--ssr-initial-state-->`,
-        `<script>window.APP_INITIAL_STATE = ${serialize(preloadedState, {
-          isJSON: true
-        })}</script>`
-      )
-
-      res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {
       if (isDev()) {
-        // TODO: feature/cfg-88 тут оставим из-за особенностей vite, позже удалить сообщение
-        //  eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        vite!.ssrFixStacktrace(e as Error)
+        if (vite) {
+          vite.ssrFixStacktrace(e as Error)
+        }
       }
       next(e)
     }

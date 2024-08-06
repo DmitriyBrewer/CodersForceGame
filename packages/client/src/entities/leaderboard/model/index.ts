@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { leaderboardApi } from '@/feature/leaderbord/leaderboardApi'
+import leaderboardApi from '@/entities/leaderboard/api/leaderboardApi'
 
 export interface Leader {
   data: {

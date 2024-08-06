@@ -1,8 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { authApiSlice } from '@/entities/session/api/authApi'
+
+import { navbarApiSlice } from '@/entities/navbar/api/navbarApi'
+
 import { User } from '../types'
-import { authApiSlice } from '@/feature/session/api/authApi'
-import { navbarApiSlice } from '@/feature/base-layout/api/navbarApi'
 
 export interface UserState {
   userData?: User

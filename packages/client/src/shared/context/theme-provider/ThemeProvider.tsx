@@ -19,7 +19,6 @@ const ThemeModeProvider = ({ children }: { children: ReactNode }) => {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
 
   const initialMode = (): PaletteMode => {
-    // TODO: feature/cfg-97 read mode from backend
     if (isBrowser()) {
       const savedMode = localStorage.getItem('theme') || ''
       if (modeList.includes(savedMode as PaletteMode)) {
@@ -32,7 +31,6 @@ const ThemeModeProvider = ({ children }: { children: ReactNode }) => {
   const [mode, setMode] = useState<PaletteMode>(initialMode)
 
   useEffect(() => {
-    // TODO: feature/cfg-97 update mode on backend
     if (isBrowser()) {
       localStorage.setItem('theme', mode)
     }

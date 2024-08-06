@@ -10,13 +10,17 @@ import errorSlice, { initialState as initialStateError } from '@/entities/error'
 
 import leaderboardSlice, { initialState as initialStateLeaderboard } from '@/entities/leaderboard/model'
 
+import forumApi from '@/shared/forum/api/forumApi'
+
+import { authApiSlice } from '@/entities/session/api/authApi'
+import { navbarApiSlice } from '@/entities/navbar/api/navbarApi'
+
+import { oAuthApiSlice } from '@/entities/session/api/oAuthApi'
+
+import { profileApiSlice } from '@/entities/profile/api/profileApi'
+
 import { ReducerState, RTKStoreState } from './types'
-import { authApiSlice } from '@/feature/session/api/authApi'
-import { navbarApiSlice } from '@/feature/base-layout/api/navbarApi'
-import { profileApiSlice } from '@/feature/profile/api/profileApi'
-import leaderboardApi from '@/feature/leaderbord/leaderboardApi'
-import { oAuthApiSlice } from '@/feature/session/api/oAuthApi'
-import forumApi from '@/feature/social/forum/api/forumApi'
+import leaderboardApi from '../../entities/leaderboard/api/leaderboardApi'
 
 export const rootReducer: ReducerState = combineReducers({
   user: user.reducer,

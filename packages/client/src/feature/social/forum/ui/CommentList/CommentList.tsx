@@ -6,7 +6,7 @@ import BaseButton from '@/shared/components/ui/BaseButton'
 import BaseListItemButton from '@/shared/components/ui/BaseListItemButton'
 import BaseListItemText from '@/shared/components/ui/BaseListItemText'
 import BaseBox from '@/shared/components/ui/BaseBox'
-import { Comment } from '@/entities/comment/types'
+import { Comment } from '@/shared/forum/types'
 import { getComments } from '@/entities/comment/model/selector'
 import BasePaperPolymorphic from '@/shared/components/ui/BasePaperPolymorphic'
 

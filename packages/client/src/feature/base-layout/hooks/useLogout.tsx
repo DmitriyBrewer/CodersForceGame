@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { paths } from '@/shared/config/routing'
 
-import { useLogoutMutation } from '../api/navbarApi'
+import { useLogoutMutation } from '../../../entities/navbar/api/navbarApi'
 
 export const useLogout = () => {
   const [error, setError] = useState<string>('')

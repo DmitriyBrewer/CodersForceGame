@@ -1,18 +1,18 @@
 import Collision from '@/entities/game/utils/Сollision'
 
-import Player from '../player'
-import Road from '../road'
-import Vehicle from '../vehicle'
+import Player from './canvas/player'
+import Road from './canvas/road'
+import Vehicle from './canvas/vehicle'
 import Game, { GAME_STATE, INITIAL_SPEED, TIME_BETWEEN_LEVELS } from './index'
 import Load from './utils/Load'
 import Timer from './utils/Timer'
 
 jest.mock('./utils/Load')
 jest.mock('./utils/Timer')
-jest.mock('../road')
-jest.mock('../player')
-jest.mock('../vehicle')
-jest.mock('@/entities/game/utils/Сollision')
+jest.mock('./canvas/road')
+jest.mock('./canvas/player')
+jest.mock('./canvas/vehicle')
+jest.mock('./utils/Сollision')
 
 describe('Game Class', () => {
   let game: Game
@@ -183,6 +183,12 @@ describe('Game Class', () => {
     game.road = mockRoad
     game.vehicles = mockVehicles
 
+    const INITIAL_Y_ACCELERATION = 0
+    const INITIAL_Y_SPEED = INITIAL_SPEED.ROAD
+    const DIFFICULT = 1.1
+    const NEW_Y_ACCELERATION = INITIAL_Y_ACCELERATION + 0.05
+    const NEW_Y_SPEED = INITIAL_Y_SPEED * DIFFICULT
+
     mockRoad.speed = { xSpeed: 0, ySpeed: INITIAL_SPEED.ROAD }
     mockRoad.acceleration = { xAcceleration: 0, yAcceleration: 0 }
     mockVehicles.forEach(vehicle => {
@@ -202,13 +208,13 @@ describe('Game Class', () => {
     expect(game.currentLevel).toBe(2)
     expect(game.currentLevelTime).toBe(TIME_BETWEEN_LEVELS)
 
-    expect(spySetRoadAcceleration).toHaveBeenCalledWith({ xAcceleration: 0, yAcceleration: expect.any(Number) })
-    expect(spySetRoadSpeed).toHaveBeenCalledWith({ xSpeed: 0, ySpeed: expect.any(Number) })
+    expect(spySetRoadAcceleration).toHaveBeenCalledWith({ xAcceleration: 0, yAcceleration: NEW_Y_ACCELERATION })
+    expect(spySetRoadSpeed).toHaveBeenCalledWith({ xSpeed: 0, ySpeed: NEW_Y_SPEED })
 
     mockVehicles.forEach((vehicle, index) => {
       expect(spyVehicleSetAcceleration[index]).toHaveBeenCalledWith({
         xAcceleration: 0,
-        yAcceleration: expect.any(Number)
+        yAcceleration: NEW_Y_ACCELERATION
       })
       expect(spyVehicleSetSpeed[index]).toHaveBeenCalledWith({ xSpeed: 0, ySpeed: expect.any(Number) })
     })

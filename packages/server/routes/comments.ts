@@ -4,8 +4,6 @@ import { Comment, data } from './topics'
 
 const router = express.Router()
 
-/// TODO: заменить на реальную бд feature/cfg-96
-
 router.get('/:topicId', (req: Request, res: Response) => {
   const { topicId } = req.params
   const topic = data.topics.find(t => t.id === parseInt(topicId, 10))

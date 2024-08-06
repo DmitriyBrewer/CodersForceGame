@@ -1,3 +1,3 @@
-import BaseLayout from './ui'
+import CoreLayout from './ui'
 
-export default BaseLayout
+export default CoreLayout
