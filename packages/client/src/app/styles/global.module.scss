@@ -1,0 +1,39 @@
+:root {
+  /* gap */
+  --g8: 8px;
+  --g20: 20px;
+  --g120: 120px;
+
+  /* size */
+  --s16: 16px;
+  --s20: 20px;
+  --s28: 28px;
+  --s40: 40px;
+  --s48: 48px;
+  --s120: 120px;
+  --s600: 600px;
+
+  //  height
+  --h100vh: 100vh;
+  --h80vh: 80vh;
+
+  //width
+  --w100vw: 100vw;
+
+  //  font-weight
+  --fw600: 600;
+  --fw700: 700;
+
+  //  font-size
+  --fs160: 160px;
+
+  //  margin
+  --m4: 4px;
+  --m8: 8px;
+  --m12: 12px;
+  --m20: 20px;
+}
+
+body {
+  margin: 0;
+}
