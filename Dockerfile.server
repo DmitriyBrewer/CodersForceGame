@@ -22,7 +22,6 @@ WORKDIR /app
 
 COPY --from=builder /app/packages/server/dist/ /app/
 COPY --from=builder /app/packages/server/package.json /app/package.json
-COPY --from=builder /app/packages/client/dist/index.html /app/client/dist/
 RUN yarn install --registry=https://registry.npmjs.org
 
 EXPOSE $SERVER_PORT
