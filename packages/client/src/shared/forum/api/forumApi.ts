@@ -5,7 +5,7 @@ import { AddCommentRequest, Comment, GetTopicsResponse, NewTopic } from '@/share
 import { Topic } from '@/entities/topic/types'
 
 const customFetchBaseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:8000/api'
+  baseUrl: 'http://localhost:9000/api'
 })
 
 const baseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, object, FetchBaseQueryMeta> = async (

@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 import cors from 'cors'
-import { ViteDevServer, createServer as createViteServer } from 'vite'
+import { createServer as createViteServer } from 'vite'
 
 import express from 'express'
 import serialize from 'serialize-javascript'
@@ -49,7 +49,6 @@ async function startServer() {
 
   const port = Number(process.env.VITE_SERVER_PORT) || 8000
 
-  let vite: ViteDevServer | undefined
   let distPath = ''
   let srcPath = ''
   let ssrClientPath = ''
@@ -59,20 +58,18 @@ async function startServer() {
     srcPath = path.dirname(require.resolve('client'))
     ssrClientPath = require.resolve('client/ssr-dist/client.cjs')
   } else {
-    distPath = path.resolve('/app/packages/client/dist')
+    distPath = path.resolve('/app/')
     srcPath = path.resolve('/app/packages/client')
-    ssrClientPath = path.resolve('/app/client/ssr-dist/client.cjs')
+    ssrClientPath = path.resolve('/app/client.cjs')
   }
 
-  if (isDev()) {
-    vite = await createViteServer({
-      server: { middlewareMode: true },
-      root: srcPath,
-      appType: 'custom'
-    })
+  const vite = await createViteServer({
+    server: { middlewareMode: true },
+    root: srcPath,
+    appType: 'custom'
+  })
 
-    app.use(vite.middlewares)
-  }
+  app.use(vite.middlewares)
 
   app.use('/api/topics', topicsRouter)
   app.use('/api/comments', commentsRouter)
@@ -91,18 +88,28 @@ async function startServer() {
         template = fs.readFileSync(path.resolve(distPath, 'index.html'), 'utf-8')
       } else {
         template = fs.readFileSync(path.resolve(srcPath, 'index.html'), 'utf-8')
-
-        if (vite) {
-          template = await vite.transformIndexHtml(url, template)
-        } else {
-          throw new Error('Vite is not initialized')
-        }
+      }
+      if (vite) {
+        template = await vite.transformIndexHtml(url, template)
+      } else {
+        throw new Error('Vite is not initialized')
       }
 
       let render: (requestUrl: string) => Promise<RenderResult>
 
       if (!isDev()) {
         render = (await import(ssrClientPath)).render
+
+        const { appHtml, preloadedState } = await render(url)
+
+        const html = template?.replace('<!--ssr-outlet-->', appHtml).replace(
+          `<!--ssr-initial-state-->`,
+          `<script>window.APP_INITIAL_STATE = ${serialize(preloadedState, {
+            isJSON: true
+          })}</script>`
+        )
+
+        res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
       } else if (vite) {
         render = (await vite.ssrLoadModule(path.resolve(srcPath, 'src/entry-server.tsx'))).render
 
